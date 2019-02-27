@@ -42,12 +42,11 @@ public class Login extends HttpServlet {
 		String usernameInput = request.getParameter("username");
 		String passwordInput = request.getParameter("password");
 				
-		boolean loggedIn = MySqlConnections.Login(usernameInput, passwordInput);
+		User loggedInUser = MySqlConnections.Login(usernameInput, passwordInput);
 		
-		if(loggedIn) {
+		if(loggedInUser!= null) {
 			System.out.println("User is logged in");
 			// Store user in session
-			User loggedInUser = new User(usernameInput);
 			request.getSession().setAttribute("user", loggedInUser);
 			response.sendRedirect("home");
 		}

@@ -6,14 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import models.User;
+
 public class MySqlConnections {
 	   static String             url              = "jdbc:mysql://aaqcurgqphlck8.cymiguyxmxqn.us-east-2.rds.amazonaws.com:3306/ADA";
 	   static String             sqluser             = "coltonADA";
 	   static String             sqlpassword         = "adaConnSql";
 	   static Connection         connection       = null;
 	   
-	   public static boolean Login(String username, String password) {
+	   public static User Login(String username, String password) {
 		   connection = null;
+		   User user = null;
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -22,31 +25,36 @@ public class MySqlConnections {
 		      }
 		      if (connection == null) {
 		         System.out.println("Failed to make connection!");
-		         return false;
+		         return user;
 		      }
 		      try {
-					String loginSQL = "select username from Admins where username =? and password =sha1(?)";
+					String loginSQL = "select firstname, lastname, role from Admins where username =? and password =sha1(?)";
 					PreparedStatement preparedStatement = connection.prepareStatement(loginSQL);
 					preparedStatement.setString(1, username);
 					preparedStatement.setString(2, password);
 					ResultSet rs = preparedStatement.executeQuery();
 					if( rs.next()) {
-						preparedStatement.close();
-						connection.close();
-						return true;
+						user = new User(username,
+								rs.getString(1),
+								rs.getString(2),
+								rs.getString(3));
+
 					}
 					preparedStatement.close();
 					connection.close();
 		      } catch (SQLException e) {
 		         e.printStackTrace();
 		      }
-		   return false;
+
+		   return user;
 	   }
 	   
 	   public static void main(String[] args) {
 		   //Test functions
-		   if(Login("testuser", "testpass")) {
+		   User user = Login("testuser", "testpass");
+		   if(user != null) {
 			   System.out.println("Test user logged in");
+			   System.out.println(user);
 		   }
 		   else {
 			   System.out.println("Test user failed to log in");
