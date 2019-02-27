@@ -23,13 +23,13 @@ select * from Admins;
 -- Delete table if needed
 drop table Admins;
 
-create table Teams{
+create table Teams(
 	teamname varchar(40),
     teamID varchar(20),
     username varchar(20),
     latitude int(10),
-    longitude int(10),
-};
+    longitude int(10)
+);
 
 create table Volunteers(
 	firstname varchar(40),

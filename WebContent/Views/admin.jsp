@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>ADA Connect</title>
+<title>ADA Connect Admin Console</title>
 </head>
 <body>
   <a href="">Home</a>
@@ -16,7 +16,23 @@
   <a href="teams">Teams</a>
   <a href="admin">Admin</a>
 	<div class="container-fluid">
-		<p> This is the ADA Connect home page. <p>
+		<%
+		User currentUser = (User) session.getAttribute("user");
+		if(currentUser == null) {
+		%>
+			<h1>Error!!</h1>
+			<a href="login" class="btn btn-primary">Log in</a>
+		<%
+		}
+		else {
+			String username = currentUser.getUsername();
+			out.println("<h1>Welcome " + username + "!</h1>");
+		%>
+		<p> This is the admin page, options will be added here. <p>
+			<a href="logout" class="btn btn-primary">Log out</a>
+		<%		
+		}
+		%>
 	</div>
 </body>
 </html>
