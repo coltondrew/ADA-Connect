@@ -10,8 +10,8 @@ import models.User;
 
 public class MySqlConnections {
 	   static String             url              = "jdbc:mysql://aaqcurgqphlck8.cymiguyxmxqn.us-east-2.rds.amazonaws.com:3306/ADA";
-	   static String             sqluser             = "coltonADA";
-	   static String             sqlpassword         = "adaConnSql";
+	   static String             sqluser             = "remoteuser";
+	   static String             sqlpassword         = "connectToADA";
 	   static Connection         connection       = null;
 	   
 	   public static User Login(String username, String password) {

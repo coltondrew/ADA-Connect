@@ -11,7 +11,7 @@
 <title>ADA Connect</title>
 </head>
 <body>
-  <a href="">Home</a>
+  <a href="home">Home</a>
   <a href="news">News</a>
   <a href="teams">Teams</a>
   <a href="admin">Admin</a>

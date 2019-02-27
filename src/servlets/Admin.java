@@ -29,7 +29,7 @@ public class Admin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		User currentUser = (User) request.getAttribute("user");
+		User currentUser = (User) request.getSession().getAttribute("user");
 		if (currentUser != null) {
 			request.getRequestDispatcher("Views/admin.jsp").forward(request, response);
 		}

@@ -11,7 +11,7 @@
 </head>
 <body>
 	<!-- Login  -->
-  <a href="">Home</a>
+  <a href="home">Home</a>
   <a href="news">News</a>
   <a href="teams">Teams</a>
   <a href="admin">Admin</a>
@@ -22,6 +22,7 @@
 			if(request.getAttribute("invalidUserCreds") != null) {
 				out.println("<p style=\"color:red;\">Invalid username or password! Please try again!</p>");
 			}
+			
 		%>
 		<form action="login" method="post">
 			<div class="row">
