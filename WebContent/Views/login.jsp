@@ -67,7 +67,7 @@
 	    			<input type="password" class="form-control" id="password" name="password" required>
 	  			</div>
 			</div>
-  			<button type="submit" class="btn btn-primary">Submit</button>
+  			<button type="submit" class="btn btn-primary" id ="loginbutton">Submit</button>
 		</form>
 	</div>
 </body>

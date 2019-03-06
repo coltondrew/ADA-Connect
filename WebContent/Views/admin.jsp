@@ -57,8 +57,8 @@
 		<%
 		}
 		else {
-// 			String username = currentUser.getUsername();
-// 			out.println("<h1>Welcome " + username + "!</h1>");
+ 			String firstname = currentUser.getFirstname();
+ 			out.println("<h1>Welcome " + firstname + "!</h1>");
 		%>
 		<h1> Add a new user </h1>
 		<form action="admin" method="post">
@@ -97,7 +97,7 @@
 	    			<input type="text" class="form-control" id="password" name="password" required>
 	  			</div>
 			</div>
-  			<button type="submit" class="btn btn-primary">Submit</button>
+  			<button type="submit" class="btn btn-primary" id = "adduserbutton">Submit</button>
 		</form>
 		<%		
 		}
