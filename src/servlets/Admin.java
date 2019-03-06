@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mySql.MySqlConnections;
 
 import models.User;
 
@@ -31,7 +32,7 @@ public class Admin extends HttpServlet {
 		// TODO Auto-generated method stub
 		User currentUser = (User) request.getSession().getAttribute("user");
 		if (currentUser != null) {
-			request.getRequestDispatcher("Views/admin.jsp").forward(request, response);
+			request.getRequestDispatcher("Views/admin.jsp").forward(request, response);		
 		}
 		else {
 			response.sendRedirect("login");
@@ -44,7 +45,31 @@ public class Admin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		User currentUser = (User) request.getSession().getAttribute("user");
+		if (currentUser != null) {
+			// Get parameters
+			String firstName = request.getParameter("first-name");
+			String lastName = request.getParameter("last-name");
+			String role = request.getParameter("role");
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			// Add user to DB
+			boolean success = MySqlConnections.AddUser(username, password, firstName, lastName, role);
+			if(success) {
+				System.out.println("User successfully added");
+			}
+			else {
+				System.out.println("Error adding user");
+			}
+			
+//			System.out.printf("%s %s %s %s %s\n", firstName, lastName, role, username, password);
+			
+			request.getRequestDispatcher("Views/admin.jsp").forward(request, response);		
+		}
+		else {
+			response.sendRedirect("login");
+		}		
 	}
 
 }

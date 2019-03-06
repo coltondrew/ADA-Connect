@@ -1,3 +1,5 @@
+<%@ page import="models.User"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html">
@@ -10,11 +12,39 @@
 <title>ADA Connect Login</title>
 </head>
 <body>
+	<nav class="navbar navbar-default">
+	    <div class="container-fluid">
+	        <!-- Brand and toggle get grouped for better mobile display -->
+	        <div class="navbar-header">
+	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	                <span class="sr-only">Toggle navigation</span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	            </button>
+	            <a class="navbar-brand" href="#">ADA Connect</a>
+	        </div>
+	
+	        <!-- Collect the nav links, forms, and other content for toggling -->
+	        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	            <ul class="nav navbar-nav">
+	                <li><a href="home">Home<span class="sr-only"></span></a></li>
+	                <li><a href="news">News<span class="sr-only"></span></a></li>
+	                <li><a href="Teams">Teams<span class="sr-only"></span></a></li>
+	                <li class="active"><a href="admin">Admin<span class="sr-only"></span></a></li>
+	                <%
+					User currentUser = (User) session.getAttribute("user");
+					if(currentUser != null) {
+					%>
+	                	<li><a href="logout">Log out<span class="sr-only"></span></a></li>
+	                <%
+					}
+	                %>
+	            </ul>
+	        </div><!-- /.navbar-collapse -->
+	    </div><!-- /.container-fluid -->
+	</nav>
 	<!-- Login  -->
-  <a href="home">Home</a>
-  <a href="news">News</a>
-  <a href="teams">Teams</a>
-  <a href="admin">Admin</a>
 	<div class="container-fluid">
 		<h1>Log in</h1>
 		
@@ -28,22 +58,17 @@
 			<div class="row">
 	  			<div class="form-group col-xs-4">
 	    			<label for="username">Username:</label>
-	    			<input type="text" class="form-control" id="username" name="username">
+	    			<input type="text" class="form-control" id="username" name="username" required>
 	  			</div>
 			</div>
 			<div class="row">
 	  			<div class="form-group col-xs-4">
-	    			<label for="passwor">Password:</label>
-	    			<input type="password" class="form-control" id="password" name="password">
+	    			<label for="password">Password:</label>
+	    			<input type="password" class="form-control" id="password" name="password" required>
 	  			</div>
 			</div>
   			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
-<!-- 		<form action="login" method="post"> -->
-<!-- 			Email:<br> <input type="text" name="username" required><br> -->
-<!-- 			<br>Password:<br> <input type="password" name="password" required><br> -->
-<!-- 			<br> <input type="submit" value="Submit"> -->
-<!-- 		</form> -->
 	</div>
 </body>
 </html>

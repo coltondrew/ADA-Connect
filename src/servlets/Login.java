@@ -39,10 +39,10 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// Get parameters
-		String usernameInput = request.getParameter("username");
-		String passwordInput = request.getParameter("password");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 				
-		User loggedInUser = MySqlConnections.Login(usernameInput, passwordInput);
+		User loggedInUser = MySqlConnections.Login(username, password);
 		
 		if(loggedInUser!= null) {
 			System.out.println("User is logged in");
