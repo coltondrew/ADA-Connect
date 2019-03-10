@@ -26,10 +26,9 @@ public class Logout extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getSession().removeAttribute("user");
+		request.getSession().removeAttribute("adminUser");
+		request.getSession().invalidate();
 		response.sendRedirect(request.getContextPath() + "/home");
-		//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

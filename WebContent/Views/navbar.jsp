@@ -44,8 +44,8 @@
      		<li class="nav-item">
        			<a class="nav-link" href="/ADA-Connect/admin">Admin</a>
      		</li>
-     		<c:set var="user" value="${sessionScope.user}" />
-			<c:if test="${user != null}" >
+     		<c:set var="adminUser" value="${sessionScope.adminUser}" />
+			<c:if test="${adminUser != null}" >
 				<li class="nav-item">
 					<a class="nav-link" href="/ADA-Connect/admin/logout">Log out</a>
 				</li>

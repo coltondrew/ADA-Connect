@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.User;
 import mySql.MySqlConnections;
 
 /**
@@ -29,44 +28,32 @@ public class NewUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User currentUser = (User) request.getSession().getAttribute("user");
-		if (currentUser != null) {
-			request.getRequestDispatcher("/views/admin/newuser.jsp").forward(request, response);		
-		}
-		else {
-			response.sendRedirect(request.getContextPath() + "/login");
-		}
+		request.getRequestDispatcher("/views/admin/newuser.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User currentUser = (User) request.getSession().getAttribute("user");
-		if (currentUser != null) {
-			// Get parameters
-			String firstName = request.getParameter("first-name");
-			String lastName = request.getParameter("last-name");
-			String role = request.getParameter("role");
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			
-			// Add user to DB
-			boolean success = MySqlConnections.AddUser(username, password, firstName, lastName, role);
-			if(success) {
-				System.out.println("User successfully added");
-			}
-			else {
-				System.out.println("Error adding user");
-			}
-			
-	//			System.out.printf("%s %s %s %s %s\n", firstName, lastName, role, username, password);
-			
-			request.getRequestDispatcher("/views/admin.jsp").forward(request, response);		
+		// Get parameters
+		String firstName = request.getParameter("first-name");
+		String lastName = request.getParameter("last-name");
+		String role = request.getParameter("role");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		// Add user to DB
+		boolean success = MySqlConnections.AddUser(username, password, firstName, lastName, role);
+		if(success) {
+			System.out.println("User successfully added");
 		}
 		else {
-			response.sendRedirect(request.getContextPath() + "/login");
-		}		
+			System.out.println("Error adding user");
+		}
+		
+//			System.out.printf("%s %s %s %s %s\n", firstName, lastName, role, username, password);
+		
+		request.getRequestDispatcher("/views/admin.jsp").forward(request, response);		
 	}
 
 }

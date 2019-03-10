@@ -28,7 +28,7 @@
 		<c:if test = "${invalidCreds != null}" >
 			<p style="color:red;">Invalid username or password! Please try again!</p>
 		</c:if>	
-		<form action="/ADA-Connect/login" method="post">
+		<form action="/ADA-Connect/admin/login" method="post">
 			<div class="form-row">
 	  			<div class="form-group col-lg-3">
 	    			<label for="username">Username:</label>
