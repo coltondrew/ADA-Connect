@@ -1,4 +1,4 @@
-package servlets;
+package servlets.admin;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,21 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mySql.MySqlConnections;
 
 import models.User;
+import mySql.MySqlConnections;
 
 /**
- * Servlet implementation class Admin
+ * Servlet implementation class NewUser
  */
-@WebServlet("/admin")
-public class Admin extends HttpServlet {
+@WebServlet("/admin/new-user")
+public class NewUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Admin() {
+    public NewUser() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,22 +29,19 @@ public class Admin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		User currentUser = (User) request.getSession().getAttribute("user");
 		if (currentUser != null) {
-			request.getRequestDispatcher("Views/admin.jsp").forward(request, response);		
+			request.getRequestDispatcher("/views/admin/newuser.jsp").forward(request, response);		
 		}
 		else {
-			response.sendRedirect("login");
+			response.sendRedirect(request.getContextPath() + "/login");
 		}
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		User currentUser = (User) request.getSession().getAttribute("user");
 		if (currentUser != null) {
 			// Get parameters
@@ -63,12 +60,12 @@ public class Admin extends HttpServlet {
 				System.out.println("Error adding user");
 			}
 			
-//			System.out.printf("%s %s %s %s %s\n", firstName, lastName, role, username, password);
+	//			System.out.printf("%s %s %s %s %s\n", firstName, lastName, role, username, password);
 			
-			request.getRequestDispatcher("Views/admin.jsp").forward(request, response);		
+			request.getRequestDispatcher("/views/admin.jsp").forward(request, response);		
 		}
 		else {
-			response.sendRedirect("login");
+			response.sendRedirect(request.getContextPath() + "/login");
 		}		
 	}
 

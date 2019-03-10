@@ -6,20 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mySql.MySqlConnections;
-import models.User;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class Teams
  */
-@WebServlet("/login")
-public class Login extends HttpServlet {
+@WebServlet("/team")
+public class Team extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Team() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,8 +27,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("Views/login.jsp").forward(request, response);
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/views/team.jsp").forward(request, response);
 	}
 
 	/**
@@ -38,25 +35,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// Get parameters
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-				
-		User loggedInUser = MySqlConnections.Login(username, password);
-		
-		if(loggedInUser!= null) {
-			System.out.println("User is logged in");
-			// Store user in session
-			request.getSession().setAttribute("user", loggedInUser);
-			response.sendRedirect("admin");
-		}
-		else {
-			System.out.println("Incorrect credentials");
-			request.setAttribute("invalidUserCreds", true);
-			request.getRequestDispatcher("Views/login.jsp").forward(request, response);
-		}
-		
-//		doGet(request, response);
+		doGet(request, response);
 	}
 
 }

@@ -15,7 +15,7 @@
 </head>
 <body>
 	<!-- Navbar -->
-	<jsp:include page="../Components/navbar.jsp"></jsp:include>
+	<jsp:include page="/views/navbar.jsp"></jsp:include>
 	
 	<!-- Login  -->
 	<div class="container-fluid">
@@ -25,11 +25,10 @@
 <%-- 		</c:if> --%>
 		<h1>Log in</h1>
 		<c:set var = "invalidCreds" value = "${requestScope.invalidUserCreds}" />
-		<c:out value = "${invalidCreds}"/>
 		<c:if test = "${invalidCreds != null}" >
 			<p style="color:red;">Invalid username or password! Please try again!</p>
 		</c:if>	
-		<form action="login" method="post">
+		<form action="/ADA-Connect/login" method="post">
 			<div class="form-row">
 	  			<div class="form-group col-lg-3">
 	    			<label for="username">Username:</label>
