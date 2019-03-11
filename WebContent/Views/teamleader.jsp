@@ -13,6 +13,6 @@
 <body>
 	<!-- Navbar -->
 	<jsp:include page="/views/navbar.jsp"></jsp:include>
-This is the team leader page
+	This is the team leader page
 </body>
 </html>
