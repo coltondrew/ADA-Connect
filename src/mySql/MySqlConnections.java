@@ -14,6 +14,13 @@ public class MySqlConnections {
 	   static String             sqlpassword         = "connectToADA";
 	   static Connection         connection       = null;
 	   
+	   /**
+	    * Attempts a user login, returns a user if successfull or null if not successful.
+	    * 
+	    * @param username The username to login with.
+	    * @param password The password to login with.
+	    * @return Returns a User model or null.
+	    */
 	   public static User Login(String username, String password) {
 		   connection = null;
 		   User user = null;
@@ -49,6 +56,15 @@ public class MySqlConnections {
 		   return user;
 	   }
 	   
+	   /**
+	    * 
+	    * @param username The new username of the user.
+	    * @param password The new password of the user.
+	    * @param firstname The new first name of the user.
+	    * @param lastname The new last name of the user.
+	    * @param role The new role of the user.
+	    * @return
+	    */
 	   public static boolean AddUser(String username, String password, String firstname, String lastname, String role) {
 		   connection = null;
 		   boolean complete = false;
@@ -85,7 +101,10 @@ public class MySqlConnections {
 	   }
 	   
 	   
-	   
+	   /**
+	    * Main function used for testing.
+	    * @param args
+	    */
 	   public static void main(String[] args) {
 		   //Test functions
 		   
