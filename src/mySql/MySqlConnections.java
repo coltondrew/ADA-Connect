@@ -70,7 +70,7 @@ public class MySqlConnections {
 		   boolean complete = false;
 		   PreparedStatement statement = null;
 			String addUser = "insert into Admins(username, password, firstname, lastname, role) " + 
-					"values(?,?,?,?,?)";
+					"values(?,sha1(?),?,?,?)";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -108,22 +108,23 @@ public class MySqlConnections {
 	   public static void main(String[] args) {
 		   //Test functions
 		   
+		   
+		   // Insert User Test, will fail if username already exists
+		   if(AddUser("testuser2", "testpass", "User", "Test", "Role")) {
+			   System.out.println("Add user successful");
+		   }
+		   else {
+			   System.out.println("Add test user failed");
+		   }
+		   
 		   // Login Test
-		   /*User user = Login("testuser", "testpass");
+		   User user = Login("testuser2", "testpass");
 		   if(user != null) {
 			   System.out.println("Test user logged in");
 			   System.out.println(user);
 		   }
 		   else {
 			   System.out.println("Test user failed to log in");
-		   }*/
-		   
-		   // Insert User Test, will fail if user already exists
-		   if(AddUser("testuser2", "password", "User", "Test", "Role")) {
-			   System.out.println("Add user successful");
-		   }
-		   else {
-			   System.out.println("Add test user failed");
 		   }
 	   }
 }

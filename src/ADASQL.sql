@@ -1,30 +1,44 @@
 create database ADA;
 use ADA;
+show tables;
 
+drop table Admins;
 -- Admin Table
 -- Admin Roles: Regional Coordinator, CEO, Team Leader
+select * from Admins;
+describe Admins;
 create table Admins(
-    username varchar(40),
-    password varchar(40),
-	firstname varchar(40),
-    lastname varchar(40),
-	role varchar(20),
+    username varchar(40) not null,
+    password char(40) not null,
+	firstname varchar(40) not null,
+    lastname varchar(40) not null,
+	role varchar(30),
     primary key(username)
 );
 
+-- Teams
+drop table Teams;
 create table Teams(
-	teamname varchar(40),
+	teamname varchar(40) not null,
     teamID int auto_increment,
-    username varchar(20),
-    latitude int(10),
-    longitude int(10),
+    username varchar(40),
+    latitude decimal(11,8) not null,
+    longitude int(11)not null,
     primary key (teamid),
     foreign key (username) references Admins(username)
 );
 
+-- Team Leader Application
+create table Applications(
+	answer1 varchar(40),
+	answer2 varchar(40),
+	complete tinyint,
+	accepted tinyint
+);
+
 create table Volunteers(
-	firstname varchar(40),
-    lastname varchar(40),
+	firstname varchar(40) not null,
+    lastname varchar(40) not null,
 	volID int auto_increment,
     schoolyear int,
     hometown varchar(40),
@@ -49,12 +63,7 @@ create table Stats(
     foreign key(teamid) references Teams(teamid)
 );
 
-create table Applications(
-	answer1 varchar(40),
-	answer2 varchar(40),
-	complete tinyint,
-	accepted tinyint
-);
+
 
 create table News(
 	title varchar(100),
@@ -66,11 +75,14 @@ create table News(
 -- Example Inserts
 insert into Admins(username, password, firstname, lastname, role)
 	values('testuser', sha1('testpass'), 'First', 'Last', 'Test');
+
+delete from Admins where username = 'testuser';
     
 
-
-select username from Admins where username='testuser' and password=sha1('testpass');
+select sha1('test');
+select username from Admins where username='testuser' and password=md5('testpass');
 select * from Admins;
+select * from Teams;
 
 -- Delete table if needed
 drop table Admins;
