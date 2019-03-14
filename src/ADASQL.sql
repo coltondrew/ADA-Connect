@@ -29,11 +29,33 @@ create table Teams(
 );
 
 -- Team Leader Application
+select now();
+select * from Applications;
+drop table Applications;
 create table Applications(
-	answer1 varchar(40),
-	answer2 varchar(40),
-	complete tinyint,
-	accepted tinyint
+	appID int auto_increment,
+    firstname varchar(40) not null,
+    lastname varchar(40) not null,
+    email varchar(60) not null,
+    schoolyear varchar (15) not null,
+    university varchar(50) not null,
+    unipopulation int not null,
+    curteamoncampus tinyint not null,
+    credithours int not null,
+    workhours int not null,
+    parttime tinyint not null,
+    parttimehours int not null,
+    newman tinyint not null,
+    newmanstudents int not null,
+    prolifegroup tinyint not null,
+    prolifegroupstudents int not null,
+    north tinyint not null,
+    religion varchar(40) not null,
+    audiourl varchar(50),
+    datetime datetime,
+    accepted tinyint,
+    completed tinyint,
+    primary key(appID)
 );
 
 create table Volunteers(

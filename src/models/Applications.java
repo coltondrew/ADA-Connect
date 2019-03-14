@@ -5,6 +5,7 @@ public class Applications implements java.io.Serializable {
 	int ID;
 	String firstname;
 	String lastname;
+	String email;
 	String schoolyear; //Dropdown menu
 	String university;
 	int unipopulation;
@@ -20,7 +21,36 @@ public class Applications implements java.io.Serializable {
 	boolean north; //North or south
 	String religion; //Choices
 	String audiourl;
+	String datetime;
 	
+	
+	/**
+	 * Creates a new application to submit.
+	 */
+	public Applications(String firstname, String lastname, String email, String schoolyear, String university,
+			int unipopulation, boolean curteamoncampus, int credithours, int workhours, boolean parttime,
+			int partimehours, boolean newman, int newmanstudents, boolean prolifegroup, int prolifegroupstudents,
+			boolean north, String religion, String audiourl) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.schoolyear = schoolyear;
+		this.university = university;
+		this.unipopulation = unipopulation;
+		this.curteamoncampus = curteamoncampus;
+		this.credithours = credithours;
+		this.workhours = workhours;
+		this.parttime = parttime;
+		this.partimehours = partimehours;
+		this.newman = newman;
+		this.newmanstudents = newmanstudents;
+		this.prolifegroup = prolifegroup;
+		this.prolifegroupstudents = prolifegroupstudents;
+		this.north = north;
+		this.religion = religion;
+		this.audiourl = audiourl;
+	}
 	public int getID() {
 		return ID;
 	}
@@ -35,6 +65,12 @@ public class Applications implements java.io.Serializable {
 	}
 	public String getLastname() {
 		return lastname;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
@@ -129,7 +165,12 @@ public class Applications implements java.io.Serializable {
 	public void setAudiourl(String audiourl) {
 		this.audiourl = audiourl;
 	}
-	
+	public String getDatetime() {
+		return datetime;
+	}
+	public void setDatetime(String datetime) {
+		this.datetime = datetime;
+	}
 	
 	
 }
