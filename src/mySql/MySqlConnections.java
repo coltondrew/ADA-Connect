@@ -139,7 +139,7 @@ public class MySqlConnections {
 					statement.setString(17, app.getReligion());
 					statement.setString(18, app.getAudiourl());
 					
-					System.out.println(statement);
+//					System.out.println(statement);
 					if(statement.executeUpdate() > 0) {
 						complete = true;
 					}
