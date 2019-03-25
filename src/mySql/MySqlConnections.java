@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import models.*;
 
@@ -70,7 +71,7 @@ public class MySqlConnections {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
-			String addUser = "insert into Admins(username, password, firstname, lastname, role) " + 
+		   String addUser = "insert into Admins(username, password, firstname, lastname, role) " + 
 					"values(?,sha1(?),?,?,?)";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
@@ -105,8 +106,8 @@ public class MySqlConnections {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
-			String addApp = "insert into Applications(firstname,lastname,email,schoolyear,university,unipopulation,curteamoncampus,credithours,workhours,parttime,parttimehours,newman,newmanstudents,prolifegroup,prolifegroupstudents,north,religion,audiourl,datetime) " + 
-					"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
+			String addApp = "insert into Applications(firstname,lastname,email,schoolyear,university,unipopulation,curteamoncampus,credithours,workhours,parttime,parttimehours,newman,newmanstudents,prolifegroup,prolifegroupstudents,north,religion,audiourl) " + 
+					"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -151,6 +152,38 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   public static ArrayList<Applications> listApplications(boolean complete){
+		   connection = null;
+		   ArrayList<Applications> applications = new ArrayList<Applications>();
+		   PreparedStatement statement = null;
+		   String getApps = "select appID, firstname, lastname, datetime from Applications where completed = ? order by datetime";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return applications;
+		      }
+		      try {
+					statement = connection.prepareStatement(getApps);
+					statement.setBoolean(1, complete);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						applications.add(new Applications(rs.getInt("appId"), 
+								rs.getString("firstname"), 
+								rs.getString("lastname"), 
+								rs.getString("datetime")));
+					}
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		  return applications;
+	   }
+	   
 	   
 	   /**
 	    * Main function used for testing.
@@ -180,12 +213,20 @@ public class MySqlConnections {
 		   }*/
 		   
 		   //Submit Application Test
-		   Applications testapp = new Applications("Colton", "Drew", "Colton@email.com", "Senior", "University of Nebraska Omaha", 1000, true, 15, 5, true, 5, false, 0, true, 10, true, "Christian", "TEST AUDIO URL");
+		   /*Applications testapp = new Applications("Colton3", "Drew", "Colton@email.com", "Senior", "University of Nebraska Omaha", 1000, true, 15, 5, true, 5, false, 0, true, 10, true, "Christian", "TEST AUDIO URL");
 		   if(submitApplication(testapp)) {
 			   System.out.println("App submitted successfully");
 		   }
 		   else {
 			   System.out.println("App submit Failed!");
+		   }*/
+		   // Application List Test
+		   ArrayList<Applications> apps = listApplications(false);
+		   for(Applications app : apps) {
+			  System.out.println(app.getID() + " " + app.getFirstname() + " "  + app.getLastname() + " " + app.getDatetime());
+		   }
+		   if( apps.isEmpty()) {
+			   System.out.println("Application list empty.");
 		   }
 	   }
 }

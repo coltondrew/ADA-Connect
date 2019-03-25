@@ -29,9 +29,6 @@ create table Teams(
 );
 
 -- Team Leader Application
-select now();
-select * from Applications;
-drop table Applications;
 create table Applications(
 	appID int auto_increment,
     firstname varchar(40) not null,
@@ -52,9 +49,9 @@ create table Applications(
     north tinyint not null,
     religion varchar(40) not null,
     audiourl varchar(50),
-    datetime datetime,
-    accepted tinyint,
-    completed tinyint,
+    datetime datetime default now(),
+    accepted tinyint default 0,
+    completed tinyint default 0,
     primary key(appID)
 );
 
@@ -99,7 +96,8 @@ insert into Admins(username, password, firstname, lastname, role)
 	values('testuser', sha1('testpass'), 'First', 'Last', 'Test');
 
 delete from Admins where username = 'testuser';
-    
+
+select appID, firstname, lastname, datetime from Applications where completed = 0 order by datetime;
 
 select sha1('test');
 select username from Admins where username='testuser' and password=md5('testpass');

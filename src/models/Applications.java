@@ -51,6 +51,23 @@ public class Applications implements java.io.Serializable {
 		this.religion = religion;
 		this.audiourl = audiourl;
 	}
+	
+	/**
+	 * Constructor to get for listing applications.
+	 * @param iD
+	 * @param firstname
+	 * @param lastname
+	 * @param datetime
+	 */
+	public Applications(int iD, String firstname, String lastname, String datetime) {
+		super();
+		ID = iD;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.datetime = datetime;
+	}
+
+
 	public int getID() {
 		return ID;
 	}
