@@ -98,8 +98,9 @@ insert into Admins(username, password, firstname, lastname, role)
 delete from Admins where username = 'testuser';
 
 select appID, firstname, lastname, datetime from Applications where completed = 0 order by datetime;
-
+select firstname, lastname, email, schoolyear, university, unipopulation, curteamoncampus, credithours, workhours, parttime, parttimehours, newman, newmanstudents, prolifegroup, prolifegroupstudents, north, religion, audiourl from Applications where appID = 3;
 select sha1('test');
+
 select username from Admins where username='testuser' and password=md5('testpass');
 select * from Admins;
 select * from Teams;

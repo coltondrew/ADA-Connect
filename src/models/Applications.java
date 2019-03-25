@@ -66,7 +66,56 @@ public class Applications implements java.io.Serializable {
 		this.lastname = lastname;
 		this.datetime = datetime;
 	}
+	
+	
 
+	/**
+	 * Constructor for viewing a application.
+	 * @param iD
+	 * @param firstname
+	 * @param lastname
+	 * @param email
+	 * @param schoolyear
+	 * @param university
+	 * @param unipopulation
+	 * @param curteamoncampus
+	 * @param credithours
+	 * @param workhours
+	 * @param parttime
+	 * @param partimehours
+	 * @param newman
+	 * @param newmanstudents
+	 * @param prolifegroup
+	 * @param prolifegroupstudents
+	 * @param north
+	 * @param religion
+	 * @param audiourl
+	 */
+	public Applications(int iD, String firstname, String lastname, String email, String schoolyear, String university,
+			int unipopulation, boolean curteamoncampus, int credithours, int workhours, boolean parttime,
+			int partimehours, boolean newman, int newmanstudents, boolean prolifegroup, int prolifegroupstudents,
+			boolean north, String religion, String audiourl) {
+		super();
+		ID = iD;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.schoolyear = schoolyear;
+		this.university = university;
+		this.unipopulation = unipopulation;
+		this.curteamoncampus = curteamoncampus;
+		this.credithours = credithours;
+		this.workhours = workhours;
+		this.parttime = parttime;
+		this.partimehours = partimehours;
+		this.newman = newman;
+		this.newmanstudents = newmanstudents;
+		this.prolifegroup = prolifegroup;
+		this.prolifegroupstudents = prolifegroupstudents;
+		this.north = north;
+		this.religion = religion;
+		this.audiourl = audiourl;
+	}
 
 	public int getID() {
 		return ID;
@@ -187,6 +236,17 @@ public class Applications implements java.io.Serializable {
 	}
 	public void setDatetime(String datetime) {
 		this.datetime = datetime;
+	}
+
+	@Override
+	public String toString() {
+		return "Applications [ID=" + ID + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", schoolyear=" + schoolyear + ", university=" + university + ", unipopulation=" + unipopulation
+				+ ", curteamoncampus=" + curteamoncampus + ", credithours=" + credithours + ", workhours=" + workhours
+				+ ", parttime=" + parttime + ", partimehours=" + partimehours + ", newman=" + newman
+				+ ", newmanstudents=" + newmanstudents + ", prolifegroup=" + prolifegroup + ", prolifegroupstudents="
+				+ prolifegroupstudents + ", north=" + north + ", religion=" + religion + ", audiourl=" + audiourl
+				+ ", datetime=" + datetime + "]";
 	}
 	
 	

@@ -26,6 +26,7 @@ public class MySqlConnections {
 		   connection = null;
 		   User user = null;
 		   PreparedStatement statement = null;
+		   String loginSQL = "select firstname, lastname, role from Admins where username =? and password =sha1(?)";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -37,7 +38,7 @@ public class MySqlConnections {
 		         return user;
 		      }
 		      try {
-					String loginSQL = "select firstname, lastname, role from Admins where username =? and password =sha1(?)";
+					
 					statement = connection.prepareStatement(loginSQL);
 					statement.setString(1, username);
 					statement.setString(2, password);
@@ -106,7 +107,7 @@ public class MySqlConnections {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
-			String addApp = "insert into Applications(firstname,lastname,email,schoolyear,university,unipopulation,curteamoncampus,credithours,workhours,parttime,parttimehours,newman,newmanstudents,prolifegroup,prolifegroupstudents,north,religion,audiourl) " + 
+		   String addApp = "insert into Applications(firstname,lastname,email,schoolyear,university,unipopulation,curteamoncampus,credithours,workhours,parttime,parttimehours,newman,newmanstudents,prolifegroup,prolifegroupstudents,north,religion,audiourl) " + 
 					"values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
@@ -184,6 +185,55 @@ public class MySqlConnections {
 		  return applications;
 	   }
 	   
+	   public static Applications getFullApplication(int ID) {
+		   connection = null;
+		   Applications application = null;
+		   PreparedStatement statement = null;
+		   String getApp = "select firstname, lastname, email, schoolyear, university, unipopulation, curteamoncampus, credithours, workhours, parttime, parttimehours, newman, newmanstudents, prolifegroup, prolifegroupstudents, north, religion, audiourl from Applications where appID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return application;
+		      }
+		      try {
+					statement = connection.prepareStatement(getApp);
+					statement.setInt(1, ID);
+					ResultSet rs = statement.executeQuery();
+					if( rs.next()) {
+						application = new Applications(ID, 
+								rs.getString(1), 
+								rs.getString(2), 
+								rs.getString(3), 
+								rs.getString(4), 
+								rs.getString(5), 
+								rs.getInt(6), 
+								rs.getBoolean(7), 
+								rs.getInt(8), 
+								rs.getInt(9), 
+								rs.getBoolean(10), 
+								rs.getInt(11), 
+								rs.getBoolean(12),
+								rs.getInt(13), 
+								rs.getBoolean(14), 
+								rs.getInt(15), 
+								rs.getBoolean(16), 
+								rs.getString(17), 
+								rs.getString(18));
+						statement.close();
+						connection.close();
+					}
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return application;
+	   }
+	   
 	   
 	   /**
 	    * Main function used for testing.
@@ -220,13 +270,20 @@ public class MySqlConnections {
 		   else {
 			   System.out.println("App submit Failed!");
 		   }*/
+		   
 		   // Application List Test
-		   ArrayList<Applications> apps = listApplications(false);
+		   /*ArrayList<Applications> apps = listApplications(false);
 		   for(Applications app : apps) {
 			  System.out.println(app.getID() + " " + app.getFirstname() + " "  + app.getLastname() + " " + app.getDatetime());
 		   }
 		   if( apps.isEmpty()) {
 			   System.out.println("Application list empty.");
+		   }*/
+		   
+		   // Get Full App Test
+		   Applications app = getFullApplication(1);{
+			   System.out.print(app);
 		   }
+		   
 	   }
 }
