@@ -82,12 +82,17 @@ create table Volunteers(
     hometown varchar(50),
     highschool varchar(40),
     bio varchar(300),
-    team varchar(40),
+    team varchar(50) not null,
     pictureurl varchar(100),
     startdate date not null,
     active tinyint default 1,
     primary key(volID)
 );
+
+select * from Volunteers;
+
+insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,team,pictureurl, startdate)
+	values('volun', 'teer', 'Senior', 'Omaha', 'Millard West', 'This is my bio', 'team A', 'PICTURE URL', curdate());
 
 
 

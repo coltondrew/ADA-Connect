@@ -7,8 +7,10 @@ public class Volunteers implements java.io.Serializable {
 	String ID;
 	String schoolyear;
 	String hometown;
+	String highschool;
 	String bio;
 	String team;
+	String pictureUrl;
 
 	public String getFirstname() {
 		return firstname;
@@ -40,6 +42,12 @@ public class Volunteers implements java.io.Serializable {
 	public void setHometown(String hometown) {
 		this.hometown = hometown;
 	}
+	public String getHighschool() {
+		return highschool;
+	}
+	public void setHighschool(String highschool) {
+		this.highschool = highschool;
+	}
 	public String getBio() {
 		return bio;
 	}
@@ -51,6 +59,12 @@ public class Volunteers implements java.io.Serializable {
 	}
 	public void setTeam(String team) {
 		this.team = team;
+	}
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
 	}	
 	
 	

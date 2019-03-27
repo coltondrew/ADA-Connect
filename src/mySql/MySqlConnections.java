@@ -16,7 +16,7 @@ public class MySqlConnections {
 	   static Connection         connection       = null;
 	   
 	   /**
-	    * Attempts a user login, returns a user if successfull or null if not successful.
+	    * Attempts a user login, returns a user if successful or null if not successful.
 	    * 
 	    * @param username The username to login with.
 	    * @param password The password to login with.
@@ -138,6 +138,43 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   public static boolean AddVolunteer(Volunteers volunteer) {
+		   connection = null;
+		   boolean complete = false;
+		   PreparedStatement statement = null;
+		   String addVolunteer = "insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,team,pictureurl, startdate) " +
+					"values(?,?,?,?,?,?,?,?,curdate())";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(addVolunteer);
+					statement.setString(1, volunteer.getFirstname());
+					statement.setString(2, volunteer.getLastname());
+					statement.setString(3, volunteer.getSchoolyear());
+					statement.setString(4, volunteer.getHometown());
+					statement.setString(5, volunteer.getHighschool());
+					statement.setString(6, volunteer.getBio());
+					statement.setString(7, volunteer.getTeam());
+					statement.setString(8, volunteer.getPictureUrl());
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
 	   
 	   
 	   /**
