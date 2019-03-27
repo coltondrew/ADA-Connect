@@ -36,7 +36,7 @@
 			        	<c:forEach items="${requestScope.appList}" var="app">
 		        			<tr>
 		        				<th scope="row"><c:out value="${app.ID}"/></th>
-		        				<td><a href="${pageContext.request.contextPath}/application?id=${app.ID}"><c:out value="${app.firstname} ${app.lastname}"/></a></td>
+		        				<td><a href="${pageContext.request.contextPath}/admin/application?id=${app.ID}"><c:out value="${app.firstname} ${app.lastname}"/></a></td>
 		        				<td><c:out value="${app.datetime}"/></td>
 		        			</tr>
 		      			</c:forEach>

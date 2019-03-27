@@ -40,7 +40,7 @@
 	      		<p><strong>Is university located in the Southern or Northern U.S.? </strong><c:out value="${requestScope.app.north ? 'Northern' : 'Southern'}"/></p>
 	      		<p><strong>Religion of applicant: </strong><c:out value="${requestScope.app.religion}"/></p>
 	      		
-	      		<form action="${pageContext.request.contextPath}/application" method="post">
+	      		<form action="${pageContext.request.contextPath}/admin/application" method="post">
 	      			<input type="hidden" name="appID" value="${requestScope.app.ID}">
 	      			<input class="btn btn-primary" type="submit" name="decision" value="Accept"/>
 					<input class="btn btn-secondary" type="submit" name="decision" value="Decline"/>
