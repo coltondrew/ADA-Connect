@@ -24,8 +24,8 @@
 <%-- 			<c:out value = "${user.username}"/> --%>
 <%-- 		</c:if> --%>
 		<h1>Log in</h1>
-		<c:set var = "invalidCreds" value = "${requestScope.invalidUserCreds}" />
-		<c:if test = "${invalidCreds != null}" >
+		<c:set var="invalidCreds" value="${requestScope.invalidUserCreds}" />
+		<c:if test="${invalidCreds != null}" >
 			<p style="color:red;">Invalid username or password! Please try again!</p>
 		</c:if>	
 		<form action="/ADA-Connect/admin/login" method="post">
