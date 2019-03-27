@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mySql.MySqlConnections;
+import models.User;
+import models.Applications;
 
 /**
  * Servlet implementation class NewUser
@@ -28,6 +30,17 @@ public class NewUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = new User("", "", "", "");
+
+		// Check if id parameter exists
+        if (request.getParameterMap().containsKey("id")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+			Applications app = MySqlConnections.getFullApplication(id);
+			System.out.println(id);
+			user = new User("", app.getFirstname(), app.getLastname(), "Team Leader");
+        }
+        
+        request.setAttribute("newUser", user);
 		request.getRequestDispatcher("/views/admin/newuser.jsp").forward(request, response);
 	}
 

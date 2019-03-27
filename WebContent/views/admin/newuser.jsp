@@ -26,19 +26,19 @@
 					<div class="form-row">
 			  			<div class="form-group col-lg-3">
 			    			<label for="first-name">First Name:</label>
-			    			<input type="text" class="form-control" id="first-name" name="first-name" required>
+			    			<input type="text" class="form-control" id="first-name" name="first-name" value="${requestScope.newUser.getFirstname()}"required>
 			  			</div>
 					</div>
 					<div class="form-row">
 			  			<div class="form-group col-lg-3">
 			    			<label for="last-name">Last Name:</label>
-			    			<input type="text" class="form-control" id="last-name" name="last-name" required>
+			    			<input type="text" class="form-control" id="last-name" name="last-name" value="${requestScope.newUser.getLastname()}" required>
 			  			</div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-lg-3">
 			            	<label for="role">Role:</label>
-			                <select class="form-control" name='role' id="role" required>
+			                <select class="form-control" name="role" id="role" required>
 			                	<option></option>
 			                	<option>CEO</option>
 			                    <option>Regional Coordinator</option>
