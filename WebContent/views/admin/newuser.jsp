@@ -22,7 +22,7 @@
 	    	<!-- Content Column -->
 	    	<div class="col-lg-9 mt-4 mb-4">
 				<h1> Add a new user </h1>
-				<form action="/admin/new-user" method="post">
+				<form action="${pageContext.request.contextPath}/admin/new-user" method="post">
 					<div class="form-row">
 			  			<div class="form-group col-lg-3">
 			    			<label for="first-name">First Name:</label>

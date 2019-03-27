@@ -18,7 +18,7 @@
 		<!-- Heading -->
 		<h2>Apply to be a Dialogue Team Leader!</h2>
 		<!-- Application Form -->
-		<form action="/ADA-Connect/team-leader" method="post">
+		<form action="${pageContext.request.contextPath}/team-leader" method="post">
 			<div class="form-row">
 	  			<div class="form-group col-lg-3">
 	    			<label for="first-name">First Name:</label>
