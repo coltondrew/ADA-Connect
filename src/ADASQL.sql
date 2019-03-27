@@ -18,19 +18,29 @@ create table Admins(
 select * from Admins;
 describe Admins;
 
+insert into Admins(username, password, firstname, lastname, role)
+	values('testuser', sha1('testpass'), 'First', 'Last', 'Test');
+    
+select firstname, lastname from Admins where role = 'Team Leader';
+    
 select username from Admins where username='testuser' and password=md5('testpass');
 
 -- Teams
 drop table Teams;
 create table Teams(
-	teamname varchar(40) not null,
+	teamname varchar(50) not null,
     teamID int auto_increment,
-    username varchar(40),
+    teamleader varchar(40) not null,
     latitude decimal(11,8) not null,
-    longitude int(11)not null,
+    longitude decimal(11,8)not null,
+    pictureurl varchar(75),
     primary key (teamid),
-    foreign key (username) references Admins(username)
+    foreign key (teamleader) references Admins(username)
 );
+
+insert into Teams(teamname, teamleader, latitude, longitude, pictureurl)
+	values('Test Team', 'testuser2', 1.00, 1.00, 'TEST PICTURE URL');
+select teamname from Teams;
 
 -- Team Leader Application
 create table Applications(
@@ -62,7 +72,7 @@ select * from Applications;
 
 select appID, firstname, lastname, datetime from Applications where completed = 0 order by datetime;
 
-update Applications set accepted = 1, complete = 1 where id = 1;
+update Applications set accepted = 1, completed = 1 where appid = 1;
 
 create table Volunteers(
 	firstname varchar(40) not null,
@@ -100,9 +110,7 @@ create table News(
 	pictureurl varchar(100)
 );
 
--- Example Inserts
-insert into Admins(username, password, firstname, lastname, role)
-	values('testuser', sha1('testpass'), 'First', 'Last', 'Test');
+
 
 delete from Admins where username = 'testuser';
 

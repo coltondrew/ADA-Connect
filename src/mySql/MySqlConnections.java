@@ -103,6 +103,48 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   public static boolean AddTeam(String teamname, String teamleader,double latitude, double longitude, String pictureurl) {
+		   connection = null;
+		   boolean complete = false;
+		   PreparedStatement statement = null;
+		   String addTeam = "insert into Teams(teamname, teamleader, latitude, longitude, pictureurl) "+
+					"values(?,?,?,?,?)";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(addTeam);
+					statement.setString(1, teamname);
+					statement.setString(2, teamleader);
+					statement.setDouble(3, latitude);
+					statement.setDouble(4, longitude);
+					statement.setString(5, pictureurl);
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
+	   
+	   
+	   
+	   /**
+	    * Submits a new application to the Database
+	    * @param app
+	    * @return true if the application was submitted successfully
+	    */
 	   public static boolean submitApplication(Applications app) {
 		   connection = null;
 		   boolean complete = false;
@@ -153,6 +195,11 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   /**
+	    * 
+	    * @param complete if the applications retrieved are already completed or not
+	    * @return a list of all applications
+	    */
 	   public static ArrayList<Applications> listApplications(boolean complete){
 		   connection = null;
 		   ArrayList<Applications> applications = new ArrayList<Applications>();
@@ -185,6 +232,11 @@ public class MySqlConnections {
 		  return applications;
 	   }
 	   
+	   /**
+	    * Gets a full application to review.
+	    * @param ID the ID of the application to retrieve
+	    * @return
+	    */
 	   public static Applications getFullApplication(int ID) {
 		   connection = null;
 		   Applications application = null;
@@ -234,6 +286,12 @@ public class MySqlConnections {
 		   return application;
 	   }
 	   
+	   /**
+	    * Accepts or declines an application
+	    * @param ID The ID of the application to accept or decline.
+	    * @param accept If the ID will be accepted.
+	    * @return True if the update was successful.
+	    */
 	   public static boolean reviewApplication(int ID, boolean accept) {
 		   connection = null;
 		   boolean complete = false;
@@ -263,6 +321,69 @@ public class MySqlConnections {
 		         e.printStackTrace();
 		      }
 		   return complete;
+	   }
+	   
+	   /**
+	    * Gets team leaders and their names.
+	    * @return An arraylist of Users.
+	    */
+	   public static ArrayList<User> getTeamLeaders(){
+		   ArrayList<User> teamleadernames = new ArrayList<User>();
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getTeams = "select username, firstname, lastname from Admins where role = 'Team Leader'";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return teamleadernames;
+		      }
+		      try {
+					statement = connection.prepareStatement(getTeams);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						teamleadernames.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), "Team Leader"));
+					}
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return teamleadernames;
+	   }
+	   /**
+	    * Gets a list of team names.
+	    * @return A string arraylist of team names.
+	    */
+	   public static ArrayList<String> getTeamNames(){
+		   ArrayList<String> teamnames = new ArrayList<String>();
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getTeams = "select teamnames from Teams";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return teamnames;
+		      }
+		      try {
+					statement = connection.prepareStatement(getTeams);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						teamnames.add(rs.getString(1));
+					}
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return teamnames;
 	   }
 	   
 	   /**
@@ -314,13 +435,16 @@ public class MySqlConnections {
 		   /*Applications app = getFullApplication(3);{
 			   System.out.print(app);
 		   }*/
+		   
 		   // Review App Test
-		   if(reviewApplication(1,false)) {
+		   /*if(reviewApplication(1,true)) {
 			   System.out.println("Accepted App successfully");
 		   }
 		   else {
 			   System.out.println("Failed to accept app.");
-		   }
+		   }*/
+		   
+		   // Add Team Test
 		   
 	   }
 }
