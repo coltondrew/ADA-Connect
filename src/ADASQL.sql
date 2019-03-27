@@ -5,8 +5,7 @@ show tables;
 drop table Admins;
 -- Admin Table
 -- Admin Roles: Regional Coordinator, CEO, Team Leader
-select * from Admins;
-describe Admins;
+
 create table Admins(
     username varchar(40) not null,
     password char(40) not null,
@@ -15,6 +14,11 @@ create table Admins(
 	role varchar(30),
     primary key(username)
 );
+
+select * from Admins;
+describe Admins;
+
+select username from Admins where username='testuser' and password=md5('testpass');
 
 -- Teams
 drop table Teams;
@@ -54,6 +58,11 @@ create table Applications(
     completed tinyint default 0,
     primary key(appID)
 );
+select * from Applications;
+
+select appID, firstname, lastname, datetime from Applications where completed = 0 order by datetime;
+
+update Applications set accepted = 1, complete = 1 where id = 1;
 
 create table Volunteers(
 	firstname varchar(40) not null,
@@ -97,13 +106,11 @@ insert into Admins(username, password, firstname, lastname, role)
 
 delete from Admins where username = 'testuser';
 
-select appID, firstname, lastname, datetime from Applications where completed = 0 order by datetime;
+
 select firstname, lastname, email, schoolyear, university, unipopulation, curteamoncampus, credithours, workhours, parttime, parttimehours, newman, newmanstudents, prolifegroup, prolifegroupstudents, north, religion, audiourl from Applications where appID = 3;
 select sha1('test');
 
-select username from Admins where username='testuser' and password=md5('testpass');
-select * from Admins;
-select * from Teams;
+
 
 -- Delete table if needed
 drop table Admins;

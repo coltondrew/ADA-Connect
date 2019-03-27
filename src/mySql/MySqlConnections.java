@@ -234,6 +234,36 @@ public class MySqlConnections {
 		   return application;
 	   }
 	   
+	   public static boolean reviewApplication(int ID, boolean accept) {
+		   connection = null;
+		   boolean complete = false;
+		   PreparedStatement statement = null;
+		   String reviewApp = "update Applications set accepted = ?, completed = 1 where appid = ?";	
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(reviewApp);
+					statement.setBoolean(1, accept);
+					statement.setInt(2, ID);
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
 	   
 	   /**
 	    * Main function used for testing.
@@ -281,8 +311,15 @@ public class MySqlConnections {
 		   }*/
 		   
 		   // Get Full App Test
-		   Applications app = getFullApplication(1);{
+		   /*Applications app = getFullApplication(3);{
 			   System.out.print(app);
+		   }*/
+		   // Review App Test
+		   if(reviewApplication(1,false)) {
+			   System.out.println("Accepted App successfully");
+		   }
+		   else {
+			   System.out.println("Failed to accept app.");
 		   }
 		   
 	   }
