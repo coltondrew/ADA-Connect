@@ -78,16 +78,18 @@ create table Volunteers(
 	firstname varchar(40) not null,
     lastname varchar(40) not null,
 	volID int auto_increment,
-    schoolyear int,
-    hometown varchar(40),
+    schoolyear varchar(30),
+    hometown varchar(50),
     highschool varchar(40),
     bio varchar(300),
     team varchar(40),
     pictureurl varchar(100),
-    startyear int,
-    active tinyint,
+    startdate date not null,
+    active tinyint default 1,
     primary key(volID)
 );
+
+
 
 create table Stats(
 	volID int auto_increment,

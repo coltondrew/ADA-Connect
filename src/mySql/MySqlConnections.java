@@ -414,13 +414,13 @@ public class MySqlConnections {
 		   }*/
 		   
 		   //Submit Application Test
-		   /*Applications testapp = new Applications("Colton3", "Drew", "Colton@email.com", "Senior", "University of Nebraska Omaha", 1000, true, 15, 5, true, 5, false, 0, true, 10, true, "Christian", "TEST AUDIO URL");
+		   Applications testapp = new Applications("Colton5", "Drew", "Colton@email.com", "Senior", "University of Nebraska Omaha", 1000, true, 15, 5, true, 5, false, 0, true, 10, true, "Christian", "TEST AUDIO URL");
 		   if(submitApplication(testapp)) {
 			   System.out.println("App submitted successfully");
 		   }
 		   else {
 			   System.out.println("App submit Failed!");
-		   }*/
+		   }
 		   
 		   // Application List Test
 		   /*ArrayList<Applications> apps = listApplications(false);
