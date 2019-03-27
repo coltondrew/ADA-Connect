@@ -66,7 +66,7 @@ public class NewUser extends HttpServlet {
 		
 //			System.out.printf("%s %s %s %s %s\n", firstName, lastName, role, username, password);
 		
-		request.getRequestDispatcher("/views/admin.jsp").forward(request, response);		
+		request.getRequestDispatcher("/views/admin/home.jsp").forward(request, response);		
 	}
 
 }
