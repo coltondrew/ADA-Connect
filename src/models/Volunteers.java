@@ -4,14 +4,36 @@ public class Volunteers implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	String firstname;
 	String lastname;
-	String ID;
+	int teamID;
 	String schoolyear;
 	String hometown;
 	String highschool;
 	String bio;
-	String team;
 	String pictureUrl;
-
+	
+	/**
+	 * Constructor for adding a new volunteer.
+	 * @param firstname
+	 * @param lastname
+	 * @param teamID
+	 * @param schoolyear
+	 * @param hometown
+	 * @param highschool
+	 * @param bio
+	 * @param pictureUrl
+	 */
+	public Volunteers(String firstname, String lastname, int teamID, String schoolyear, String hometown,
+			String highschool, String bio, String pictureUrl) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.teamID = teamID;
+		this.schoolyear = schoolyear;
+		this.hometown = hometown;
+		this.highschool = highschool;
+		this.bio = bio;
+		this.pictureUrl = pictureUrl;
+	}
 	public String getFirstname() {
 		return firstname;
 	}
@@ -24,11 +46,11 @@ public class Volunteers implements java.io.Serializable {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	public String getID() {
-		return ID;
+	public int getTeamID() {
+		return teamID;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setTeamID(int teamID) {
+		this.teamID = teamID;
 	}
 	public String getSchoolyear() {
 		return schoolyear;
@@ -53,12 +75,6 @@ public class Volunteers implements java.io.Serializable {
 	}
 	public void setBio(String bio) {
 		this.bio = bio;
-	}
-	public String getTeam() {
-		return team;
-	}
-	public void setTeam(String team) {
-		this.team = team;
 	}
 	public String getPictureUrl() {
 		return pictureUrl;

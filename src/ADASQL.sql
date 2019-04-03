@@ -27,6 +27,7 @@ select username from Admins where username='testuser' and password=md5('testpass
 
 -- Teams
 drop table Teams;
+desc Teams;
 create table Teams(
 	teamname varchar(50) not null,
     teamID int auto_increment,
@@ -40,6 +41,8 @@ create table Teams(
 
 insert into Teams(teamname, teamleader, latitude, longitude, pictureurl)
 	values('Test Team', 'testuser2', 1.00, 1.00, 'TEST PICTURE URL');
+    
+select * from Teams;
 select teamname from Teams;
 
 -- Team Leader Application
@@ -74,6 +77,7 @@ select appID, firstname, lastname, datetime from Applications where completed = 
 
 update Applications set accepted = 1, completed = 1 where appid = 1;
 
+
 create table Volunteers(
 	firstname varchar(40) not null,
     lastname varchar(40) not null,
@@ -82,32 +86,39 @@ create table Volunteers(
     hometown varchar(50),
     highschool varchar(40),
     bio varchar(300),
-    team varchar(50) not null,
+    teamid int not null,
     pictureurl varchar(100),
     startdate date not null,
     active tinyint default 1,
-    primary key(volID)
+    primary key(volID),
+    foreign key(teamid) references Teams(teamid) on delete cascade
 );
 
 select * from Volunteers;
 
-insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,team,pictureurl, startdate)
-	values('volun', 'teer', 'Senior', 'Omaha', 'Millard West', 'This is my bio', 'team A', 'PICTURE URL', curdate());
+insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,teamID,pictureurl,startdate)
+	values('volun', 'teer', 'Senior', 'Omaha', 'Millard West', 'This is my bio', 3, 'PICTURE URL', curdate());
 
 
 
 create table Stats(
 	volID int auto_increment,
-    teamID int,
     conversations int,
     conversions int,
     numyear int,
     numweek int,
-    primary key(userid, teamid, numyear, numweek),
-    foreign key(userid) references Volunteers(userid),
-    foreign key(teamid) references Teams(teamid)
+    primary key(volid, numyear, numweek),
+    foreign key(volid) references Volunteers(volid) on delete cascade
 );
 
+insert into Stats(volID,conversations,conversions,numyear,numweek)
+VALUES(5,2,1,1,2019)on duplicate key update conversations = 2, conversions = 1;
+
+select concat(firstname, ' ', lastname) as name,Teams conversations, conversions, numyear, numweek from Volunteers natural join Stats; 
+
+select * from Volunteers natural join Teams;
+
+select firstname,lastname, teamname from Volunteers natural join Teams;
 
 
 create table News(

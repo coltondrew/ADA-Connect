@@ -138,11 +138,11 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
-	   public static boolean AddVolunteer(Volunteers volunteer) {
+	   public static boolean addVolunteer(Volunteers volunteer) {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
-		   String addVolunteer = "insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,team,pictureurl, startdate) " +
+		   String addVolunteer = "insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,teamID,pictureurl,startdate) " +
 					"values(?,?,?,?,?,?,?,?,curdate())";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
@@ -162,7 +162,7 @@ public class MySqlConnections {
 					statement.setString(4, volunteer.getHometown());
 					statement.setString(5, volunteer.getHighschool());
 					statement.setString(6, volunteer.getBio());
-					statement.setString(7, volunteer.getTeam());
+					statement.setInt(7, volunteer.getTeamID());
 					statement.setString(8, volunteer.getPictureUrl());
 					if(statement.executeUpdate() > 0) {
 						complete = true;
@@ -176,6 +176,42 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   public static boolean addStat(int volID, int conversations, int conversions, int numyear, int numweek) {
+		   connection = null;
+		   boolean complete = false;
+		   PreparedStatement statement = null;
+		   String addStat = "insert into Stats(volID,conversations,conversions,numyear,numweek) "+
+				   "values(?,?,?,?,?)on duplicate key update conversations = ?, conversions = ?";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(addStat);
+					statement.setInt(1, volID);
+					statement.setInt(2, conversations);
+					statement.setInt(3, conversions);
+					statement.setInt(4, numyear);
+					statement.setInt(5, numweek);
+					statement.setInt(6, conversations);
+					statement.setInt(7, conversions);
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
 	   
 	   /**
 	    * Submits a new application to the Database
@@ -451,13 +487,13 @@ public class MySqlConnections {
 		   }*/
 		   
 		   //Submit Application Test
-		   Applications testapp = new Applications("Colton5", "Drew", "Colton@email.com", "Senior", "University of Nebraska Omaha", 1000, true, 15, 5, true, 5, false, 0, true, 10, true, "Christian", "TEST AUDIO URL");
+		   /*Applications testapp = new Applications("Colton5", "Drew", "Colton@email.com", "Senior", "University of Nebraska Omaha", 1000, true, 15, 5, true, 5, false, 0, true, 10, true, "Christian", "TEST AUDIO URL");
 		   if(submitApplication(testapp)) {
 			   System.out.println("App submitted successfully");
 		   }
 		   else {
 			   System.out.println("App submit Failed!");
-		   }
+		   }*/
 		   
 		   // Application List Test
 		   /*ArrayList<Applications> apps = listApplications(false);
@@ -481,7 +517,28 @@ public class MySqlConnections {
 			   System.out.println("Failed to accept app.");
 		   }*/
 		   
-		   // Add Team Test
+		   // Add Team Test, will fail user is not a admin
+		   /*if(AddTeam("Test Team", "testuser2", 1, 1, "TEST PICTURE URL")) {
+			   System.out.println("Added team successfully");
+		   }
+		   else {
+			   System.out.println("Failed to add team.");
+		   }*/
+		   // Add Volunteer Test
+		   /*Volunteers testvol = new Volunteers("TestVol2", "Vol1", 3, "Junior", "Test Hometown", "Test Highschool", "Test Bio", "Test pictureURL");
+		   if(addVolunteer(testvol)) {
+			   System.out.println("Added volunteer successfully");
+		   }
+		   else {
+			   System.out.println("Failed to add volunteer.");
+		   }*/
+		   //Add Volunteer Stat Test
+		   if(addStat(1, 4, 1, 1, 2)) {
+			   System.out.println("Added volunteer weekly stat successfully");
+		   }
+		   else {
+			   System.out.println("Failed to add weekly stat.");
+		   }
 		   
 	   }
 }
