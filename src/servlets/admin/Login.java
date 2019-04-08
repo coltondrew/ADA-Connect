@@ -39,7 +39,7 @@ public class Login extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 				
-		User loggedInUser = MySqlConnections.Login(username, password);
+		User loggedInUser = MySqlConnections.login(username, password);
 		
 		if(loggedInUser!= null) {
 			System.out.println("User is logged in");

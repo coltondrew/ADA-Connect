@@ -2,10 +2,7 @@ create database ADA;
 use ADA;
 show tables;
 
-drop table Admins;
--- Admin Table
--- Admin Roles: Regional Coordinator, CEO, Team Leader
-
+-- Admins
 create table Admins(
     username varchar(40) not null,
     password char(40) not null,
@@ -15,19 +12,8 @@ create table Admins(
     primary key(username)
 );
 
-select * from Admins;
-describe Admins;
-
-insert into Admins(username, password, firstname, lastname, role)
-	values('testuser', sha1('testpass'), 'First', 'Last', 'Test');
-    
-select firstname, lastname from Admins where role = 'Team Leader';
-    
-select username from Admins where username='testuser' and password=md5('testpass');
 
 -- Teams
-drop table Teams;
-desc Teams;
 create table Teams(
 	teamname varchar(50) not null,
     teamID int auto_increment,
@@ -38,12 +24,6 @@ create table Teams(
     primary key (teamid),
     foreign key (teamleader) references Admins(username)
 );
-
-insert into Teams(teamname, teamleader, latitude, longitude, pictureurl)
-	values('Test Team', 'testuser2', 1.00, 1.00, 'TEST PICTURE URL');
-    
-select * from Teams;
-select teamname from Teams;
 
 -- Team Leader Application
 create table Applications(
@@ -71,13 +51,8 @@ create table Applications(
     completed tinyint default 0,
     primary key(appID)
 );
-select * from Applications;
 
-select appID, firstname, lastname, datetime from Applications where completed = 0 order by datetime;
-
-update Applications set accepted = 1, completed = 1 where appid = 1;
-
-
+-- Volunteers
 create table Volunteers(
 	firstname varchar(40) not null,
     lastname varchar(40) not null,
@@ -94,13 +69,9 @@ create table Volunteers(
     foreign key(teamid) references Teams(teamid) on delete cascade
 );
 
-select * from Volunteers;
-
-insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,teamID,pictureurl,startdate)
-	values('volun', 'teer', 'Senior', 'Omaha', 'Millard West', 'This is my bio', 3, 'PICTURE URL', curdate());
 
 
-
+-- Volunteer statistics
 create table Stats(
 	volID int auto_increment,
     conversations int,
@@ -111,16 +82,7 @@ create table Stats(
     foreign key(volid) references Volunteers(volid) on delete cascade
 );
 
-insert into Stats(volID,conversations,conversions,numyear,numweek)
-VALUES(5,2,1,1,2019)on duplicate key update conversations = 2, conversions = 1;
-
-select concat(firstname, ' ', lastname) as name,Teams conversations, conversions, numyear, numweek from Volunteers natural join Stats; 
-
-select * from Volunteers natural join Teams;
-
-select firstname,lastname, teamname from Volunteers natural join Teams;
-
-
+-- News
 create table News(
 	title varchar(100),
 	contents varchar(500),
@@ -129,14 +91,3 @@ create table News(
 );
 
 
-
-delete from Admins where username = 'testuser';
-
-
-select firstname, lastname, email, schoolyear, university, unipopulation, curteamoncampus, credithours, workhours, parttime, parttimehours, newman, newmanstudents, prolifegroup, prolifegroupstudents, north, religion, audiourl from Applications where appID = 3;
-select sha1('test');
-
-
-
--- Delete table if needed
-drop table Admins;

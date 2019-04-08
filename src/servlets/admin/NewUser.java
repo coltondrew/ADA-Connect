@@ -56,7 +56,7 @@ public class NewUser extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		// Add user to DB
-		boolean success = MySqlConnections.AddUser(username, password, firstName, lastName, role);
+		boolean success = MySqlConnections.addUser(username, password, firstName, lastName, role);
 		if(success) {
 			System.out.println("User successfully added");
 		}

@@ -22,7 +22,7 @@ public class MySqlConnections {
 	    * @param password The password to login with.
 	    * @return Returns a User model or null.
 	    */
-	   public static User Login(String username, String password) {
+	   public static User login(String username, String password) {
 		   connection = null;
 		   User user = null;
 		   PreparedStatement statement = null;
@@ -68,7 +68,7 @@ public class MySqlConnections {
 	    * @param role The new role of the user.
 	    * @return True if the user was successfully added.
 	    */
-	   public static boolean AddUser(String username, String password, String firstname, String lastname, String role) {
+	   public static boolean addUser(String username, String password, String firstname, String lastname, String role) {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
@@ -103,7 +103,7 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
-	   public static boolean AddTeam(String teamname, String teamleader,double latitude, double longitude, String pictureurl) {
+	   public static boolean addTeam(String teamname, String teamleader,double latitude, double longitude, String pictureurl) {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
