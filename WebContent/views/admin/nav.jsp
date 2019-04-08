@@ -5,5 +5,6 @@
 	    <a href="${pageContext.request.contextPath}/admin/home" class="list-group-item">Home</a>
 	    <a href="${pageContext.request.contextPath}/admin/new-admin" class="list-group-item">Add New Admin</a>
 	    <a href="${pageContext.request.contextPath}/admin/view-applications" class="list-group-item">View Applicants</a>
+	    <a href="${pageContext.request.contextPath}/admin/new-volunteer" class="list-group-item">Add New Volunteer</a>
     </div>
 </div>
