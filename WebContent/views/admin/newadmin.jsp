@@ -21,8 +21,8 @@
 			
 	    	<!-- Content Column -->
 	    	<div class="col-lg-9 mt-4 mb-4">
-				<h1> Add a new user </h1>
-				<form action="${pageContext.request.contextPath}/admin/new-user" method="post">
+				<h1>Add a new admin</h1>
+				<form action="${pageContext.request.contextPath}/admin/new-admin" method="post">
 					<div class="form-row">
 			  			<div class="form-group col-lg-3">
 			    			<label for="first-name">First Name:</label>
@@ -39,10 +39,10 @@
 						<div class="form-group col-lg-3">
 			            	<label for="role">Role:</label>
 			                <select class="form-control" name="role" id="role" required>
-			                	<option></option>
-			                	<option>CEO</option>
-			                    <option>Regional Coordinator</option>
-			                    <option>Team Leader</option>
+			                	<option ${requestScope.newUser.getRole().equals("") ? 'selected': ''}></option>
+			                	<option ${requestScope.newUser.getRole().equals("CEO") ? 'selected': ''}>CEO</option>
+			                    <option ${requestScope.newUser.getRole().equals("Regional Coordinator") ? 'selected': ''}>Regional Coordinator</option>
+			                    <option ${requestScope.newUser.getRole().equals("Team Leader") ? 'selected': ''}>Team Leader</option>
 			                </select>
 			            </div>
 					</div>
@@ -55,7 +55,7 @@
 					<div class="form-row">
 			  			<div class="form-group col-lg-3">
 			    			<label for="password">Password:</label>
-			    			<input type="text" class="form-control" id="password" name="password" required>
+			    			<input type="password" class="form-control" id="password" name="password" required>
 			  			</div>
 					</div>
 		  			<button type="submit" class="btn btn-primary">Submit</button>
