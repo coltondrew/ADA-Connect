@@ -2,6 +2,13 @@ create database ADA;
 use ADA;
 show tables;
 
+
+-- Views
+select * from Volunteers natural join Teams;
+create view VolunteerStats as select concat(firstname, ' ', lastname) as name, active, teamname, conversations, conversions, numyear, numweek from Volunteers natural join Teams natural join Stats;
+select * from VolunteerStats;
+
+-- Tables
 -- Admins
 create table Admins(
     username varchar(40) not null,
@@ -20,7 +27,7 @@ create table Teams(
     teamleader varchar(40) not null,
     latitude decimal(11,8) not null,
     longitude decimal(11,8)not null,
-    pictureurl varchar(75),
+    teampicture varchar(75),
     primary key (teamid),
     foreign key (teamleader) references Admins(username)
 );
@@ -62,21 +69,19 @@ create table Volunteers(
     highschool varchar(40),
     bio varchar(300),
     teamid int not null,
-    pictureurl varchar(100),
+    volpicture varchar(100),
     startdate date not null,
     active tinyint default 1,
     primary key(volID),
     foreign key(teamid) references Teams(teamid) on delete cascade
 );
 
-
-
 -- Volunteer statistics
 create table Stats(
 	volID int auto_increment,
-    conversations int,
-    conversions int,
-    numyear int,
+    conversations int not null,
+    conversions int not null,
+    numyear int not null,
     numweek int,
     primary key(volid, numyear, numweek),
     foreign key(volid) references Volunteers(volid) on delete cascade

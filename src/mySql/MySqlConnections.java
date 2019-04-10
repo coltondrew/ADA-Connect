@@ -107,7 +107,7 @@ public class MySqlConnections {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
-		   String addTeam = "insert into Teams(teamname, teamleader, latitude, longitude, pictureurl) "+
+		   String addTeam = "insert into Teams(teamname, teamleader, latitude, longitude, teampicture) "+
 					"values(?,?,?,?,?)";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
@@ -142,7 +142,7 @@ public class MySqlConnections {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
-		   String addVolunteer = "insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,teamID,pictureurl,startdate) " +
+		   String addVolunteer = "insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,teamID,volpicture,startdate) " +
 					"values(?,?,?,?,?,?,?,?,curdate())";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
@@ -435,7 +435,7 @@ public class MySqlConnections {
 		   ArrayList<String> teamnames = new ArrayList<String>();
 		   connection = null;
 		   PreparedStatement statement = null;
-		   String getTeams = "select teamnames from Teams";
+		   String getTeams = "select teamname from Teams";
 		   try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
