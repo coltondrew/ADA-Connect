@@ -14,14 +14,14 @@ import models.Applications;
 /**
  * Servlet implementation class NewUser
  */
-@WebServlet("/admin/new-user")
-public class NewUser extends HttpServlet {
+@WebServlet("/admin/new-admin")
+public class NewAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewUser() {
+    public NewAdmin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +41,7 @@ public class NewUser extends HttpServlet {
         }
         
         request.setAttribute("newUser", user);
-		request.getRequestDispatcher("/views/admin/newuser.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/newadmin.jsp").forward(request, response);
 	}
 
 	/**

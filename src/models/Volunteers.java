@@ -34,6 +34,12 @@ public class Volunteers implements java.io.Serializable {
 		this.bio = bio;
 		this.pictureUrl = pictureUrl;
 	}
+	@Override
+	public String toString() {
+		return "Volunteers [firstname=" + firstname + ", lastname=" + lastname + ", teamID=" + teamID + ", schoolyear="
+				+ schoolyear + ", hometown=" + hometown + ", highschool=" + highschool + ", bio=" + bio
+				+ ", pictureUrl=" + pictureUrl + "]";
+	}
 	public String getFirstname() {
 		return firstname;
 	}
@@ -82,6 +88,5 @@ public class Volunteers implements java.io.Serializable {
 	public void setPictureUrl(String pictureUrl) {
 		this.pictureUrl = pictureUrl;
 	}	
-	
 	
 }
