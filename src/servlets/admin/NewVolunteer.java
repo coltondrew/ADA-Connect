@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.User;
 import models.Volunteers;
 import mySql.MySqlConnections;
 
@@ -44,8 +45,8 @@ public class NewVolunteer extends HttpServlet {
 		String highschool = request.getParameter("highschool");
 		String bio = request.getParameter("bio");
 		
-		Volunteers vol = new Volunteers(firstName, lastName, 0, schoolYear, hometown, highschool, bio, "");
-//		MySqlConnections.addVolunteer(vol);
+		Volunteers vol = new Volunteers(firstName, lastName, MySqlConnections.getTeamID(((User)request.getSession().getAttribute("adminUser")).getUsername()), schoolYear, hometown, highschool, bio, "");
+		MySqlConnections.addVolunteer(vol);
 		System.out.println(vol);
 		
 		doGet(request, response);

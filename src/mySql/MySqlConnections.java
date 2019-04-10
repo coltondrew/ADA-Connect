@@ -48,15 +48,49 @@ public class MySqlConnections {
 								rs.getString(1),
 								rs.getString(2),
 								rs.getString(3));
-						statement.close();
-						connection.close();
 					}
+					statement.close();
+					connection.close();
 
 		      } catch (SQLException e) {
 		         e.printStackTrace();
 		      }
 		   return user;
 	   }
+	   
+	   public static boolean changePassword(String username, String oldpassword, String newpassword) {
+		   connection = null;
+		   boolean complete = false;
+		   PreparedStatement statement = null;
+		   String loginSQL = "update Admins set password = ? where username = ? and password = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					
+					statement = connection.prepareStatement(loginSQL);
+					statement.setString(1, newpassword);
+					statement.setString(2, username);
+					statement.setString(3, oldpassword);
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+					statement.close();
+					connection.close();
+					
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
+	   
 	   
 	   /**
 	    * Adds a new user.
@@ -298,6 +332,8 @@ public class MySqlConnections {
 								rs.getString("lastname"), 
 								rs.getString("datetime")));
 					}
+					statement.close();
+					connection.close();
 
 		      } catch (SQLException e) {
 		         e.printStackTrace();
@@ -349,9 +385,9 @@ public class MySqlConnections {
 								rs.getBoolean(16), 
 								rs.getString(17), 
 								rs.getString(18));
-						statement.close();
-						connection.close();
 					}
+					statement.close();
+					connection.close();
 
 		      } catch (SQLException e) {
 		         e.printStackTrace();
@@ -421,6 +457,8 @@ public class MySqlConnections {
 					while(rs.next()) {
 						teamleadernames.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), "Team Leader"));
 					}
+					statement.close();
+					connection.close();
 
 		      } catch (SQLException e) {
 		         e.printStackTrace();
@@ -452,12 +490,47 @@ public class MySqlConnections {
 					while(rs.next()) {
 						teamnames.add(rs.getString(1));
 					}
+					statement.close();
+					connection.close();
 
 		      } catch (SQLException e) {
 		         e.printStackTrace();
 		      }
 		   return teamnames;
 	   }
+	   
+	   public static int getTeamID(String teamleader){
+		   int teamID = -1;
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getTeams = "select teamID from Teams where teamleader = ?";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return teamID;
+		      }
+		      try {
+					statement = connection.prepareStatement(getTeams);
+					statement.setString(1, teamleader);
+					ResultSet rs = statement.executeQuery();
+					if(rs.next()) {
+						teamID = rs.getInt(1);
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return teamID;
+	   }
+	   
+	   
 	   
 	   /**
 	    * Main function used for testing.

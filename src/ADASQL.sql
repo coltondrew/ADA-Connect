@@ -95,4 +95,6 @@ create table News(
 	pictureurl varchar(100)
 );
 
+select * from Admins natural join Teams;
+
 
