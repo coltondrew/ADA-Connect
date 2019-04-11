@@ -7,6 +7,16 @@ public class Teams implements java.io.Serializable {
 	String username;
 	double latitude;
 	double longitude;
+	String photoUrl;
+	
+	public Teams(String teamname, String username, double latitude, double longitude, String photoUrl) {
+		super();
+		this.teamname = teamname;
+		this.username = username;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.photoUrl = photoUrl;
+	}
 	public String getTeamname() {
 		return teamname;
 	}
@@ -38,5 +48,15 @@ public class Teams implements java.io.Serializable {
 		this.longitude = longitude;
 	}
 	
-	
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+	@Override
+	public String toString() {
+		return "Teams [teamname=" + teamname + ", ID=" + ID + ", username=" + username + ", latitude=" + latitude
+				+ ", longitude=" + longitude + ", photoUrl=" + photoUrl + "]";
+	}	
 }
