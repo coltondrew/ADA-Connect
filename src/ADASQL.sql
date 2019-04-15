@@ -94,10 +94,12 @@ create table Stats(
 
 -- News
 create table News(
+	newsID int auto_increment,
 	title varchar(100),
 	contents varchar(500),
 	datemade datetime,
-	pictureurl varchar(100)
+	pictureurl varchar(100),
+    primary key(newsID)
 );
 
 

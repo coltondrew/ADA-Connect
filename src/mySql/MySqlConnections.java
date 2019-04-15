@@ -562,6 +562,107 @@ public class MySqlConnections {
 		   return volunteers;
 	   }
 	   
+	   public static boolean setVolunteerActive(int volID, boolean active) {
+		   connection = null;
+		   boolean complete = false;
+		   PreparedStatement statement = null;
+		   String setActive = "update Volunteers set active = ? where volID = ?";	
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(setActive);
+					if(active) {
+						statement.setBoolean(1, true);
+					}
+					else {
+						statement.setBoolean(1, false);
+					}
+					statement.setInt(2, volID);
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
+	   
+	   public static boolean addNews(String title, String contents, String pictureurl) {
+		   connection = null;
+		   boolean complete = false;
+		   PreparedStatement statement = null;
+		   String addNews = "insert into News(title, contents, datemade, pictureurl) " + 
+					"values(?,?,now(),?)";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(addNews);
+					statement.setString(1, title);
+					statement.setString(2, contents);
+					statement.setString(3, pictureurl);
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
+	   
+	   public static News getFullNews(int newsID) {
+		   connection = null;
+		   News article = null;
+		   PreparedStatement statement = null;
+		   String getFullNews = "select title, contents, datemade, pictureurl from News where newsID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return article;
+		      }
+		      try {
+					statement = connection.prepareStatement(getFullNews);
+					statement.setInt(1, newsID);
+					ResultSet rs = statement.executeQuery();
+					if( rs.next()) {
+						article = new News(rs.getString("title"), rs.getString("contents"), rs.getString("datemade"), rs.getString("pictureurl"));
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return article;
+	   }
+	   
+	   
 	   
 	   
 	   /**
@@ -644,6 +745,11 @@ public class MySqlConnections {
 		   else {
 			   System.out.println("Failed to add weekly stat.");
 		   }*/
-		   
+		   //Add News Test
+		   /*
+		   addNews("TEST NEWS TITLE3", "This is the contents or this article", "newspictureurl");
+		   */
+		   //Get Full News Test
+		   System.out.println(getFullNews(3));
 	   }
 }
