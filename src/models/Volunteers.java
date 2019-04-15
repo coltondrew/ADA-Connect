@@ -10,6 +10,7 @@ public class Volunteers implements java.io.Serializable {
 	String highschool;
 	String bio;
 	String pictureUrl;
+	int volID;
 	
 	/**
 	 * Constructor for adding a new volunteer.
@@ -34,6 +35,25 @@ public class Volunteers implements java.io.Serializable {
 		this.bio = bio;
 		this.pictureUrl = pictureUrl;
 	}
+	
+	
+	/**
+	 * Constructor for statistics
+	 * @param firstname
+	 * @param lastname
+	 * @param teamID
+	 * @param volID
+	 */
+	public Volunteers(String firstname, String lastname, int teamID, int volID) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.teamID = teamID;
+		this.volID = volID;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Volunteers [firstname=" + firstname + ", lastname=" + lastname + ", teamID=" + teamID + ", schoolyear="
@@ -87,6 +107,18 @@ public class Volunteers implements java.io.Serializable {
 	}
 	public void setPictureUrl(String pictureUrl) {
 		this.pictureUrl = pictureUrl;
+	}
+
+
+
+	public int getVolID() {
+		return volID;
+	}
+
+
+
+	public void setVolID(int volID) {
+		this.volID = volID;
 	}	
 	
 }

@@ -465,6 +465,7 @@ public class MySqlConnections {
 		      }
 		   return teamleadernames;
 	   }
+	   
 	   /**
 	    * Gets a list of team names.
 	    * @return A string arraylist of team names.
@@ -528,6 +529,37 @@ public class MySqlConnections {
 		         e.printStackTrace();
 		      }
 		   return teamID;
+	   }
+	   
+	   public static ArrayList<Volunteers> getActiveTeamVolunteers(int teamID){
+		   ArrayList<Volunteers> volunteers = new ArrayList<Volunteers>();
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getActiveTeamMembers = "select * from TeamVolunteers where teamID = ? and active = 1";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return volunteers;
+		      }
+		      try {
+					statement = connection.prepareStatement(getActiveTeamMembers);
+					statement.setInt(1, teamID);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						volunteers.add(new Volunteers(rs.getString("firstname"), rs.getString("lastname"), rs.getInt("teamID"), rs.getInt("volID")));
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return volunteers;
 	   }
 	   
 	   
@@ -606,12 +638,12 @@ public class MySqlConnections {
 			   System.out.println("Failed to add volunteer.");
 		   }*/
 		   //Add Volunteer Stat Test
-		   if(addStat(1, 4, 1, 1, 2)) {
+		   /*if(addStat(1, 4, 1, 1, 2)) {
 			   System.out.println("Added volunteer weekly stat successfully");
 		   }
 		   else {
 			   System.out.println("Failed to add weekly stat.");
-		   }
+		   }*/
 		   
 	   }
 }

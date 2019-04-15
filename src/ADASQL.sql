@@ -4,9 +4,14 @@ show tables;
 
 
 -- Views
+-- Volunteer Stats
 select * from Volunteers natural join Teams;
 create view VolunteerStats as select concat(firstname, ' ', lastname) as name, active, teamname, conversations, conversions, numyear, numweek from Volunteers natural join Teams natural join Stats;
 select * from VolunteerStats;
+
+-- Team Volunteers
+select * from Teams natural join Volunteers;
+create view TeamVolunteers as select teamID, firstname, lastname, volID, active from Teams natural join Volunteers;
 
 -- Tables
 -- Admins
@@ -94,7 +99,5 @@ create table News(
 	datemade datetime,
 	pictureurl varchar(100)
 );
-
-select * from Admins natural join Teams;
 
 
