@@ -30,10 +30,15 @@
 			  			</div>
 					</div>
 					<div class="form-row">
-			  			<div class="form-group col-lg-3">
-			    			<label for="team-leader">Team Leader:</label>
-			    			<input type="text" class="form-control" id="team-leader" name="team-leader" required>
-			  			</div>
+						<div class="form-group col-lg-3">
+			            	<label for="team-leader">Team Leader:</label>
+			                <select class="form-control" name="team-leader" id="team-leader" required>
+			                	<option></option>
+			                	<c:forEach items="${requestScope.teamLeaderList}" var="teamLeader">
+				        			<option value="${teamLeader.getUsername()}"><c:out value="${teamLeader.getFirstname()} ${teamLeader.getLastname()}"></c:out></option>
+				      			</c:forEach>
+			                </select>
+			            </div>
 					</div>
 					<div class="form-row">
 			  			<div class="form-group col-lg-3">

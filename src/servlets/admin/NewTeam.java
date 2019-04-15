@@ -1,13 +1,16 @@
 package servlets.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Teams;
+//import models.Teams;
+import models.User;
 import mySql.MySqlConnections;
 /**
  * Servlet implementation class NewTeam
@@ -28,7 +31,8 @@ public class NewTeam extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		ArrayList<User> teamLeaderList = MySqlConnections.getTeamLeaders();
+		request.setAttribute("teamLeaderList", teamLeaderList);
 		request.getRequestDispatcher("/views/admin/newteam.jsp").forward(request, response);
 	}
 

@@ -45,7 +45,11 @@ public class NewVolunteer extends HttpServlet {
 		String highschool = request.getParameter("highschool");
 		String bio = request.getParameter("bio");
 		
-		Volunteers vol = new Volunteers(firstName, lastName, MySqlConnections.getTeamID(((User)request.getSession().getAttribute("adminUser")).getUsername()), schoolYear, hometown, highschool, bio, "");
+		// Get id of admin user
+		User adminUser = (User) request.getSession().getAttribute("adminUser");
+		int teamId = MySqlConnections.getTeamID(adminUser.getUsername());
+		
+		Volunteers vol = new Volunteers(firstName, lastName, teamId, schoolYear, hometown, highschool, bio, "");
 		MySqlConnections.addVolunteer(vol);
 		System.out.println(vol);
 		
