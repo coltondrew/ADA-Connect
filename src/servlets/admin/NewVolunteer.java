@@ -51,7 +51,7 @@ public class NewVolunteer extends HttpServlet {
 		
 		Volunteers vol = new Volunteers(firstName, lastName, teamId, schoolYear, hometown, highschool, bio, "");
 		MySqlConnections.addVolunteer(vol);
-		System.out.println(vol);
+//		System.out.println(vol);
 		
 		doGet(request, response);
 	}
