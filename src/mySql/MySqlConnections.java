@@ -531,6 +531,40 @@ public class MySqlConnections {
 		   return teamID;
 	   }
 	   
+	   /**
+	    * Gets a list of teams.
+	    * @return A string arraylist of teams.
+	    */
+	   public static ArrayList<Teams> getTeams(){
+		   ArrayList<Teams> teams = new ArrayList<Teams>();
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getTeams = "select teamname,teamID from Teams";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return teams;
+		      }
+		      try {
+					statement = connection.prepareStatement(getTeams);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						teams.add(new Teams(rs.getString(1), rs.getInt(2)));
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return teams;
+	   }
+	   
 	   public static ArrayList<Volunteers> getActiveTeamVolunteers(int teamID){
 		   ArrayList<Volunteers> volunteers = new ArrayList<Volunteers>();
 		   connection = null;
