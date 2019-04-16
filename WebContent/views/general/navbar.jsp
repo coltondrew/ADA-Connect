@@ -88,6 +88,5 @@
 var contextPath = "${pageContext.request.contextPath}";
 var domain = "${pageContext.request.serverName}";
 var port = "${pageContext.request.serverPort}";
-console.log(domain);
 </script>
-<script src="${pageContext.request.contextPath}/views/nav.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/nav.js"></script>

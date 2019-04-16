@@ -15,7 +15,7 @@
 </head>
 <body>
 	<!-- Navbar -->
-	<jsp:include page="/views/navbar.jsp"></jsp:include>
+	<jsp:include page="/views/general/navbar.jsp"></jsp:include>
 
   	<div class="container-fluid">
 		<p> This is the ADA Connect home page. </p>

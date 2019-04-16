@@ -12,7 +12,7 @@
 </head>
 <body>
 	<!-- Navbar -->
-	<jsp:include page="/views/navbar.jsp"></jsp:include>
+	<jsp:include page="/views/general/navbar.jsp"></jsp:include>
 	
 	<!-- Secondary Navbar -->
 	<jsp:include page="/views/team/nav.jsp"></jsp:include>

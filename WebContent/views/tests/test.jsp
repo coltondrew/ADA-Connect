@@ -12,7 +12,7 @@
 	<title>Insert Title Here</title>
 </head>
 <body>
-	<jsp:include page="/views/navbar.jsp"></jsp:include>
+	<jsp:include page="/views/general/navbar.jsp"></jsp:include>
 <%-- 	<%@ include file="../Components/navbar.jsp" %> --%>
 </body>
 </html>

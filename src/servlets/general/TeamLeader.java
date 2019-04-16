@@ -1,4 +1,4 @@
-package servlets;
+package servlets.general;
 
 import java.io.IOException;
 
@@ -35,7 +35,7 @@ public class TeamLeader extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/teamleader.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/general/teamleader.jsp").forward(request, response);
 	}
 
 	/**

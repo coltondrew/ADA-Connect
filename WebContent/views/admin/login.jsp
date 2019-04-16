@@ -15,7 +15,7 @@
 </head>
 <body>
 	<!-- Navbar -->
-	<jsp:include page="/views/navbar.jsp"></jsp:include>
+	<jsp:include page="/views/general/navbar.jsp"></jsp:include>
 	
 	<!-- Login  -->
 	<div class="container-fluid">

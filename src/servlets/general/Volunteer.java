@@ -1,4 +1,4 @@
-package servlets;
+package servlets.general;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Donate
+ * Servlet implementation class Volunteer
  */
-@WebServlet({ "/Donate", "/donate" })
-public class Donate extends HttpServlet {
+@WebServlet({ "/Volunteer", "/volunteer" })
+public class Volunteer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Donate() {
+    public Volunteer() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class Donate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/donate.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/general/volunteer.jsp").forward(request, response);
 	}
 
 	/**

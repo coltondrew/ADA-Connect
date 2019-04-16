@@ -1,4 +1,4 @@
-package servlets;
+package servlets.general;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class PrayerPartner
+ * Servlet implementation class About
  */
-@WebServlet("/prayer-partner")
-public class PrayerPartner extends HttpServlet {
+@WebServlet({ "/About", "/about" })
+public class About extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PrayerPartner() {
+    public About() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class PrayerPartner extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/prayerpartner.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/general/about.jsp").forward(request, response);
 	}
 
 	/**

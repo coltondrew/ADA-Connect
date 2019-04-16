@@ -1,4 +1,4 @@
-package servlets;
+package servlets.general;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Leaderboard
+ * Servlet implementation class Home
  */
-@WebServlet({ "/Leaderboard", "/leaderboard" })
-public class Leaderboard extends HttpServlet {
+//@WebServlet({ "/", "/home" })
+@WebServlet({"", "/home"})
+public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Leaderboard() {
+    public Home() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +27,8 @@ public class Leaderboard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/leaderboard.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/views/general/home.jsp").forward(request, response);
 	}
 
 	/**
