@@ -39,13 +39,15 @@
 	      		<p><strong>Estimated number of students involved in a Pro-Life group: </strong><c:out value="${requestScope.app.prolifegroupstudents}"/> students</p>
 	      		<p><strong>Is university located in the Southern or Northern U.S.? </strong><c:out value="${requestScope.app.north ? 'Northern' : 'Southern'}"/></p>
 	      		<p><strong>Religion of applicant: </strong><c:out value="${requestScope.app.religion}"/></p>
+	      		<audio controls>
+	        		<source src="${pageContext.request.contextPath}/admin/audio-app-server?filename=${requestScope.app.getAudiourl()}">
+	        		Your browser does not support the audio element
+	        	</audio>
 	      		
 	      		<form action="${pageContext.request.contextPath}/admin/application" method="post">
 	      			<input type="hidden" name="appID" value="${requestScope.app.ID}">
 	      			<input class="btn btn-primary" type="submit" name="decision" value="Accept"/>
 					<input class="btn btn-secondary" type="submit" name="decision" value="Decline"/>
-<!-- 					<button type="submit" class="btn btn-primary" id ="acceptBtn">Accept</button> -->
-<!-- 					<button type="submit" class="btn btn-secondary" id ="declineBtn">Decline</button> -->
 				</form>
 	      	</div>
 	    </div>

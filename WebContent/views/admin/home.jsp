@@ -22,7 +22,7 @@
 	    	<!-- Content Column -->
 	    	<div class="col-lg-9 mt-4 mb-4">
 	        	<h1>Admin Home</h1>
-	        	<p>Perform an admin action by selecting an option on the left</p>	
+	        	<p>Perform an admin action by selecting an option on the left</p>
 	      	</div>
 	    </div>
 	</div>

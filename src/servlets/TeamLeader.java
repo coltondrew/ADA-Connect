@@ -1,12 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +13,7 @@ import javax.servlet.http.Part;
 
 import models.Applications;
 import mySql.MySqlConnections;
+import services.FileManager;
 
 /**
  * Servlet implementation class TeamLeader
@@ -64,37 +61,18 @@ public class TeamLeader extends HttpServlet {
 		boolean northLocation = request.getParameter("location-radio").equals("north");
 		String religion = request.getParameter("religion-radio");
 		
-		// Handle File
-		Part filePart = request.getPart("audio-file"); // Retrieves <input type="file" name="file">
-//		String fileName = getSubmittedFileName(filePart);
-	    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-//	    System.out.println(fileName);
-	    InputStream fileContent = filePart.getInputStream();
-	    Path path = Paths.get("C:/apps/ada", fileName);
-	    Files.deleteIfExists(path);
-	    Files.copy(fileContent, path, StandardCopyOption.REPLACE_EXISTING);
+		// Save File
+		Part filePart = request.getPart("audio-file");
+		ServletContext context = getServletContext();
+		String dirName = FileManager.getRootDir(context) + "/" + context.getInitParameter("audioAppDir");
+		String fileName = FileManager.saveFile(filePart, dirName);
 	    
+		// Add app to database
 		Applications app = new Applications(firstName, lastName, email, schoolYear, university, universityPopulation, teamExists, numCredits, adaHours, otherJob, otherJobHours, newmanMember, newmanPopulation, prolifeInvolved, prolifePopulation, northLocation, religion, fileName);
 		System.out.println(app);
-		//		MySqlConnections.submitApplication(app);
+		MySqlConnections.submitApplication(app);
 		
-//		Applications app = new Applications(firstName, lastName, email, schoolYear, university,);
-		
-//		System.out.printf("%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n", firstName, lastName, email, schoolYear, 
-//				university, universityPopulation, teamExists, numCredits, adaHours, otherJob, otherJobHours, newmanMember, 
-//				newmanPopulation, prolifeInvolved, northLocation, religion);
 		
 		doGet(request, response);
 	}
-	
-//	private static String getSubmittedFileName(Part part) {
-//		for (String cd : part.getHeader("content-disposition").split(";")) {
-//	        if (cd.trim().startsWith("filename")) {
-//	            String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-//	            return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
-//	        }
-//	    }
-//	    return null;
-//	}
-
 }

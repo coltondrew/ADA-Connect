@@ -9,6 +9,21 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <description>Windows Root</description>
+    <param-name>windowsRoot</param-name>
+    <param-value>C:/apps/ada</param-value>
+  </context-param>
+  <context-param>
+    <description>Linux Root</description>
+    <param-name>linuxRoot</param-name>
+    <param-value>/srv/www</param-value>
+  </context-param>
+    <context-param>
+    <description>Audio Application Directory</description>
+    <param-name>audioAppDir</param-name>
+    <param-value>appAudio</param-value>
+  </context-param>
   <jsp-config>
     <taglib>
       <taglib-uri>http://ADA-Connect.com/taglib</taglib-uri>
