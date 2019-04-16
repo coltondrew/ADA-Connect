@@ -13,6 +13,11 @@
 <body>
 	<!-- Navbar -->
 	<jsp:include page="/views/navbar.jsp"></jsp:include>
-This is the leaderboard page
+	
+	<div class="embed-responsive embed-responsive-1by1">
+		<iframe class="embed-responsive-item" src="https://adaomaha.shinyapps.io/adaapp/">
+	         Sorry your browser does not support inline frames.
+	    </iframe>
+	</div>
 </body>
 </html>
