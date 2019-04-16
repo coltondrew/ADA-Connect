@@ -86,5 +86,7 @@
 
 <script type="text/javascript">
 var contextPath = "${pageContext.request.contextPath}";
+var domain = "${pageContext.request.serverName}";
+console.log(domain);
 </script>
-<script src="/ADA-Connect/views/nav.js"></script>
+<script src="${pageContext.request.contextPath}/views/nav.js"></script>

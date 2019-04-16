@@ -1,11 +1,19 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import models.Applications;
 import mySql.MySqlConnections;
@@ -14,6 +22,7 @@ import mySql.MySqlConnections;
  * Servlet implementation class TeamLeader
  */
 @WebServlet("/team-leader")
+@MultipartConfig
 public class TeamLeader extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,6 +45,7 @@ public class TeamLeader extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Get parameters
 		String firstName = request.getParameter("first-name");
 		String lastName = request.getParameter("last-name");
 		String email = request.getParameter("email");
@@ -54,8 +64,19 @@ public class TeamLeader extends HttpServlet {
 		boolean northLocation = request.getParameter("location-radio").equals("north");
 		String religion = request.getParameter("religion-radio");
 		
-		Applications app = new Applications(firstName, lastName, email, schoolYear, university, universityPopulation, teamExists, numCredits, adaHours, otherJob, otherJobHours, newmanMember, newmanPopulation, prolifeInvolved, prolifePopulation, northLocation, religion, "");
-		MySqlConnections.submitApplication(app);
+		// Handle File
+		Part filePart = request.getPart("audio-file"); // Retrieves <input type="file" name="file">
+//		String fileName = getSubmittedFileName(filePart);
+	    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+//	    System.out.println(fileName);
+	    InputStream fileContent = filePart.getInputStream();
+	    Path path = Paths.get("C:/apps/ada", fileName);
+	    Files.deleteIfExists(path);
+	    Files.copy(fileContent, path, StandardCopyOption.REPLACE_EXISTING);
+	    
+		Applications app = new Applications(firstName, lastName, email, schoolYear, university, universityPopulation, teamExists, numCredits, adaHours, otherJob, otherJobHours, newmanMember, newmanPopulation, prolifeInvolved, prolifePopulation, northLocation, religion, fileName);
+		System.out.println(app);
+		//		MySqlConnections.submitApplication(app);
 		
 //		Applications app = new Applications(firstName, lastName, email, schoolYear, university,);
 		
@@ -65,5 +86,15 @@ public class TeamLeader extends HttpServlet {
 		
 		doGet(request, response);
 	}
+	
+//	private static String getSubmittedFileName(Part part) {
+//		for (String cd : part.getHeader("content-disposition").split(";")) {
+//	        if (cd.trim().startsWith("filename")) {
+//	            String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+//	            return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
+//	        }
+//	    }
+//	    return null;
+//	}
 
 }

@@ -63,12 +63,12 @@
 					<div class="form-group">
 				    	<label for="bio">Bio</label>
 				    	<textarea class="form-control" id="bio" name="bio" rows="5"></textarea>
-				  </div>
-				  <div class="form-group">
+					</div>
+					<div class="form-group">
     			  		<label for="image-file">Volunteer Photo:</label>
     					<input type="file" class="form-control-file" id="image-file">
-  				  </div>
-		  		  <button type="submit" class="btn btn-primary">Submit</button>
+  					</div>
+		  			<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
 	      	</div>
 	    </div>
