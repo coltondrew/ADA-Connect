@@ -2,7 +2,7 @@
  * 
  */
 var teamDropdown = $("#teams-dropdown");
-var url = "http://" + domain + ":8080" + contextPath + "/list-teams"; 
+var url = "http://" + domain + ":" + port + contextPath + "/list-teams"; 
 
 $.getJSON(url, function(teams) {
 	$.each(teams, function(num, team) {
