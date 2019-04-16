@@ -8,5 +8,6 @@
 	    <a href="${pageContext.request.contextPath}/admin/new-volunteer" class="list-group-item">Add New Volunteer</a>
    	    <a href="${pageContext.request.contextPath}/admin/new-team" class="list-group-item">Add New Team</a>
    	    <a href="${pageContext.request.contextPath}/admin/conversation-tracker" class="list-group-item">Track Conversations</a>
+   	    <a href="${pageContext.request.contextPath}/admin/new-news" class="list-group-item">Add News Article</a>   	    
     </div>
 </div>
