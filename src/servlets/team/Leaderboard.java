@@ -1,4 +1,4 @@
-package servlets;
+package servlets.team;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Teams
+ * Servlet implementation class Leaderboard
  */
-@WebServlet("/team")
-public class Team extends HttpServlet {
+@WebServlet(name = "TeamLeaderboard", urlPatterns = { "/team/leaderboard" })
+public class Leaderboard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Team() {
+    public Leaderboard() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,7 @@ public class Team extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/team.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/team/leaderboard.jsp").forward(request, response);	
 	}
 
 	/**
