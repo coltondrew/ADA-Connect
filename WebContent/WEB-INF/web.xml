@@ -22,12 +22,12 @@
   <context-param>
     <description>Audio Application Directory</description>
     <param-name>audioAppDir</param-name>
-    <param-value>audio/appAudio</param-value>
+    <param-value>audio/apps</param-value>
   </context-param>
   <context-param>
     <description>Volunteer Images Directory</description>
     <param-name>volImgDir</param-name>
-    <param-value>img/vol</param-value>
+    <param-value>img/vols</param-value>
   </context-param>
   <jsp-config>
     <taglib>
