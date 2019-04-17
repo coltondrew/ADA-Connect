@@ -11,7 +11,25 @@ public class Volunteers implements java.io.Serializable {
 	String bio;
 	String pictureUrl;
 	int volID;
+	String datetime;
 	
+	
+	public Volunteers(String firstname, String lastname, int teamID, String schoolyear, String hometown,
+			String highschool, String bio, String pictureUrl, int volID, String datetime) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.teamID = teamID;
+		this.schoolyear = schoolyear;
+		this.hometown = hometown;
+		this.highschool = highschool;
+		this.bio = bio;
+		this.pictureUrl = pictureUrl;
+		this.volID = volID;
+		this.datetime = datetime;
+	}
+
+
 	/**
 	 * Constructor for adding a new volunteer.
 	 * @param firstname

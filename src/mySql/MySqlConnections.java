@@ -569,7 +569,7 @@ public class MySqlConnections {
 		   ArrayList<Volunteers> volunteers = new ArrayList<Volunteers>();
 		   connection = null;
 		   PreparedStatement statement = null;
-		   String getActiveTeamMembers = "select * from TeamVolunteers where teamID = ? and active = 1";
+		   String getActiveTeamMembers = "select * from Volunteers where teamID = ? and active = 1";
 		   try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -585,7 +585,7 @@ public class MySqlConnections {
 					statement.setInt(1, teamID);
 					ResultSet rs = statement.executeQuery();
 					while(rs.next()) {
-						volunteers.add(new Volunteers(rs.getString("firstname"), rs.getString("lastname"), rs.getInt("teamID"), rs.getInt("volID")));
+						volunteers.add(new Volunteers(rs.getString("firstname"), rs.getString("lastname"), rs.getInt("teamID"), rs.getString("schoolyear"), rs.getString("hometown"), rs.getString("highschool"), rs.getString("bio"), rs.getString("volpicture"), rs.getInt("volID"), rs.getString("startdate")));
 					}
 					statement.close();
 					connection.close();
@@ -696,7 +696,80 @@ public class MySqlConnections {
 		   return article;
 	   }
 	   
+	   /**
+	    * Gets a volunteer by ID.
+	    * @param ID the ID of the volunteer to retrieve
+	    * @return
+	    */
+	   public static Volunteers getVol(int ID) {
+		   connection = null;
+		   Volunteers vol = null;
+		   PreparedStatement statement = null;
+		   String getVol = "select * from Volunteers where volID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return vol;
+		      }
+		      try {
+					statement = connection.prepareStatement(getVol);
+					statement.setInt(1, ID);
+					ResultSet rs = statement.executeQuery();
+					if( rs.next()) {
+						vol = new Volunteers(rs.getString("firstname"), rs.getString("lastname"), rs.getInt("teamID"), rs.getString("schoolyear"), rs.getString("hometown"), rs.getString("highschool"), rs.getString("bio"), rs.getString("volpicture"), rs.getInt("volID"), rs.getString("startdate"));
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return vol;
+	   }
 	   
+	   /**
+	    * Updates a volunteer by ID.
+	    * @param vol the new volunteer info (including its id)
+	    * @return
+	    */
+	   public static boolean updateVol(Volunteers vol) {
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String updateVol = "update Volunteers set firstname = ?, lastname = ?, schoolyear = ?, hometown = ?, highschool = ?, bio = ? where volID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return false;
+		      }
+		      try {
+					statement = connection.prepareStatement(updateVol);
+					statement.setString(1,  vol.getFirstname());
+					statement.setString(2,  vol.getLastname());
+					statement.setString(3, vol.getSchoolyear());
+					statement.setString(4,  vol.getHometown());
+					statement.setString(5,  vol.getHighschool());
+					statement.setString(6,  vol.getBio());
+					statement.setInt(7, vol.getVolID());
+					statement.executeUpdate();
+
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return true;
+	   }
 	   
 	   
 	   /**
