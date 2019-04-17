@@ -16,14 +16,14 @@ import mySql.MySqlConnections;
 /**
  * Servlet implementation class NewVolunteer
  */
-@WebServlet("/admin/new-volunteer")
-public class NewVolunteer extends HttpServlet {
+@WebServlet("/admin/manage-volunteers")
+public class VolunteerManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewVolunteer() {
+    public VolunteerManager() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,7 +40,7 @@ public class NewVolunteer extends HttpServlet {
 		ArrayList<Volunteers> volList = MySqlConnections.getActiveTeamVolunteers(teamId);
 		request.setAttribute("volList", volList);
 		
-		request.getRequestDispatcher("/views/admin/newvolunteer.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/managevolunteers.jsp").forward(request, response);
 	}
 
 	/**
@@ -51,11 +51,15 @@ public class NewVolunteer extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		// Add new volunteer
-		if(action.equals("add")) {
+		if(action.equals("add")) {	// Add new volunteer
 			addVolunteer(request);
 		}
-		else if(action.equals("update")) {
+		else if(action.equals("update")) {	// Update volunteer info
 			updateVolunteer(request);
+		}
+		else if(action.equals("delete")) { // Delete volunteer
+			int id = Integer.parseInt(request.getParameter("vol-id"));
+			MySqlConnections.deleteVol(id);
 		}
 		else {
 			System.out.println("Invalid action");

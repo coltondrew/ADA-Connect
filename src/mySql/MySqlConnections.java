@@ -771,6 +771,38 @@ public class MySqlConnections {
 		   return true;
 	   }
 	   
+	   /**
+	    * Deletes a volunteer by ID.
+	    * @param id the id of the volunteer to be deleted
+	    * @return
+	    */
+	   public static boolean deleteVol(int id) {
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String deleteVol = "delete from Volunteers where volID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return false;
+		      }
+		      try {
+					statement = connection.prepareStatement(deleteVol);
+					statement.setInt(1,  id);
+					statement.executeUpdate();
+
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return true;
+	   }
 	   
 	   /**
 	    * Main function used for testing.
