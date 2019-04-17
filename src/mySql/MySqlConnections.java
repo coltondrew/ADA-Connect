@@ -172,6 +172,41 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   public static boolean updateTeam(int teamID, String teamname, String teamleader,double latitude, double longitude, String pictureurl) {
+		   connection = null;
+		   boolean complete = false;
+		   PreparedStatement statement = null;
+		   String addTeam = "update Teams set teamname = ?, teamleader = ?, latitude = ?, longitude = ?, teampicture = ? where teamID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(addTeam);
+					statement.setString(1, teamname);
+					statement.setString(2, teamleader);
+					statement.setDouble(3, latitude);
+					statement.setDouble(4, longitude);
+					statement.setString(5, pictureurl);
+					statement.setInt(6, teamID);
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
+	   
 	   public static boolean addVolunteer(Volunteers volunteer) {
 		   connection = null;
 		   boolean complete = false;
@@ -596,6 +631,37 @@ public class MySqlConnections {
 		   return volunteers;
 	   }
 	   
+	   public static ArrayList<Volunteers> getAllTeamVolunteers(int teamID){
+		   ArrayList<Volunteers> volunteers = new ArrayList<Volunteers>();
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getActiveTeamMembers = "select * from Volunteers where teamID = ?";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return volunteers;
+		      }
+		      try {
+					statement = connection.prepareStatement(getActiveTeamMembers);
+					statement.setInt(1, teamID);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						volunteers.add(new Volunteers(rs.getString("firstname"), rs.getString("lastname"), rs.getInt("teamID"), rs.getString("schoolyear"), rs.getString("hometown"), rs.getString("highschool"), rs.getString("bio"), rs.getString("volpicture"), rs.getInt("volID"), rs.getString("startdate")));
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return volunteers;
+	   }	   
+	   
 	   public static boolean setVolunteerActive(int volID, boolean active) {
 		   connection = null;
 		   boolean complete = false;
@@ -638,6 +704,38 @@ public class MySqlConnections {
 		   PreparedStatement statement = null;
 		   String addNews = "insert into News(title, contents, datemade, pictureurl) " + 
 					"values(?,?,now(),?)";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(addNews);
+					statement.setString(1, title);
+					statement.setString(2, contents);
+					statement.setString(3, pictureurl);
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
+	   
+	   public static boolean updateNews(int newsID, String title, String contents, String pictureurl) {
+		   connection = null;
+		   boolean complete = false;
+		   PreparedStatement statement = null;
+		   String addNews = "update News set newsID = ?, title =?, contents = ?, pictureurl = ? where newsID = ?";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -778,6 +876,7 @@ public class MySqlConnections {
 	    * @return
 	    */
 	   public static boolean deleteVol(int id) {
+		   boolean complete = false;
 		   connection = null;
 		   PreparedStatement statement = null;
 		   String deleteVol = "delete from Volunteers where volID = ?";
@@ -789,12 +888,14 @@ public class MySqlConnections {
 		      }
 		      if (connection == null) {
 		         System.out.println("Failed to make connection!");
-		         return false;
+		         return complete;
 		      }
 		      try {
 					statement = connection.prepareStatement(deleteVol);
 					statement.setInt(1,  id);
-					statement.executeUpdate();
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
 
 					statement.close();
 					connection.close();
@@ -802,7 +903,71 @@ public class MySqlConnections {
 		      } catch (SQLException e) {
 		         e.printStackTrace();
 		      }
-		   return true;
+		   return complete;
+	   }
+
+	   public static boolean deleteTeam(int id) {
+		   boolean complete = false;
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String deleteVol = "delete from Teams where teamID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(deleteVol);
+					statement.setInt(1, id);
+					
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
+	   
+	   public static boolean deleteNews(int id) {
+		   boolean complete = false;
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String deleteVol = "delete from News where newsID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(deleteVol);
+					statement.setInt(1, id);
+					
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
 	   }
 	   
 	   public static ArrayList<News> getNewsList(){

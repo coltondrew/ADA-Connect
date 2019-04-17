@@ -5,12 +5,9 @@ show tables;
 
 -- Views
 -- Volunteer Stats
-select * from Volunteers natural join Teams;
 create view VolunteerStats as select concat(firstname, ' ', lastname) as name, active, teamname, conversations, conversions, numyear, numweek from Volunteers natural join Teams natural join Stats;
-select * from VolunteerStats;
 
 -- Team Volunteers
-select * from Teams natural join Volunteers;
 create view TeamVolunteers as select teamID, firstname, lastname, volID, active from Teams natural join Volunteers;
 
 -- Tables
@@ -32,7 +29,7 @@ create table Teams(
     teamleader varchar(40) not null,
     latitude decimal(11,8) not null,
     longitude decimal(11,8)not null,
-    teampicture varchar(75),
+    teampicture varchar(50),
     primary key (teamid),
     foreign key (teamleader) references Admins(username)
 );
@@ -78,7 +75,7 @@ create table Volunteers(
     startdate date not null,
     active tinyint default 1,
     primary key(volID),
-    foreign key(teamid) references Teams(teamid) on delete cascade
+    foreign key(teamID) references Teams(teamID) on delete cascade
 );
 
 -- Volunteer statistics
@@ -88,18 +85,20 @@ create table Stats(
     conversions int not null,
     numyear int not null,
     numweek int,
-    primary key(volid, numyear, numweek),
-    foreign key(volid) references Volunteers(volid) on delete cascade
+    primary key(volID, numyear, numweek),
+    foreign key(volID) references Volunteers(volID) on delete cascade
 );
 
 -- News
 create table News(
 	newsID int auto_increment,
+    teamID int,
 	title varchar(100),
 	contents varchar(500),
 	datemade datetime,
-	pictureurl varchar(100),
-    primary key(newsID)
+	pictureurl varchar(50),
+    primary key(newsID),
+    foreign key(teamID) references Teams(teamID) on delete cascade
 );
 
 
