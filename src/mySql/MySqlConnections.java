@@ -740,7 +740,7 @@ public class MySqlConnections {
 	   public static boolean updateVol(Volunteers vol) {
 		   connection = null;
 		   PreparedStatement statement = null;
-		   String updateVol = "update Volunteers set firstname = ?, lastname = ?, schoolyear = ?, hometown = ?, highschool = ?, bio = ? where volID = ?";
+		   String updateVol = "update Volunteers set firstname = ?, lastname = ?, schoolyear = ?, hometown = ?, highschool = ?, bio = ?, volpicture = ? where volID = ?";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -759,7 +759,8 @@ public class MySqlConnections {
 					statement.setString(4,  vol.getHometown());
 					statement.setString(5,  vol.getHighschool());
 					statement.setString(6,  vol.getBio());
-					statement.setInt(7, vol.getVolID());
+					statement.setString(7,  vol.getPictureUrl());
+					statement.setInt(8, vol.getVolID());
 					statement.executeUpdate();
 
 					statement.close();

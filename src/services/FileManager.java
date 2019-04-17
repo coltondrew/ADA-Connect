@@ -14,20 +14,32 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileManager {
-
-	public static String saveFile(Part filePart, String dirName) {
+	public static enum fileType {
+		IMG, AUDIO
+	};
+	
+	public static String saveFile(Part filePart, String dirName, fileType type) {
 	    String targetFileName = "";
 		
 	    // Get file extension
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
 	    String fileExtension = "." + getFileExtension(fileName);
 	    
+	    // Set file type
+	    String filePrefix = "";
+	    if(type == fileType.IMG) {
+	    	filePrefix = "img";
+	    }
+	    else if(type == fileType.AUDIO) {
+	    	filePrefix = "aud";
+	    }
+	    
 	    // Save file to system
 	    InputStream fileContent = null;
 		try {
 			// Create temp file
 			File dir = new File(dirName);
-			File targetFile = File.createTempFile("audio", fileExtension, dir);
+			File targetFile = File.createTempFile(filePrefix, fileExtension, dir);
 			targetFileName = targetFile.getName();
 			
 			// Overwrite temp file
@@ -66,5 +78,20 @@ public class FileManager {
 		}
 		
 		return rootDir;
+	}
+	
+	public static boolean deleteFile(String dirName, String filename) {
+		File file = new File(dirName, filename); 
+        
+        if(file.delete()) 
+        { 
+            System.out.println("File deleted successfully"); 
+            return true;
+        } 
+        else
+        { 
+            System.out.println("Failed to delete the file");
+            return false;
+        } 
 	}
 }

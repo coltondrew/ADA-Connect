@@ -69,7 +69,7 @@
 	<div class="modal fade" id="editVolunteerModal" tabindex="-1" role="dialog" aria-labelledby="editVolunteerModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 	    	<div class="modal-content">
-	    		<form action="${pageContext.request.contextPath}/admin/manage-volunteers" method="post">
+	    		<form action="${pageContext.request.contextPath}/admin/manage-volunteers" method="post" enctype="multipart/form-data">
 		      		<div class="modal-header">
 		        		<h5 class="modal-title" id="editVolunteerModalLabel"></h5>
 		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -123,7 +123,8 @@
 						</div>
 						<div class="form-group">
 					  		<label for="image-file">Volunteer Photo:</label>
-							<input type="file" class="form-control-file" id="image-file">
+					  		<img src="" id="vol-photo" alt="..." class="img-thumbnail" width="100%">
+							<input type="file" onchange="readURL(this);" class="form-control-file" id="image-file" name="image-file">
 						</div>
 					</div>
 		      		<div class="modal-footer">
@@ -140,7 +141,7 @@
 	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 	    	<div class="modal-content">
-	    		<form action="${pageContext.request.contextPath}/admin/manage-volunteers" method="post">
+	    		<form action="${pageContext.request.contextPath}/admin/manage-volunteers" method="post" enctype="multipart/form-data">
 		      		<div class="modal-header">
 		        		<h5 class="modal-title" id="deleteModalLabel">Delete Volunteer</h5>
 		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -167,6 +168,7 @@
 	var port = "${pageContext.request.serverPort}";
 	
 	var url = "http://" + domain + ":" + port + contextPath + "/admin/get-volunteer"; 
+	var photoSrc = contextPath + "/file-server?filename=";
 	
 	$('#editVolunteerModal').on('show.bs.modal', function(e) {
      	var volId = $(e.relatedTarget).data('vol-id');
@@ -198,6 +200,7 @@
 	          	$(e.currentTarget).find('select[name="school-year"]').val(schoolYear);
 	          	$(e.currentTarget).find('input[name="hometown"]').val(hometown);
 	          	$(e.currentTarget).find('input[name="orig-image-path"]').val(pictureUrl);
+	          	$("#vol-photo").attr("src", photoSrc + pictureUrl);
 	     	});
      	}
      	else {
@@ -231,11 +234,24 @@
       	$(e.currentTarget).find('button[id="delete-btn"]').hide();
 		$("#editVolunteerModalLabel").html("");
 		$("#edit-btn").html("");
+      	$("#vol-photo").attr("src", "");
 	});
 	
 	$('#deleteModal').on('show.bs.modal', function(e) {
 		var volId = $(e.relatedTarget).data('vol-id');
 		$(e.currentTarget).find('input[id="del-vol-id"]').val(volId);
 	});
+	
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#vol-photo').attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 </html>

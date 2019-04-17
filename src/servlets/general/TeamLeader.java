@@ -65,7 +65,7 @@ public class TeamLeader extends HttpServlet {
 		Part filePart = request.getPart("audio-file");
 		ServletContext context = getServletContext();
 		String dirName = FileManager.getRootDir(context) + "/" + context.getInitParameter("audioAppDir");
-		String fileName = FileManager.saveFile(filePart, dirName);
+		String fileName = FileManager.saveFile(filePart, dirName, FileManager.fileType.AUDIO);
 	    
 		// Add app to database
 		Applications app = new Applications(firstName, lastName, email, schoolYear, university, universityPopulation, teamExists, numCredits, adaHours, otherJob, otherJobHours, newmanMember, newmanPopulation, prolifeInvolved, prolifePopulation, northLocation, religion, fileName);
