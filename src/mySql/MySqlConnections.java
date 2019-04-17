@@ -761,11 +761,11 @@ public class MySqlConnections {
 	    * @param pictureurl The pictureurl of the news article.
 	    * @return If successful or not.
 	    */
-	   public static boolean addNews(String title, String contents, String pictureurl) {
+	   public static boolean addNews(String title, String contents, String pictureurl, int teamID) {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
-		   String addNews = "insert into News(title, contents, datemade, pictureurl) " + 
+		   String addNews = "insert into News(title, contents, datemade, pictureurl, teamID) " + 
 					"values(?,?,now(),?)";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
@@ -782,6 +782,7 @@ public class MySqlConnections {
 					statement.setString(1, title);
 					statement.setString(2, contents);
 					statement.setString(3, pictureurl);
+					statement.setInt(4, teamID);
 					if(statement.executeUpdate() > 0) {
 						complete = true;
 					}
@@ -1175,10 +1176,8 @@ public class MySqlConnections {
 			   System.out.println("Failed to add weekly stat.");
 		   }*/
 		   //Add News Test
-		   /*
-		   addNews("TEST NEWS TITLE3", "This is the contents or this article", "newspictureurl");
-		   */
+		   addNews("TEST NEWS TITLE", "This is the contents or this article", "newspictureurl", 3);
 		   //Get Full News Test
-		   System.out.println(getFullNews(3));
+		   //System.out.println(getFullNews(3));
 	   }
 }
