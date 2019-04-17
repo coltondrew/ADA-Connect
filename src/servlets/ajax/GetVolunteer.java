@@ -15,7 +15,7 @@ import mySql.MySqlConnections;
 /**
  * Servlet implementation class GetVolunteer
  */
-@WebServlet("/admin/get-volunteer")
+@WebServlet("/get-volunteer")
 public class GetVolunteer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

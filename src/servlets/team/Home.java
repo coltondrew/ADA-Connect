@@ -26,6 +26,9 @@ public class Home extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int teamId = Integer.parseInt(request.getParameter("id"));
+		request.getSession().setAttribute("teamId", teamId);
+		
 		request.getRequestDispatcher("/views/team/home.jsp").forward(request, response);	
 	}
 

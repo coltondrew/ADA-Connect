@@ -1,25 +1,28 @@
 package servlets.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.News;
 import mySql.MySqlConnections;
 
 /**
  * Servlet implementation class NewNews
  */
-@WebServlet("/admin/new-news")
-public class NewNews extends HttpServlet {
+@WebServlet("/admin/manage-news")
+public class NewsManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewNews() {
+    public NewsManager() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +31,10 @@ public class NewNews extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/admin/newnews.jsp").forward(request, response);
+		ArrayList<News> newsList = MySqlConnections.getNewsList();
+		request.setAttribute("newsList", newsList);
+		
+		request.getRequestDispatcher("/views/admin/managenews.jsp").forward(request, response);
 	}
 
 	/**

@@ -154,7 +154,7 @@ public class VolunteerManager extends HttpServlet {
 	
 	private boolean fileUploaded(HttpServletRequest request) {
 		try {
-			Part filePart = request.getPart("image-file");
+			request.getPart("image-file");
 			return true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

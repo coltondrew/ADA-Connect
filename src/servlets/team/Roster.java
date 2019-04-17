@@ -1,11 +1,17 @@
 package servlets.team;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import models.Volunteers;
+import mySql.MySqlConnections;
 
 /**
  * Servlet implementation class Roster
@@ -26,6 +32,14 @@ public class Roster extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Get team id
+		HttpSession session = request.getSession(false);
+        int teamId = (int) session.getAttribute("teamId");
+		
+        // Get volunteers for team
+        ArrayList<Volunteers> volList = MySqlConnections.getActiveTeamVolunteers(teamId);
+        request.setAttribute("volList", volList);
+        
 		request.getRequestDispatcher("/views/team/roster.jsp").forward(request, response);	
 	}
 

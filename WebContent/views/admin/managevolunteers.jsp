@@ -167,7 +167,7 @@
 	var domain = "${pageContext.request.serverName}";
 	var port = "${pageContext.request.serverPort}";
 	
-	var url = "http://" + domain + ":" + port + contextPath + "/admin/get-volunteer"; 
+	var url = "http://" + domain + ":" + port + contextPath + "/get-volunteer"; 
 	var photoSrc = contextPath + "/file-server?filename=";
 	
 	$('#editVolunteerModal').on('show.bs.modal', function(e) {

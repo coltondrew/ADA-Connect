@@ -8,7 +8,7 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<title>Add News</title>
+	<title>Manage News</title>
 </head>
 <body>
 	<!-- Navbar -->
@@ -21,8 +21,8 @@
 			
 	    	<!-- Content Column -->
 	    	<div class="col-lg-9 mt-4 mb-4">
-				<h1>Add a news article</h1>
-				<form action="${pageContext.request.contextPath}/admin/new-news" method="post">
+				<h1>Manage News</h1>
+				<form action="${pageContext.request.contextPath}/admin/manage-news" method="post">
 					<div class="form-row">
 			  			<div class="form-group col-lg-3">
 			    			<label for="news-title">Article Title:</label>

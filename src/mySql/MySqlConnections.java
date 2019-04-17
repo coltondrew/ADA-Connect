@@ -805,6 +805,36 @@ public class MySqlConnections {
 		   return true;
 	   }
 	   
+	   public static ArrayList<News> getNewsList(){
+		   ArrayList<News> newsList = new ArrayList<News>();
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getNewsList = "select newsID, title, datemade, pictureurl from News order by datemade desc";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return newsList;
+		      }
+		      try {
+					statement = connection.prepareStatement(getNewsList);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						newsList.add(new News(rs.getInt("newsID"), rs.getString("title"), rs.getString("datemade"), rs.getString("pictureurl")));
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return newsList;
+	   }
+	   
 	   /**
 	    * Main function used for testing.
 	    * @param args
