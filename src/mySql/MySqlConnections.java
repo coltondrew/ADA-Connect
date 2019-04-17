@@ -17,7 +17,6 @@ public class MySqlConnections {
 	   
 	   /**
 	    * Attempts a user login, returns a user if successful or null if not successful.
-	    * 
 	    * @param username The username to login with.
 	    * @param password The password to login with.
 	    * @return Returns a User model or null.
@@ -58,6 +57,13 @@ public class MySqlConnections {
 		   return user;
 	   }
 	   
+	   /**
+	    * Changes the password of a user.
+	    * @param username The username to change the password for.
+	    * @param oldpassword The old password of the user.
+	    * @param newpassword The new password for the user.
+	    * @return True if successful.
+	    */
 	   public static boolean changePassword(String username, String oldpassword, String newpassword) {
 		   connection = null;
 		   boolean complete = false;
@@ -94,7 +100,6 @@ public class MySqlConnections {
 	   
 	   /**
 	    * Adds a new user.
-	    * 
 	    * @param username The new username of the user.
 	    * @param password The new password of the user.
 	    * @param firstname The new first name of the user.
@@ -137,6 +142,15 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   /**
+	    * Adds a new team.
+	    * @param teamname The name of the new team.
+	    * @param teamleader The teamleader username of the team.
+	    * @param latitude The latitude of the team.
+	    * @param longitude The longitude of the team.
+	    * @param pictureurl The url file path of the team picture.
+	    * @return True if successful. 
+	    */
 	   public static boolean addTeam(String teamname, String teamleader,double latitude, double longitude, String pictureurl) {
 		   connection = null;
 		   boolean complete = false;
@@ -172,6 +186,16 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   /**
+	    * Updates a team's information.
+	    * @param teamID The teamID to update.
+	    * @param teamname The name of the  team.
+	    * @param teamleader The teamleader username of the team.
+	    * @param latitude The latitude of the team.
+	    * @param longitude The longitude of the team.
+	    * @param pictureurl The url file path of the team picture.
+	    * @return True if successful.
+	    */
 	   public static boolean updateTeam(int teamID, String teamname, String teamleader,double latitude, double longitude, String pictureurl) {
 		   connection = null;
 		   boolean complete = false;
@@ -207,6 +231,11 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   /**
+	    * Adds a new volunteer.
+	    * @param volunteer The new volunteer to add.
+	    * @return True if successful.
+	    */
 	   public static boolean addVolunteer(Volunteers volunteer) {
 		   connection = null;
 		   boolean complete = false;
@@ -245,6 +274,15 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   /**
+	    * Adds a volunteer statistic.
+	    * @param volID The ID of the volunteer.
+	    * @param conversations The number of conversations for the week.
+	    * @param conversions The number of conversions for the week.
+	    * @param numyear The year number.
+	    * @param numweek The week number.
+	    * @return True if successful. 
+	    */
 	   public static boolean addStat(int volID, int conversations, int conversions, int numyear, int numweek) {
 		   connection = null;
 		   boolean complete = false;
@@ -283,9 +321,9 @@ public class MySqlConnections {
 	   }
 	   
 	   /**
-	    * Submits a new application to the Database
-	    * @param app
-	    * @return true if the application was submitted successfully
+	    * Submits a new application to the database.
+	    * @param app The application to submit.
+	    * @return true if the application was submitted successfully.
 	    */
 	   public static boolean submitApplication(Applications app) {
 		   connection = null;
@@ -338,7 +376,7 @@ public class MySqlConnections {
 	   }
 	   
 	   /**
-	    * 
+	    * Lists all applications.
 	    * @param complete if the applications retrieved are already completed or not
 	    * @return a list of all applications
 	    */
@@ -379,7 +417,7 @@ public class MySqlConnections {
 	   /**
 	    * Gets a full application to review.
 	    * @param ID the ID of the application to retrieve
-	    * @return
+	    * @return The full application.
 	    */
 	   public static Applications getFullApplication(int ID) {
 		   connection = null;
@@ -534,7 +572,11 @@ public class MySqlConnections {
 		      }
 		   return teamnames;
 	   }
-	   
+	   /**
+	    * Gets a teamID by teamleader username.
+	    * @param teamleader The teamleader to retrieve of the username.
+	    * @return The teamID or -1.
+	    */
 	   public static int getTeamID(String teamleader){
 		   int teamID = -1;
 		   connection = null;
@@ -599,7 +641,11 @@ public class MySqlConnections {
 		      }
 		   return teams;
 	   }
-	   
+	   /**
+	    * Gets a list of all active volunteers.
+	    * @param teamID The teamID of the team the volunteers are in.
+	    * @return
+	    */
 	   public static ArrayList<Volunteers> getActiveTeamVolunteers(int teamID){
 		   ArrayList<Volunteers> volunteers = new ArrayList<Volunteers>();
 		   connection = null;
@@ -630,7 +676,11 @@ public class MySqlConnections {
 		      }
 		   return volunteers;
 	   }
-	   
+	   /**
+	    * Gets a list of all volunteers.
+	    * @param teamID The teamID of volunteers.
+	    * @return A list of volunteers.
+	    */
 	   public static ArrayList<Volunteers> getAllTeamVolunteers(int teamID){
 		   ArrayList<Volunteers> volunteers = new ArrayList<Volunteers>();
 		   connection = null;
@@ -662,6 +712,12 @@ public class MySqlConnections {
 		   return volunteers;
 	   }	   
 	   
+	   /**
+	    * Sets volunteers active or inactive.
+	    * @param volID The ID of the volunteer.
+	    * @param active If the volunteer will be set to active or not.
+	    * @return If successful.
+	    */
 	   public static boolean setVolunteerActive(int volID, boolean active) {
 		   connection = null;
 		   boolean complete = false;
@@ -698,6 +754,13 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   /**
+	    * Adds a news article.
+	    * @param title The title of the news article.
+	    * @param contents The contents of the news article.
+	    * @param pictureurl The pictureurl of the news article.
+	    * @return If successful or not.
+	    */
 	   public static boolean addNews(String title, String contents, String pictureurl) {
 		   connection = null;
 		   boolean complete = false;
@@ -731,6 +794,14 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   /**
+	    * Updates a news article.
+	    * @param newsID The ID of the news to update.
+	    * @param title The title of the news article.
+	    * @param contents The content of the news article. 
+	    * @param pictureurl The picture url of the news article. 
+	    * @return If successful or not.
+	    */
 	   public static boolean updateNews(int newsID, String title, String contents, String pictureurl) {
 		   connection = null;
 		   boolean complete = false;
@@ -763,6 +834,11 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   /**
+	    * Retrieves a full news article.
+	    * @param newsID The ID of the news article to retreive.
+	    * @return The full news article.
+	    */
 	   public static News getFullNews(int newsID) {
 		   connection = null;
 		   News article = null;
@@ -797,7 +873,7 @@ public class MySqlConnections {
 	   /**
 	    * Gets a volunteer by ID.
 	    * @param ID the ID of the volunteer to retrieve
-	    * @return
+	    * @return The volunteer.
 	    */
 	   public static Volunteers getVol(int ID) {
 		   connection = null;
@@ -833,9 +909,10 @@ public class MySqlConnections {
 	   /**
 	    * Updates a volunteer by ID.
 	    * @param vol the new volunteer info (including its id)
-	    * @return
+	    * @return If successful or not.
 	    */
 	   public static boolean updateVol(Volunteers vol) {
+		   boolean complete = false;
 		   connection = null;
 		   PreparedStatement statement = null;
 		   String updateVol = "update Volunteers set firstname = ?, lastname = ?, schoolyear = ?, hometown = ?, highschool = ?, bio = ?, volpicture = ? where volID = ?";
@@ -847,7 +924,7 @@ public class MySqlConnections {
 		      }
 		      if (connection == null) {
 		         System.out.println("Failed to make connection!");
-		         return false;
+		         return complete;
 		      }
 		      try {
 					statement = connection.prepareStatement(updateVol);
@@ -859,7 +936,10 @@ public class MySqlConnections {
 					statement.setString(6,  vol.getBio());
 					statement.setString(7,  vol.getPictureUrl());
 					statement.setInt(8, vol.getVolID());
-					statement.executeUpdate();
+					
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
 
 					statement.close();
 					connection.close();
@@ -867,13 +947,13 @@ public class MySqlConnections {
 		      } catch (SQLException e) {
 		         e.printStackTrace();
 		      }
-		   return true;
+		   return complete;
 	   }
 	   
 	   /**
 	    * Deletes a volunteer by ID.
 	    * @param id the id of the volunteer to be deleted
-	    * @return
+	    * @return If successful or not.
 	    */
 	   public static boolean deleteVol(int id) {
 		   boolean complete = false;
@@ -906,6 +986,11 @@ public class MySqlConnections {
 		   return complete;
 	   }
 
+	   /**
+	    * Deletes a team.
+	    * @param id The ID of the team to delete.
+	    * @return If successful or not.
+	    */
 	   public static boolean deleteTeam(int id) {
 		   boolean complete = false;
 		   connection = null;
@@ -938,6 +1023,11 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   /**
+	    * Deletes a news article.
+	    * @param id The ID of the news article to delete.
+	    * @return If successful or not.
+	    */
 	   public static boolean deleteNews(int id) {
 		   boolean complete = false;
 		   connection = null;
@@ -970,6 +1060,10 @@ public class MySqlConnections {
 		   return complete;
 	   }
 	   
+	   /**
+	    * Gets a list of news articles but not their contents.
+	    * @return A list of news articles.
+	    */
 	   public static ArrayList<News> getNewsList(){
 		   ArrayList<News> newsList = new ArrayList<News>();
 		   connection = null;
