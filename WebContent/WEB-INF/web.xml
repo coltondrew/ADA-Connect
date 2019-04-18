@@ -34,6 +34,11 @@
     <param-name>newsImgDir</param-name>
     <param-value>img/news</param-value>
   </context-param>
+  <context-param>
+    <description>Team Images Directory</description>
+    <param-name>teamImgDir</param-name>
+    <param-value>img/teams</param-value>
+  </context-param>
   <jsp-config>
     <taglib>
       <taglib-uri>http://ADA-Connect.com/taglib</taglib-uri>

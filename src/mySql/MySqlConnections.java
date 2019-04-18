@@ -196,7 +196,7 @@ public class MySqlConnections {
 	    * @param pictureurl The url file path of the team picture.
 	    * @return True if successful.
 	    */
-	   public static boolean updateTeam(int teamID, String teamname, String teamleader,double latitude, double longitude, String pictureurl) {
+	   public static boolean updateTeam(int teamID, String teamname, String teamleader, double latitude, double longitude, String pictureurl) {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
@@ -616,7 +616,8 @@ public class MySqlConnections {
 		   ArrayList<Teams> teams = new ArrayList<Teams>();
 		   connection = null;
 		   PreparedStatement statement = null;
-		   String getTeams = "select teamname,teamID from Teams";
+		   
+		   String getTeams = "select teamname,teamID,teampicture from Teams";
 		   try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -631,7 +632,7 @@ public class MySqlConnections {
 					statement = connection.prepareStatement(getTeams);
 					ResultSet rs = statement.executeQuery();
 					while(rs.next()) {
-						teams.add(new Teams(rs.getString(1), rs.getInt(2)));
+						teams.add(new Teams(rs.getString(1), rs.getInt(2), "", 0, 0, rs.getString(3)));
 					}
 					statement.close();
 					connection.close();
@@ -906,6 +907,42 @@ public class MySqlConnections {
 		         e.printStackTrace();
 		      }
 		   return vol;
+	   }
+	   
+	   /**
+	    * Gets a team by ID.
+	    * @param ID the ID of the team to retrieve
+	    * @return The team.
+	    */
+	   public static Teams getTeam(int ID) {
+		   connection = null;
+		   Teams team = null;
+		   PreparedStatement statement = null;
+		   String getVol = "select * from Teams where teamID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return team;
+		      }
+		      try {
+					statement = connection.prepareStatement(getVol);
+					statement.setInt(1, ID);
+					ResultSet rs = statement.executeQuery();
+					if( rs.next()) {
+						team = new Teams(rs.getString("teamname"), ID, rs.getString("teamleader"), rs.getDouble("latitude"), rs.getDouble("longitude"), rs.getString("teampicture"));
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return team;
 	   }
 	   
 	   /**

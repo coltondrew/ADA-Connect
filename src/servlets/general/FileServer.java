@@ -39,6 +39,8 @@ public class FileServer extends HttpServlet {
 		Map<String, String> dirMap = new HashMap<>();
         dirMap.put("volImg", sc.getInitParameter("volImgDir"));
         dirMap.put("newsImg", sc.getInitParameter("newsImgDir"));
+        dirMap.put("teamImg", sc.getInitParameter("teamImgDir"));
+
 		
 		// Get filename
 		String filename = request.getParameter("filename");

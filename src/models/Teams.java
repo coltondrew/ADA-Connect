@@ -9,7 +9,15 @@ public class Teams implements java.io.Serializable {
 	double longitude;
 	String photoUrl;
 	
-	
+	public Teams(String teamname, int iD, String username, double latitude, double longitude, String photoUrl) {
+		super();
+		this.teamname = teamname;
+		ID = iD;
+		this.username = username;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.photoUrl = photoUrl;
+	}
 	
 	public Teams(String teamname, int iD) {
 		super();

@@ -1,28 +1,28 @@
-package servlets.admin;
+package servlets.ajax;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//import models.Teams;
-import models.User;
+import com.google.gson.Gson;
+
+import models.Teams;
 import mySql.MySqlConnections;
+
 /**
- * Servlet implementation class NewTeam
+ * Servlet implementation class GetTeams
  */
-@WebServlet("/admin/new-team")
-public class NewTeam extends HttpServlet {
+@WebServlet("/get-team")
+public class GetTeam extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewTeam() {
+    public GetTeam() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +31,22 @@ public class NewTeam extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<User> teamLeaderList = MySqlConnections.getTeamLeaders();
-		request.setAttribute("teamLeaderList", teamLeaderList);
-		request.getRequestDispatcher("/views/admin/newteam.jsp").forward(request, response);
+		int id = Integer.parseInt(request.getParameter("id"));
+		Teams team = MySqlConnections.getTeam(id);
+		Gson gson = new Gson();
+		String json = gson.toJson(team);
+		
+		// Send response
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(json);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Get parameters
-		String teamName = request.getParameter("team-name");
-		String teamLeader = request.getParameter("team-leader");
-		double latitude = Double.parseDouble(request.getParameter("latitude"));
-		double longitude = Double.parseDouble(request.getParameter("longitude"));
-		
-		MySqlConnections.addTeam(teamName, teamLeader, latitude, longitude, "");
-//		Teams team = new Teams(teamName, teamLeader, latitude, longitude, "");
-//		System.out.println(team);
-		
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

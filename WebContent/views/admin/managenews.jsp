@@ -87,7 +87,7 @@
 					    	<textarea class="form-control" id="news-body" name="news-body" rows="10"></textarea>
 						</div>
 					  	<div class="form-group">
-	    			  		<label for="image-file">Article Photo:</label>
+	    			  		<label for="news-img-input">Article Photo:</label>
 					  		<img src="" id="news-img" alt="..." class="img-thumbnail" width="100%">
 	    					<input type="file" onchange="readURL(this);"  class="form-control-file" id="news-img-input" name="news-img">
 	  				  	</div>

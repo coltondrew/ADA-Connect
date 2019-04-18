@@ -6,7 +6,7 @@
 	    <a href="${pageContext.request.contextPath}/admin/new-admin" class="list-group-item">Add New Admin</a>
 	    <a href="${pageContext.request.contextPath}/admin/view-applications" class="list-group-item">View Applicants</a>
 	    <a href="${pageContext.request.contextPath}/admin/manage-volunteers" class="list-group-item">Manage Volunteers</a>
-   	    <a href="${pageContext.request.contextPath}/admin/new-team" class="list-group-item">Add New Team</a>
+   	    <a href="${pageContext.request.contextPath}/admin/manage-teams" class="list-group-item">Manage Teams</a>
    	    <a href="${pageContext.request.contextPath}/admin/conversation-tracker" class="list-group-item">Track Conversations</a>
    	    <a href="${pageContext.request.contextPath}/admin/manage-news" class="list-group-item">Manage News</a>   	    
     </div>
