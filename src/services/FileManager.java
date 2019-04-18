@@ -23,6 +23,7 @@ public class FileManager {
 		
 	    // Get file extension
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+//		System.out.println(fileName);
 	    String fileExtension = "." + getFileExtension(fileName);
 	    
 	    // Set file type

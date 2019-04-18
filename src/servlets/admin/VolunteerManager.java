@@ -1,6 +1,7 @@
 package servlets.admin;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
@@ -154,8 +155,14 @@ public class VolunteerManager extends HttpServlet {
 	
 	private boolean fileUploaded(HttpServletRequest request) {
 		try {
-			request.getPart("image-file");
-			return true;
+			Part filePart = request.getPart("image-file");
+			String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+			if(fileName.equals("")) {
+				return false;
+			}
+			else {
+				return true;
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

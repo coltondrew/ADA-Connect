@@ -29,6 +29,11 @@
     <param-name>volImgDir</param-name>
     <param-value>img/vols</param-value>
   </context-param>
+  <context-param>
+    <description>News Images Directory</description>
+    <param-name>newsImgDir</param-name>
+    <param-value>img/news</param-value>
+  </context-param>
   <jsp-config>
     <taglib>
       <taglib-uri>http://ADA-Connect.com/taglib</taglib-uri>

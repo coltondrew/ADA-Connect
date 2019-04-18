@@ -7,7 +7,19 @@ public class News implements java.io.Serializable {
 	String contents;
 	String date;
 	String pictureurl;
+	int teamID;
 	
+
+	public News(int newsID, String title, String contents, String date, String pictureurl, int teamID) {
+		super();
+		this.newsID = newsID;
+		this.title = title;
+		this.contents = contents;
+		this.date = date;
+		this.pictureurl = pictureurl;
+		this.teamID = teamID;
+	}
+
 	/**
 	 * Constructor for getting a full news article.
 	 * @param title

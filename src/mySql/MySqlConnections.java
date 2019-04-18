@@ -766,7 +766,7 @@ public class MySqlConnections {
 		   boolean complete = false;
 		   PreparedStatement statement = null;
 		   String addNews = "insert into News(title, contents, datemade, pictureurl, teamID) " + 
-					"values(?,?,now(),?)";
+					"values(?, ?, now(), ?, ?)";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -807,7 +807,7 @@ public class MySqlConnections {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
-		   String addNews = "update News set newsID = ?, title =?, contents = ?, pictureurl = ? where newsID = ?";
+		   String addNews = "update News set title =?, contents = ?, pictureurl = ? where newsID = ?";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -823,6 +823,7 @@ public class MySqlConnections {
 					statement.setString(1, title);
 					statement.setString(2, contents);
 					statement.setString(3, pictureurl);
+					statement.setInt(4, newsID);
 					if(statement.executeUpdate() > 0) {
 						complete = true;
 					}

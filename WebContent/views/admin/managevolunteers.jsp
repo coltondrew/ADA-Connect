@@ -168,7 +168,7 @@
 	var port = "${pageContext.request.serverPort}";
 	
 	var url = "http://" + domain + ":" + port + contextPath + "/get-volunteer"; 
-	var photoSrc = contextPath + "/file-server?filename=";
+	var photoSrc = contextPath + "/file-server?category=volImg&filename=";
 	
 	$('#editVolunteerModal').on('show.bs.modal', function(e) {
      	var volId = $(e.relatedTarget).data('vol-id');

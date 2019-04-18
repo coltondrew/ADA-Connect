@@ -3,6 +3,8 @@ package servlets.general;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -26,23 +28,28 @@ public class FileServer extends HttpServlet {
      */
     public FileServer() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Initialize hashmap
+		ServletContext sc = getServletContext();
+		Map<String, String> dirMap = new HashMap<>();
+        dirMap.put("volImg", sc.getInitParameter("volImgDir"));
+        dirMap.put("newsImg", sc.getInitParameter("newsImgDir"));
+		
 		// Get filename
 		String filename = request.getParameter("filename");
+		String category = request.getParameter("category");
 //		String filename = "img308921030689230273.jpg";
 		
 		// Set response type
 		response.setContentType("image/jpeg");
 		
-		// Output audio file to client
-		ServletContext context = getServletContext();
-		String dirName = FileManager.getRootDir(context) + "/" + context.getInitParameter("volImgDir");
+		// Output file to client
+		String dirName = FileManager.getRootDir(sc) + "/" + dirMap.get(category);
 		FileInputStream inputStream = null;
 		OutputStream outStream = null;
 		try {
