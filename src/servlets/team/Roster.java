@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import models.Teams;
 import models.Volunteers;
 import mySql.MySqlConnections;
 
@@ -34,7 +35,8 @@ public class Roster extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get team id
 		HttpSession session = request.getSession(false);
-        int teamId = (int) session.getAttribute("teamId");
+		Teams team = (Teams) session.getAttribute("teamObj");
+        int teamId = team.getID();
 		
         // Get volunteers for team
         ArrayList<Volunteers> volList = MySqlConnections.getActiveTeamVolunteers(teamId);

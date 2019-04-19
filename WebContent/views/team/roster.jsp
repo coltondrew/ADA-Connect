@@ -27,7 +27,7 @@
 			<div class="d-flex flex-wrap justify-content-start">
 				<c:forEach items="${requestScope.volList}" var="vol">
 					<div class="card m-2 bg-light" style="width:15%">
-						<img class="card-img-top" src="${pageContext.request.contextPath}/file-server?filename=${vol.getPictureUrl()}" alt="Card image cap" style="width:100%;height:13vw;object-fit: cover;">
+						<img class="card-img-top" src="${pageContext.request.contextPath}/file-server?category=volImg&filename=${vol.getPictureUrl()}" alt="Card image cap" style="width:100%;height:13vw;object-fit: cover;">
 						<div class="card-body" style="padding:0.5rem;">
 							<h5 class="card-title text-center"><c:out value="${vol.firstname} ${vol.lastname}"/></h5>
 							<a href="#volModal" data-toggle="modal" data-vol-id="${vol.volID}" class="stretched-link"></a>
@@ -65,15 +65,12 @@
 </body>
 <script>
 	var contextPath = "${pageContext.request.contextPath}";
-	$('img').on("error", function() {
-		  $(this).attr('src', contextPath + "/file-server?filename=blank_vol.png");
-		});
 	
 	var domain = "${pageContext.request.serverName}";
 	var port = "${pageContext.request.serverPort}";
 	
 	var url = "http://" + domain + ":" + port + contextPath + "/get-volunteer"; 
-	var photoSrc = contextPath + "/file-server?filename=";
+	var photoSrc = contextPath + "/file-server?category=volImg&filename=";
 	
 	$('#volModal').on('show.bs.modal', function(e) {
      	var volId = $(e.relatedTarget).data('vol-id');

@@ -52,6 +52,9 @@ public class FileServer extends HttpServlet {
 		
 		// Output file to client
 		String dirName = FileManager.getRootDir(sc) + "/" + dirMap.get(category);
+		if(!FileManager.fileExists(dirName + "/" + filename)) {
+			filename = "blank.png";
+		}
 		FileInputStream inputStream = null;
 		OutputStream outStream = null;
 		try {

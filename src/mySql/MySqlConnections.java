@@ -1173,6 +1173,77 @@ public class MySqlConnections {
 	   }
 	   
 	   /**
+	    * Gets a list of news articles but not their contents.
+	    * @return A list of news articles.
+	    */
+	   public static News getMostRecentNews(int id){
+		   News news = null;
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getMostRecentNews = "select newsID, title, contents, datemade, pictureurl from News where teamID = ? order by datemade desc limit 1";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return news;
+		      }
+		      try {
+					statement = connection.prepareStatement(getMostRecentNews);
+					statement.setInt(1,  id);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						news = new News(rs.getInt("newsID"), rs.getString("title"), rs.getString("contents"), rs.getString("datemade"), rs.getString("pictureurl"), id);
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return news;
+	   }
+	   
+	   /**
+	    * Gets a list of news articles but not their contents, excluding the news id parameter
+	    * @return A list of news articles.
+	    */
+	   public static ArrayList<News> getNewsListExcludeId(int teamId, int newsId){
+		   ArrayList<News> newsList = new ArrayList<News>();
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getNewsList = "select newsID, title, datemade, pictureurl from News where teamID = ? and newsId <> ? order by datemade desc";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return newsList;
+		      }
+		      try {
+					statement = connection.prepareStatement(getNewsList);
+					statement.setInt(1,  teamId);
+					statement.setInt(2,  newsId);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						newsList.add(new News(rs.getInt("newsID"), rs.getString("title"), rs.getString("datemade"), rs.getString("pictureurl")));
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return newsList;
+	   }
+	   
+	   /**
 	    * Main function used for testing.
 	    * @param args
 	    */

@@ -95,4 +95,14 @@ public class FileManager {
             return false;
         } 
 	}
+	
+	public static boolean fileExists(String path) {
+		File f = new File(path);
+		if(f.exists() && !f.isDirectory()) { 
+		    return true;
+		}
+		else {
+			return false;
+		}
+	}
 }
