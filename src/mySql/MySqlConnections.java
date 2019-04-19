@@ -1100,14 +1100,52 @@ public class MySqlConnections {
 	   }
 	   
 	   /**
+	    * Returns total number of conversations for a team
+	    * @param id the id of a team
+	    * @return If successful or not.
+	    */
+	   public static int getTotalConversations(int id) {
+		   int totalConversations = 0;
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getTotalConversations = "SELECT SUM(Stats.conversations) FROM Stats INNER JOIN Volunteers ON Stats.volID=Volunteers.volID WHERE Volunteers.teamID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return totalConversations;
+		      }
+		      try {
+					statement = connection.prepareStatement(getTotalConversations);
+					statement.setInt(1, id);
+					
+					ResultSet rs = statement.executeQuery();
+					if( rs.next()) {
+						totalConversations = rs.getInt(1);
+					}
+
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return totalConversations;
+	   }
+	   
+	   /**
 	    * Gets a list of news articles but not their contents.
 	    * @return A list of news articles.
 	    */
-	   public static ArrayList<News> getNewsList(){
+	   public static ArrayList<News> getNewsList(int id){
 		   ArrayList<News> newsList = new ArrayList<News>();
 		   connection = null;
 		   PreparedStatement statement = null;
-		   String getNewsList = "select newsID, title, datemade, pictureurl from News order by datemade desc";
+		   String getNewsList = "select newsID, title, datemade, pictureurl from News where teamID = ? order by datemade desc";
 		   try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -1120,6 +1158,7 @@ public class MySqlConnections {
 		      }
 		      try {
 					statement = connection.prepareStatement(getNewsList);
+					statement.setInt(1,  id);
 					ResultSet rs = statement.executeQuery();
 					while(rs.next()) {
 						newsList.add(new News(rs.getInt("newsID"), rs.getString("title"), rs.getString("datemade"), rs.getString("pictureurl")));

@@ -38,7 +38,11 @@ public class NewsManager extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<News> newsList = MySqlConnections.getNewsList();
+		// Get id of admin user
+		User adminUser = (User) request.getSession().getAttribute("adminUser");
+		int teamId = MySqlConnections.getTeamID(adminUser.getUsername());
+		
+		ArrayList<News> newsList = MySqlConnections.getNewsList(teamId);
 		request.setAttribute("newsList", newsList);
 		
 		request.getRequestDispatcher("/views/admin/managenews.jsp").forward(request, response);

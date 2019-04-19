@@ -4,7 +4,7 @@
 	<div class="col-6">
 		<ul class="nav justify-content-start">
 			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/team">Home</a>
+				<a class="nav-link" href="${pageContext.request.contextPath}/team">${sessionScope.teamObj.teamname}</a>
 			</li>
 		</ul>
 	</div>
