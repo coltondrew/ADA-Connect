@@ -1,11 +1,14 @@
 package mySql;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import models.*;
 
@@ -990,6 +993,85 @@ public class MySqlConnections {
 	   }
 	   
 	   /**
+	    * Updates a stat by ID, year, and week.
+	    * @param stat the new stat data
+	    * @return If successful or not.
+	    */
+	   public static boolean updateStat(int volID, int conversations, int conversions, int year, int week) {
+		   boolean complete = false;
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String updateStat = "update Stats set conversations = ?, conversions = ? where volID = ? and numweek = ? and numyear = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(updateStat);
+					statement.setInt(1, conversations);
+					statement.setInt(2, conversions);
+					statement.setInt(3, volID);
+					statement.setInt(4, week);
+					statement.setInt(5, year);
+					
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
+	   
+	   /**
+	    * Deletes a stat by volID, year, and week.
+	    * @param id the id of the stat to be deleted
+	    * @return If successful or not.
+	    */
+	   public static boolean deleteStat(int volID, int year, int week) {
+		   boolean complete = false;
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String deleteStat = "delete from Stats where volID = ? and numyear = ? and numweek = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return complete;
+		      }
+		      try {
+					statement = connection.prepareStatement(deleteStat);
+					statement.setInt(1,  volID);
+					statement.setInt(2,  year);
+					statement.setInt(3,  week);
+					if(statement.executeUpdate() > 0) {
+						complete = true;
+					}
+
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return complete;
+	   }
+	   
+	   /**
 	    * Deletes a volunteer by ID.
 	    * @param id the id of the volunteer to be deleted
 	    * @return If successful or not.
@@ -1138,6 +1220,53 @@ public class MySqlConnections {
 	   }
 	   
 	   /**
+	    * Returns all distinct weeks and years
+	    * @param id the id of a team
+	    * @return If successful or not.
+	    */
+	   public static Map<Integer, ArrayList<Integer>> getDistinctYearsWeeks(int id) {
+		   Map<Integer, ArrayList<Integer>> yearWeeksMap = new HashMap<>();
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getDistinctYearsWeeks = "SELECT DISTINCT numyear, numweek\r\n" + 
+		   								  "FROM Stats\r\n" + 
+		   								  "INNER JOIN Volunteers ON Stats.volID=Volunteers.volID\r\n" + 
+		   								  "WHERE numyear IS NOT NULL and numweek IS NOT NULL and Volunteers.teamID = ?";
+		      try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return yearWeeksMap;
+		      }
+		      try {
+					statement = connection.prepareStatement(getDistinctYearsWeeks);
+					statement.setInt(1, id);
+					
+					ResultSet rs = statement.executeQuery();
+					while( rs.next()) {
+						int yearKey = rs.getInt("numyear");
+						int week = rs.getInt("numweek");
+						if(!yearWeeksMap.containsKey(yearKey)) {							
+							yearWeeksMap.put(yearKey, new ArrayList<>());
+						}			
+						yearWeeksMap.get(yearKey).add(week);
+
+					}
+
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return yearWeeksMap;
+	   }
+	   
+	   /**
 	    * Gets a list of news articles but not their contents.
 	    * @return A list of news articles.
 	    */
@@ -1170,6 +1299,88 @@ public class MySqlConnections {
 		         e.printStackTrace();
 		      }
 		   return newsList;
+	   }
+	   
+	   /**
+	    * Gets a list of news articles but not their contents.
+	    * @return A list of news articles.
+	    */
+	   public static ArrayList<Stats> getStats(int teamId, int numYear, int numWeek){
+		   ArrayList<Stats> stats = new ArrayList<Stats>();
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getStats = "SELECT Stats.*,Volunteers.firstname, Volunteers.lastname FROM Stats INNER JOIN Volunteers ON Stats.volID=Volunteers.volID WHERE Volunteers.teamID = ? and Stats.numyear = ? and Stats.numweek = ?";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return stats;
+		      }
+		      try {
+					statement = connection.prepareStatement(getStats);
+					statement.setInt(1,  teamId);
+					statement.setInt(2,  numYear);
+					statement.setInt(3,  numWeek);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						stats.add(new Stats(rs.getInt("conversations"), rs.getInt("conversions"), rs.getInt("numyear"), rs.getInt("numWeek"), new Volunteers(rs.getString("firstname"), rs.getString("lastname"), teamId, rs.getInt("volID"))));
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return stats;
+	   }
+	   
+	   /**
+	    * Gets a list of stats.
+	    * @return A list of stats.
+	    */
+	   public static ArrayList<Stats> getMostRecentStats(int id){
+		   ArrayList<Stats> stats = new ArrayList<>();
+		   connection = null;
+		   CallableStatement statement = null;
+		   String getStats = "{call getMostRecentStats(?)}";
+		   try {
+		         connection = DriverManager.getConnection(url + "?noAccessToProcedureBodies=true", sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return stats;
+		      }
+		      try {		   
+		    	    statement = connection.prepareCall(getStats);
+
+					statement.setInt(1,  id);
+
+					boolean hadResults = statement.execute();
+					
+					while (hadResults) {
+				        ResultSet rs = statement.getResultSet();
+
+				        // process result set
+				        while(rs.next()) {
+							stats.add(new Stats(rs.getInt("conversations"), rs.getInt("conversions"), rs.getInt("numyear"), rs.getInt("numWeek"), new Volunteers(rs.getString("firstname"), rs.getString("lastname"), rs.getInt("volID"), id)));
+						}
+
+				        hadResults = statement.getMoreResults();
+				    }
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return stats;
 	   }
 	   
 	   /**
