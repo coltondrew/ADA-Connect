@@ -2,8 +2,10 @@
 <%@ taglib prefix="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://ADA-Connect.com/taglib" prefix="cf"%>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
- 	<a class="navbar-brand" href="${pageContext.request.contextPath}/home">ADA Connect</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top px-5 shadow">
+ 	<a class="navbar-brand" href="${pageContext.request.contextPath}/home">
+    	<img src="${pageContext.request.contextPath}/resources/img/logo.png"  id="logo" style="width:17rem; height:auto;" alt="">
+ 	</a>
  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
    		<span class="navbar-toggler-icon"></span>
  	</button>
@@ -82,7 +84,6 @@
    		</ul>
  	</div>
 </nav>
-
 <script type="text/javascript">
 var contextPath = "${pageContext.request.contextPath}";
 var domain = "${pageContext.request.serverName}";
