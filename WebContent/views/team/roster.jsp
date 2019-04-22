@@ -18,7 +18,7 @@
 	<jsp:include page="/views/team/nav.jsp"></jsp:include>
 	
 	<!-- Volunteers -->
-	<div class="container-fluid px-3" >
+	<div class="container-fluid px-3">
 		<div>
 			<div class="ml-2">
 				<h1>Team Roster</h1>
@@ -26,9 +26,9 @@
 			</div>
 			<div class="d-flex flex-wrap justify-content-start">
 				<c:forEach items="${requestScope.volList}" var="vol">
-					<div class="card m-2 bg-light" style="width:15%">
+					<div class="card m-2 bg-light rounded" style="width:15%">
 						<img class="card-img-top" src="${pageContext.request.contextPath}/file-server?category=volImg&filename=${vol.getPictureUrl()}" alt="Card image cap" style="width:100%;height:13vw;object-fit: cover;">
-						<div class="card-body" style="padding:0.5rem;">
+						<div class="card-body text-white bg-dark" style="padding:0.5rem;">
 							<h5 class="card-title text-center"><c:out value="${vol.firstname} ${vol.lastname}"/></h5>
 							<a href="#volModal" data-toggle="modal" data-vol-id="${vol.volID}" class="stretched-link"></a>
 						</div>

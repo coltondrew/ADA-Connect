@@ -18,7 +18,7 @@
 	<jsp:include page="/views/team/nav.jsp"></jsp:include>
 	
 	<!-- Page Content -->
-  	<div class="container bg-white rounded">
+  	<div class="container bg-light rounded">
     	<div class="row">
 			<!-- Post Content Column -->
 			<div class="col-lg-8">

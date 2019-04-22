@@ -19,8 +19,8 @@
 	
 	<div class="container-fluid mb-1">
 		<div class="row">
-			<div class="col-7 pr-3">
-				<div class="card w-100">
+			<div class="col-7 pr-2">
+				<div class="card w-100 rounded ">
 					<div class="card-header text-white" style="background-color:#168d65">
 						<c:out value="${sessionScope.teamObj.teamname}"/>
 					</div>
@@ -33,7 +33,7 @@
 			</div>
 			<div class="col-5">
 				<div class="row pr-2">
-					<div class="card w-100">
+					<div class="card w-100 rounded">
 						<div class="card-header text-white" style="background-color:#168d65">
 						  News
 						</div>
@@ -53,7 +53,7 @@
 					</div>
 				</div>
 				<div class="row pr-2">
-					<div class="card w-100">
+					<div class="card w-100 rounded">
 						<div class="card-header text-white" style="background-color:#168d65">
 						 Total Conversations
 						</div>

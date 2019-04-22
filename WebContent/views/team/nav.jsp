@@ -11,11 +11,11 @@
 		</div>
 		<div class="col">
 			<ul class="nav justify-content-end">
-			  <li class="nav-itemt">
-			    <a class="nav-link text-white" href="${pageContext.request.contextPath}/team/news">News</a>
+			  <li class="nav-item">
+			    <a class="nav-link text-white" href="${pageContext.request.contextPath}/team">Home</a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="nav-link text-white" href="${pageContext.request.contextPath}/team/leaderboard">Leaderboard</a>
+			    <a class="nav-link text-white" href="${pageContext.request.contextPath}/team/news">News</a>
 			  </li>
 			  <li class="nav-item">
 			    <a class="nav-link text-white" href="${pageContext.request.contextPath}/team/roster">Roster</a>
