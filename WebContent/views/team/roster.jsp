@@ -19,7 +19,7 @@
 	
 	<!-- Volunteers -->
 	<div class="container-fluid px-3" >
-		<div class="bg-white">
+		<div>
 			<div class="ml-2">
 				<h1>Team Roster</h1>
 				<hr/>

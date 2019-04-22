@@ -17,30 +17,50 @@
 	<!-- Secondary Navbar -->
 	<jsp:include page="/views/team/nav.jsp"></jsp:include>
 	
-	<div class="container-fluid px-5">
+	<div class="container-fluid mb-1">
 		<div class="row">
-			<div class="col-6">
-				<div class="row pr-3">
-					<img class="rounded" src="${pageContext.request.contextPath}/file-server?category=teamImg&filename=${sessionScope.teamObj.photoUrl}" alt="Card image cap" style="width:100%;height:30vw;object-fit: cover;">
+			<div class="col-7 pr-3">
+				<div class="card w-100">
+					<div class="card-header text-white" style="background-color:#168d65">
+						<c:out value="${sessionScope.teamObj.teamname}"/>
+					</div>
+					<img src="${pageContext.request.contextPath}/file-server?category=teamImg&filename=${sessionScope.teamObj.photoUrl}"  class="category-banner img-responsive card-img-bottom" style="width:100%;height:33vw;object-fit: cover;">								
 				</div>
-				<div class="row pr-3 my-3 d-flex justify-content-between">
-					<c:forEach items="${requestScope.newsList}" var="news" end="2">
-						<div class="card rounded" style="width:32%;">
-							<img class="card-img-top" src="${pageContext.request.contextPath}/file-server?category=newsImg&filename=${news.pictureurl}" alt="Card image cap" style="width:100%;height:10vw;object-fit: cover;">
-							<div class="card-body bg-light" style="padding:0.5rem;">
-								<p class="card-title"><strong><c:out value="${news.title}"/></strong></p>
-								<a href="${pageContext.request.contextPath}/team/news?id=${news.newsID}" class="stretched-link"></a>
+<!-- 				<div class="imagebox"> -->
+<%-- 					<img src="${pageContext.request.contextPath}/file-server?category=teamImg&filename=${sessionScope.teamObj.photoUrl}"  class="category-banner img-responsive rounded" style="width:100%;height:35vw;object-fit: cover;"> --%>
+<%-- 					<span class="imagebox-desc"><c:out value="${sessionScope.teamObj.teamname}"/></span> --%>
+<!-- 				</div> -->
+			</div>
+			<div class="col-5">
+				<div class="row pr-2">
+					<div class="card w-100">
+						<div class="card-header text-white" style="background-color:#168d65">
+						  News
+						</div>
+						<div class="card-body p-2 bg-dark">
+							<div class="d-flex justify-content-between flex-wrap">
+								<c:forEach items="${requestScope.newsList}" var="news" end="2">
+									<div class="card rounded text-white" style="width:49%; background-color:#168d65">
+										<img class="card-img-top" src="${pageContext.request.contextPath}/file-server?category=newsImg&filename=${news.pictureurl}" alt="Card image cap" style="width:100%;height:10vw;object-fit: cover;">
+										<div class="card-body" style="padding:0.5rem;">
+											<p class="card-title"><strong><c:out value="${news.title}"/></strong></p>
+											<a href="${pageContext.request.contextPath}/team/news?id=${news.newsID}" class="stretched-link"></a>
+										</div>
+									</div>
+								</c:forEach>
 							</div>
 						</div>
-					</c:forEach>
+					</div>
 				</div>
-			</div>
-			<div class="col-6">
-				<div class="row pl-3">
-					<h5><c:out value="${requestScope.totalConversations}"/></h5>
-				</div>
-				<div class="row pl-3">
-					<h5>test4</h5>
+				<div class="row pr-2">
+					<div class="card w-100">
+						<div class="card-header text-white" style="background-color:#168d65">
+						 Total Conversations
+						</div>
+						<div class="card-body p-2 bg-dark text-white text-center">
+							<h1><c:out value="${requestScope.totalConversations}"/></h1>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
