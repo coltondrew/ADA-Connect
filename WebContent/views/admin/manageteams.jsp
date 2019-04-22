@@ -21,12 +21,13 @@
 			<jsp:include page="/views/admin/nav.jsp"></jsp:include>
 			
 	    	<!-- Content Column -->
-	    	<div class="col-lg-9 mt-4 mb-4">
+	    	<div class="col-md-9 ml-sm-auto pt-3 px-4">
 				<h1>Manage Teams</h1>
+				<hr/>
 				
 				<!-- Teams Manager -->
 				<div class="card">
-					<div class="card-header text-white bg-primary">
+					<div class="card-header text-white" style="background-color:#168d65">
 						<div class="row">
 							<div class="col-10 d-flex align-items-center">
 								<h5>Teams</h5>

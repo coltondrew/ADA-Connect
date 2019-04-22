@@ -40,9 +40,9 @@
 						<div class="card-body p-2 bg-dark">
 							<div class="d-flex justify-content-between flex-wrap">
 								<c:forEach items="${requestScope.newsList}" var="news" end="2">
-									<div class="card rounded text-white" style="width:49%; background-color:#168d65">
+									<div class="card rounded text-white bg-dark" style="width:49%;">
 										<img class="card-img-top" src="${pageContext.request.contextPath}/file-server?category=newsImg&filename=${news.pictureurl}" alt="Card image cap" style="width:100%;height:10vw;object-fit: cover;">
-										<div class="card-body" style="padding:0.5rem;">
+										<div class="card-body" style="padding:0.5rem;background-color:#168d65;">
 											<p class="card-title"><strong><c:out value="${news.title}"/></strong></p>
 											<a href="${pageContext.request.contextPath}/team/news?id=${news.newsID}" class="stretched-link"></a>
 										</div>

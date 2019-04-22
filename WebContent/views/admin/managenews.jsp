@@ -21,12 +21,13 @@
 			<jsp:include page="/views/admin/nav.jsp"></jsp:include>
 			
 	    	<!-- Content Column -->
-	    	<div class="col-lg-9 mt-4 mb-4">
+	    	<div class="col-md-9 ml-sm-auto col-lg-9 pt-3 px-4">
 				<h1>Manage News</h1>
+				<hr/>
 				
 				<!-- News Manager -->
 				<div class="card">
-					<div class="card-header text-white bg-primary">
+					<div class="card-header text-white" style="background-color:#168d65">
 						<div class="row">
 							<div class="col-10 d-flex align-items-center">
 								<h5>News</h5>
@@ -49,7 +50,7 @@
 							<tbody>
 								<c:forEach items="${requestScope.newsList}" var="news">
 				        			<tr>
-				        				<td><a href="#editNewsModal" data-toggle="modal" data-news-id="${news.newsID}"><img alt="image" src="${pageContext.request.contextPath}/file-server?category=newsImg&filename=${news.pictureurl}"></a></td>
+				        				<td><a href="#editNewsModal" data-toggle="modal" data-news-id="${news.newsID}"><img alt="image" src="${pageContext.request.contextPath}/file-server?category=newsImg&filename=${news.pictureurl}" style="width:30%;height:12.5vw;object-fit: cover;"></a></td>
 				        				<td><c:out value="${news.title}"/></td>			        				
 				        			</tr>
 			      				</c:forEach>
@@ -167,7 +168,7 @@
      		$("#news-img-input").val("");
      		
          	$("#news-id").val("");
-         	$("news-action").val("add");
+         	$("#news-action").val("add");
          	$("#delete-btn").hide();
          	$("#editNewsModalLabel").html("Add News Item");
 			$("#edit-btn").html("Add");
@@ -182,7 +183,7 @@
  		$("#news-img-input").val("");
  		
      	$("#news-id").val("");
-     	$("news-action").val("add");
+     	$("#news-action").val("add");
      	$("#delete-btn").hide();
      	$("#editNewsModalLabel").html("Add News Item");
 		$("edit-btn").html("");

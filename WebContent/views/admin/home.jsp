@@ -8,19 +8,20 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<title>Admin</title>
 </head>
 <body>
 	<!-- Navbar -->
 	<jsp:include page="/views/general/navbar.jsp"></jsp:include>
-
+	
 	<div class="container-fluid">
 		<div class="row">
 	    	<!-- Sidebar Nav Column -->
 			<jsp:include page="/views/admin/nav.jsp"></jsp:include>
 			
 	    	<!-- Content Column -->
-	    	<div class="col-lg-9 mt-4 mb-4">
+	    	<div class="col-md-9 ml-sm-auto pt-3 px-4">
 	        	<h1>Admin Home</h1>
 	        	<p>Perform an admin action by selecting an option on the left</p>
 	      	</div>

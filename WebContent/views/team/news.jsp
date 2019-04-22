@@ -57,7 +57,8 @@
 						<div class="card rounded">
 							<img class="card-img-top" src="${pageContext.request.contextPath}/file-server?category=newsImg&filename=${news.pictureurl}" alt="Card image cap" style="width:100%;height:10vw;object-fit: cover;">
 							<div class="card-body bg-light" style="padding:0.5rem;">
-								<p class="card-title">Shorter title</p>
+								<p class="card-title"><c:out value="${news.title}"/></p>
+								<a href="${pageContext.request.contextPath}/team/news?id=${news.newsID}" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>

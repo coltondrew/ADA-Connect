@@ -13,19 +13,19 @@
  	<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
    		<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 			<!-- Home -->
-   			<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'home.jsp') }" />
+   			<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'general/home.jsp') }" />
      		<li class="${active ? 'nav-item active' : 'nav-item'}">
        			<a class="nav-link" href="${pageContext.request.contextPath}/home">Home</a>
      		</li>
      		
      		<!-- About -->
-     		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'about.jsp') }" />
+     		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'general/about.jsp') }" />
      		<li class="${active ? 'nav-item active' : 'nav-item'}">
        			<a class="nav-link" href="${pageContext.request.contextPath}/about">About</a>
      		</li>
      		
      		<!-- Teams -->
-     		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'team.jsp') }" />
+     		<c:set var="active" value="${cf:matches('.*/team/.*', pageContext.request.requestURI) }" />
      		<li class="${active ? 'nav-item dropdown active' : 'nav-item dropdown'}">
         		<a class="nav-link dropdown-toggle" href="#" id="teamsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           			Teams
@@ -35,21 +35,21 @@
       		</li>
       		
       		<!-- Leaderboard -->
-      		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'leaderboard.jsp') }" />
+      		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'general/leaderboard.jsp') }" />
      		<li class="${active ? 'nav-item active' : 'nav-item'}">
        			<a class="nav-link" href="${pageContext.request.contextPath}/leaderboard">Leaderboard</a>
      		</li>
      		
      		<!-- Converts -->
-     		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'converts.jsp') }" />
+     		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'general/converts.jsp') }" />
      		<li class="${active ? 'nav-item active' : 'nav-item'}">
        			<a class="nav-link" href="${pageContext.request.contextPath}/converts">Converts</a>
      		</li>
      		
      		<!-- Get Involved -->
-     		<c:set var="volunteerActive" value="${fn:endsWith(pageContext.request.requestURI, 'volunteer.jsp') }" />
-     		<c:set var="partnerActive" value="${fn:endsWith(pageContext.request.requestURI, 'prayerpartner.jsp') }" />
-     		<c:set var="leaderActive" value="${fn:endsWith(pageContext.request.requestURI, 'teamleader.jsp') }" />
+     		<c:set var="volunteerActive" value="${fn:endsWith(pageContext.request.requestURI, 'general/volunteer.jsp') }" />
+     		<c:set var="partnerActive" value="${fn:endsWith(pageContext.request.requestURI, 'general/prayerpartner.jsp') }" />
+     		<c:set var="leaderActive" value="${fn:endsWith(pageContext.request.requestURI, 'general/teamleader.jsp') }" />
    			<c:set var="active" value="${volunteerActive || partnerActive || leaderActive }" />
      		<li class="${active ? 'nav-item dropdown active' : 'nav-item dropdown'}">
         		<a class="nav-link dropdown-toggle" href="#" id="involveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -63,7 +63,7 @@
       		</li>
       		
       		<!-- Donate -->
-      		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'donate.jsp') }" />
+      		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'general/donate.jsp') }" />
      		<li class="${active ? 'nav-item active' : 'nav-item'}">
        			<a class="nav-link" href="${pageContext.request.contextPath}/donate">Donate</a>
      		</li>

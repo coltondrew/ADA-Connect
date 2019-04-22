@@ -8,7 +8,13 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<title>Conversation Tracker</title>
+	<style>
+		.dropdown-item:active {
+	    background-color: #168d65;
+	}
+	</style>
 </head>
 <body>
 	<!-- Navbar -->
@@ -20,11 +26,14 @@
 			<jsp:include page="/views/admin/nav.jsp"></jsp:include>
 			
 	    	<!-- Content Column -->
-	    	<div class="col-lg-9 mt-4 mb-4">
+	    	<div class="col-md-9 ml-sm-auto col-lg-9 pt-3 px-4">
 	        	<h1>Track Conversations</h1>
+	        	<hr/>
 	        	
-	        	<div class="spinner-grow text-primary" role="status" id="spinner">
-  					<span class="sr-only">Loading...</span>
+				<div class="d-flex justify-content-center">
+		        	<div class="spinner-grow" role="status" id="spinner" style="color:#168d65;width:7rem;height:7rem">
+	  					<span class="sr-only">Loading...</span>
+					</div>
 				</div>
 	        	<div id="loading-content" style="display:none;">
 		        	<form action="${pageContext.request.contextPath}/admin/conversation-tracker" method="post">
@@ -41,7 +50,7 @@
 			            	</div>
 						    <div class="col form-group mt-auto d-flex justify-content-start">
 							    <div class="btn-group" id="new-btns">
-									<button type="button" class="btn btn-primary dropdown-toggle mx-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button type="button" class="btn text-white dropdown-toggle mx-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:124px;background-color:#168d65;border-color:#168d65">
 									  New
 									</button>
 									<div class="dropdown-menu">
@@ -49,12 +58,12 @@
 									  <button type="button" id="new-year-btn" class="dropdown-item">New Year</button>
 									</div>
 								</div>
-						        <button type="button" class="btn btn-primary mx-1" id="edit-btn">Edit</button>
-							    <button type="submit" class="btn btn-primary mx-1 save-btn" id="new-save-btn">Save Changes</button>
-							    <button type="submit" class="btn btn-primary mx-1 save-btn" id="edit-save-btn">Save Changes</button>
-							    <button type="button" class="btn btn-primary mx-1 cancel-btn" id="new-cancel-btn">Cancel</button>   
-							    <button type="button" class="btn btn-primary mx-1 cancel-btn" id="edit-cancel-btn">Cancel</button>   							   
-							    <button type="submit" class="btn btn-primary mx-1" id="del-btn">Delete</button>     
+						        <button type="button" class="btn mx-1 text-white" id="edit-btn" style="width:124px;background-color:#168d65;border-color:#168d65" >Edit</button>
+							    <button type="submit" class="btn mx-1 save-btn text-white" id="new-save-btn" style="width:124px;background-color:#168d65;border-color:#168d65">Save Changes</button>
+							    <button type="submit" class="btn mx-1 save-btn text-white" id="edit-save-btn" style="width:124px;background-color:#168d65;border-color:#168d65">Save Changes</button>
+							    <button type="button" class="btn btn-secondary mx-1 cancel-btn text-white" id="new-cancel-btn" style="width:124px;">Cancel</button>   
+							    <button type="button" class="btn btn-secondary mx-1 cancel-btn text-white" id="edit-cancel-btn" style="width:124px;">Cancel</button>   							   
+							    <button type="submit" class="btn btn-danger mx-1 text-white" id="del-btn" style="width:124px;">Delete</button>     
 							</div>
 						</div>
 		        	
