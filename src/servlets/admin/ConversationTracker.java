@@ -33,8 +33,13 @@ public class ConversationTracker extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get id of admin user
-		User adminUser = (User) request.getSession().getAttribute("adminUser");
-		int teamId = MySqlConnections.getTeamID(adminUser.getUsername());
+		int teamId = -1;
+		int counter = 5;
+		while(teamId == -1 && counter > 0) {
+			User adminUser = (User) request.getSession().getAttribute("adminUser");
+			teamId = MySqlConnections.getTeamID(adminUser.getUsername());
+			counter--;
+		}
 		
 		ArrayList<Stats> stats = MySqlConnections.getMostRecentStats(teamId);
 		request.setAttribute("statsList", stats);

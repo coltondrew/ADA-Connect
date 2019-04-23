@@ -15,6 +15,10 @@
   	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-mapael/2.2.0/js/jquery.mapael.min.js"></script>
   	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/usa_states.js"></script>
   	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/france_departments.js"></script>
+  	<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/resources/img/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/resources/img/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/resources/img/favicon-16x16.png">
+	<link rel="manifest" href="${pageContext.request.contextPath}/resources/img/site.webmanifest">
 	<title>ADA Connect</title>
 	    <style type="text/css">
         /* Specific mapael css class are below

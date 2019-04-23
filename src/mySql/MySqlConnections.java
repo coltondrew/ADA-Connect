@@ -584,6 +584,7 @@ public class MySqlConnections {
 		   int teamID = -1;
 		   connection = null;
 		   PreparedStatement statement = null;
+		   System.out.println(teamleader);
 		   String getTeams = "select teamID from Teams where teamleader = ?";
 		   try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
@@ -607,6 +608,8 @@ public class MySqlConnections {
 
 		      } catch (SQLException e) {
 		         e.printStackTrace();
+		      } catch(Exception e) {
+		    	  e.printStackTrace();
 		      }
 		   return teamID;
 	   }
