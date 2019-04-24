@@ -37,25 +37,25 @@
 								<h5>Teams</h5>
 							</div>
 							<div class="col d-flex justify-content-end">
-								<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#editTeamModal" style="background-color:transparent;"> 
+								<button type="button" class="btn btn-outline-light clickable-row" data-toggle="modal" data-target="#editTeamModal" style="background-color:transparent;"> 
 				  					<div style="text-align:center;"><i class="fas fa-plus" style="color: white;"></i></div>
 								</button>
 							</div>
 						</div>
 					</div>
 					<div class="card-body">
-						<table class="table">
+						<table class="table table-hover">
 							 <thead>
 								 <tr>
-								   <th scope="col">Picture</th>
-								   <th scope="col">Name</th>
+								   <th scope="col" style="width:33%">Picture</th>
+								   <th scope="col" style="width:67%">Name</th>
 								 </tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${requestScope.teamsList}" var="team">
-				        			<tr>
-				        				<td><a href="#editTeamModal" data-toggle="modal" data-team-id="${team.ID}"><img alt="image" src="${pageContext.request.contextPath}/file-server?category=teamImg&filename=${team.photoUrl}" style="width:30%;height:12.5vw;object-fit: cover;"></a></td>
-				        				<td><c:out value="${team.teamname}"/></td>			        				
+		        					<tr class="clickable-row" data-team-id="${team.ID}" style="cursor:pointer;">
+				        				<td><img alt="image" src="${pageContext.request.contextPath}/file-server?category=teamImg&filename=${team.photoUrl}" style="width:100%;height:15vw;object-fit: cover;"></td>
+				        				<td><h4><c:out value="${team.teamname}"/></h4></td>			        				
 				        			</tr>
 			      				</c:forEach>
 							</tbody>
@@ -118,7 +118,7 @@
 					</div>
 		      		<div class="modal-footer">
 		        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        		<button type="submit" id="edit-btn" class="btn btn-primary"></button>
+		        		<button type="submit" id="edit-btn" class="btn text-white" style="background-color:#168d65;border-color:#168d65"></button>
 		        		<button type="button" class="btn btn-danger" data-target="#deleteModal" data-toggle="modal" data-team-id="" data-dismiss="modal" id="delete-btn">Delete</button>
 		      		</div>
 	      		</form>
@@ -159,8 +159,9 @@
 	var url = "http://" + domain + ":" + port + contextPath + "/get-team"; 
 	var imgSrcUrl = contextPath + "/file-server?category=teamImg&filename=";
 	
-	$('#editTeamModal').on('show.bs.modal', function(e) {
-     	var teamId = $(e.relatedTarget).data('team-id');
+	$(".clickable-row").click(function() {
+        $("#editTeamModal").modal("show");
+		var teamId = $(this).data("team-id");
      	
      	if(teamId != null) {
 	     	var urlParam = url + "?id=" + teamId;

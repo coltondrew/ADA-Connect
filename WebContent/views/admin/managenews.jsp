@@ -37,25 +37,25 @@
 								<h5>News</h5>
 							</div>
 							<div class="col d-flex justify-content-end">
-								<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#editNewsModal" style="background-color:transparent;"> 
+								<button type="button" class="btn btn-outline-light clickable-row" data-toggle="modal" data-target="#editNewsModal" style="background-color:transparent;"> 
 				  					<div style="text-align:center;"><i class="fas fa-plus" style="color: white;"></i></div>
 								</button>
 							</div>
 						</div>
 					</div>
 					<div class="card-body">
-						<table class="table">
+						<table class="table table-hover">
 							 <thead>
 								 <tr>
-								   <th scope="col">Picture</th>
-								   <th scope="col">Title</th>
+								   <th scope="col" style="width:33%">Picture</th>
+								   <th scope="col" style="width:67%">Title</th>
 								 </tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${requestScope.newsList}" var="news">
-				        			<tr>
-				        				<td><a href="#editNewsModal" data-toggle="modal" data-news-id="${news.newsID}"><img alt="image" src="${pageContext.request.contextPath}/file-server?category=newsImg&filename=${news.pictureurl}" style="width:30%;height:12.5vw;object-fit: cover;"></a></td>
-				        				<td><c:out value="${news.title}"/></td>			        				
+								<c:forEach items="${requestScope.newsList}" var="news">	
+		        				<tr class="clickable-row" data-news-id="${news.newsID}" style="cursor:pointer;">
+				        				<td><img alt="image" src="${pageContext.request.contextPath}/file-server?category=newsImg&filename=${news.pictureurl}" style="width:100%;height:15vw;object-fit: cover;"></td>
+				        				<td><h4><c:out value="${news.title}"/></h4></td>			        				
 				        			</tr>
 			      				</c:forEach>
 							</tbody>
@@ -99,7 +99,7 @@
 					</div>
 		      		<div class="modal-footer">
 		        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        		<button type="submit" id="edit-btn" class="btn btn-primary"></button>
+		        		<button type="submit" id="edit-btn" class="btn text-white" style="background-color:#168d65;border-color:#168d65"></button>
 		        		<button type="button" class="btn btn-danger" data-target="#deleteModal" data-toggle="modal" data-news-id="" data-dismiss="modal" id="delete-btn">Delete</button>
 		      		</div>
 	      		</form>
@@ -140,9 +140,10 @@
 	var url = "http://" + domain + ":" + port + contextPath + "/get-news"; 
 	var imgSrcUrl = contextPath + "/file-server?category=newsImg&filename=";
 	
-	$('#editNewsModal').on('show.bs.modal', function(e) {
-     	var newsId = $(e.relatedTarget).data('news-id');
-     	
+	$(".clickable-row").click(function() {
+        $("#editNewsModal").modal("show");
+		newsId = $(this).data("news-id");
+		
      	if(newsId != null) {
 	     	var urlParam = url + "?id=" + newsId;
           	$("#delete-btn").show();

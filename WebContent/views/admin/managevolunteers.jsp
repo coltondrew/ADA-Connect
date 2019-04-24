@@ -38,7 +38,7 @@
 								<h5>Active Volunteers</h5>
 							</div>
 							<div class="col d-flex justify-content-end">
-								<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#editVolunteerModal" style="background-color:transparent;"> 
+								<button type="button" class="btn btn-outline-light clickable-row" data-toggle="modal" data-target="#editVolunteerModal" style="background-color:transparent;"> 
 				  					<div style="text-align:center;"><i class="fas fa-plus" style="color: white;"></i></div>
 								</button>
 							</div>
@@ -75,7 +75,7 @@
 								<h5>Inactive Volunteers</h5>
 							</div>
 							<div class="col d-flex justify-content-end">
-								<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#editVolunteerModal" style="background-color:transparent;"> 
+								<button type="button" class="btn btn-outline-light clickable-row" data-toggle="modal" data-target="#editVolunteerModal" style="background-color:transparent;"> 
 				  					<div style="text-align:center;"><i class="fas fa-plus" style="color: white;"></i></div>
 								</button>
 							</div>

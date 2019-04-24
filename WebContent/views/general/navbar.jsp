@@ -62,20 +62,11 @@
      		</li>
      		
      		<!-- Get Involved -->
-     		<c:set var="volunteerActive" value="${fn:endsWith(pageContext.request.requestURI, 'general/volunteer.jsp') }" />
-     		<c:set var="partnerActive" value="${fn:endsWith(pageContext.request.requestURI, 'general/prayerpartner.jsp') }" />
-     		<c:set var="leaderActive" value="${fn:endsWith(pageContext.request.requestURI, 'general/teamleader.jsp') }" />
-   			<c:set var="active" value="${volunteerActive || partnerActive || leaderActive }" />
-     		<li class="${active ? 'nav-item dropdown active' : 'nav-item dropdown'}">
-        		<a class="nav-link dropdown-toggle" href="#" id="involveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          			Get Involved
-        		</a>
-        		<div class="dropdown-menu" aria-labelledby="involveDropdown">
-          			<a class="dropdown-item" href="${pageContext.request.contextPath}/volunteer">Dialogue Volunteer</a>
-          			<a class="dropdown-item" href="${pageContext.request.contextPath}/prayer-partner">Prayer Partner</a>
-          			<a class="dropdown-item" href="${pageContext.request.contextPath}/team-leader">Team Leader</a>
-        		</div>
-      		</li>
+     		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'general/teamleader.jsp') }" />
+     		<li class="${active ? 'nav-item active' : 'nav-item'}">
+       			<a class="nav-link" href="${pageContext.request.contextPath}/team-leader">Get Involved</a>
+     		</li>
+
       		
       		<!-- Donate -->
       		<c:set var="active" value="${fn:endsWith(pageContext.request.requestURI, 'general/donate.jsp') }" />

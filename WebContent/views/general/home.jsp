@@ -42,6 +42,10 @@
         .mapael .map {
             position: relative;
         }
+        
+        circle {
+        	cursor:pointer;
+        }
     </style>
 	<title>ADA Connect</title>
 </head>
@@ -134,6 +138,7 @@ $(function () {
 			plot.longitude = team.longitude;
 			plot.tooltip = {content: "<span style=\"font-weight:bold;\">Team: </span>" + team.teamname + "<br />"};
 			plot.type = "circle";
+			plot.teamID = team.ID;
 			// Assign the background color randomize from a scale
             plot.attrs = {
                 fill: "#168d65"
@@ -143,7 +148,18 @@ $(function () {
 		
 	    $(".container").mapael({
 	        map: {
-	            name: "usa_states"
+	            name: "usa_states",
+	            defaultPlot: {
+                    eventHandlers: {
+                        click: function (e, id, mapElem, textElem, elemOptions) {
+                            if (typeof elemOptions.teamID != 'undefined') {
+                            	console.log(elemOptions.teamID);
+                            	var link = "http://" + domain + ":" + port + contextPath + "/team?id=" + elemOptions.teamID; 
+								window.location.href = link;
+                            }
+                        }
+                    }
+                }
 	        },
 	        // Add some plots on the map
 	        plots: plots
