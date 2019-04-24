@@ -623,7 +623,7 @@ public class MySqlConnections {
 		   connection = null;
 		   PreparedStatement statement = null;
 		   
-		   String getTeams = "select teamname,teamID,teampicture from Teams";
+		   String getTeams = "select * from Teams";
 		   try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -638,7 +638,7 @@ public class MySqlConnections {
 					statement = connection.prepareStatement(getTeams);
 					ResultSet rs = statement.executeQuery();
 					while(rs.next()) {
-						teams.add(new Teams(rs.getString(1), rs.getInt(2), "", 0, 0, rs.getString(3)));
+						teams.add(new Teams(rs.getString("teamname"), rs.getInt("teamID"), rs.getString("teamleader"), rs.getDouble("latitude"), rs.getDouble("longitude"), rs.getString("teampicture")));
 					}
 					statement.close();
 					connection.close();

@@ -49,17 +49,17 @@ public class TeamLeader extends HttpServlet {
 		String schoolYear = request.getParameter("school-year");
 		String university = request.getParameter("university");
 		int universityPopulation = Integer.parseInt(request.getParameter("university-population"));
-		boolean teamExists = request.getParameter("team-exists-radio").equals("yes");
+		boolean teamExists = request.getParameter("team-exists").equals("Yes");
 		int numCredits = Integer.parseInt(request.getParameter("num-credits"));
 		int adaHours = Integer.parseInt(request.getParameter("ada-hours"));
-		boolean otherJob = request.getParameter("job-radio").equals("yes");
+		boolean otherJob = request.getParameter("job").equals("Yes");
 		int otherJobHours = Integer.parseInt(request.getParameter("other-job-hours"));
-		boolean newmanMember = request.getParameter("newman-radio").equals("yes");
+		boolean newmanMember = request.getParameter("newman").equals("Yes");
 		int newmanPopulation = Integer.parseInt(request.getParameter("num-newman"));
-		boolean prolifeInvolved = request.getParameter("prolife-radio").equals("yes");
+		boolean prolifeInvolved = request.getParameter("prolife").equals("Yes");
 		int prolifePopulation = Integer.parseInt(request.getParameter("num-prolife"));
-		boolean northLocation = request.getParameter("location-radio").equals("north");
-		String religion = request.getParameter("religion-radio");
+		boolean northLocation = request.getParameter("location").equals("north");
+		String religion = request.getParameter("religion");
 		
 		// Save File
 		Part filePart = request.getPart("audio-file");

@@ -11,6 +11,7 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.1.1/chroma.min.js" charset="utf-8"></script>	
   	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/raphael.min.js"></script>
   	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-mapael/2.2.0/js/jquery.mapael.min.js"></script>
   	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/usa_states.js"></script>
@@ -19,14 +20,10 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/resources/img/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/resources/img/favicon-16x16.png">
 	<link rel="manifest" href="${pageContext.request.contextPath}/resources/img/site.webmanifest">
-	<title>ADA Connect</title>
-	    <style type="text/css">
+	<style type="text/css">
         /* Specific mapael css class are below
          * 'mapael' class is added by plugin
         */
-        .mapael .map {
-            position: relative;
-        }
 
         .mapael .mapTooltip {
             position: absolute;
@@ -41,18 +38,23 @@
             display: none;
             color: #fff;
         }
+        
+        .mapael .map {
+            position: relative;
+        }
     </style>
+	<title>ADA Connect</title>
 </head>
 <body class="bg-light">
 	<!-- Navbar -->
 	<jsp:include page="/views/general/navbar.jsp"></jsp:include>
 
-  	<div class="container">
+  	<div class="container mt-3">
     	<div class="map">Alternative content</div>
 	</div>
 	
 	<!-- Mission -->
-	<div style="background-image:linear-gradient(180deg,#f8f9fa 50%,#232220 50%);">
+	<div class="mt-4" style="background-image:linear-gradient(180deg,#f8f9fa 50%,#232220 50%);">
 		<div class="container rounded" style="background-color:#168d65">
 			<div class="text-white text-center py-4 px-5">
 				<h5>What Drives Us</h5>
@@ -115,22 +117,38 @@
 	</div>
 </body>
 <script>
+var contextPath = "${pageContext.request.contextPath}";
+var domain = "${pageContext.request.serverName}";
+var port = "${pageContext.request.serverPort}";
+
 $(function () {
-    $(".container").mapael({
-        map: {
-            name: "usa_states"
-        },
-        // Add some plots on the map
-        plots: {
-            // Circle plot
-            'omaha': {
-                type: "circle",
-                latitude: 41.26,
-                longitude: -95.93,
-                tooltip: {content: "<span style=\"font-weight:bold;\">City :</span> Omaha <br />"},
-            }
-        }
-    });
+	var url = "http://" + domain + ":" + port + contextPath + "/list-teams"; 
+		
+	$.getJSON(url, function(teams) {
+		console.log(teams);
+		var plots = {};
+		var plotsColors = chroma.scale("Greens");
+		$.each(teams, function(num, team) {
+			var plot = {};
+			plot.latitude = team.latitude;
+			plot.longitude = team.longitude;
+			plot.tooltip = {content: "<span style=\"font-weight:bold;\">Team: </span>" + team.teamname + "<br />"};
+			plot.type = "circle";
+			// Assign the background color randomize from a scale
+            plot.attrs = {
+                fill: "#168d65"
+			};
+			plots[num] = plot;
+		});
+		
+	    $(".container").mapael({
+	        map: {
+	            name: "usa_states"
+	        },
+	        // Add some plots on the map
+	        plots: plots
+	    });		
+	});
 });
 </script>
 </html>

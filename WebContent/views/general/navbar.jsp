@@ -1,10 +1,25 @@
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://ADA-Connect.com/taglib" prefix="cf"%>
+<style>
+#logo {
+	width: 17rem;
+	height: auto;
+}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top px-5 shadow">
+@media screen and (max-width: 480px) {
+    #logo {
+         width: 8rem;
+         height: auto;
+    }
+}
+
+</style>
+
+
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-white sticky-top px-5 shadow">
  	<a class="navbar-brand" href="${pageContext.request.contextPath}/home">
-    	<img src="${pageContext.request.contextPath}/resources/img/logo.png"  id="logo" style="width:17rem; height:auto;" alt="">
+    	<img src="${pageContext.request.contextPath}/resources/img/logo.png"  id="logo" alt="">
  	</a>
  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
    		<span class="navbar-toggler-icon"></span>
