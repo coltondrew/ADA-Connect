@@ -30,11 +30,12 @@
 				<hr/>
 				
 				<!-- Volunteer Manager -->
+				<!-- Active Table -->
 				<div class="card">
 					<div class="card-header text-white" style="background-color:#168d65">
 						<div class="row">
 							<div class="col-10 d-flex align-items-center">
-								<h5>Volunteers</h5>
+								<h5>Active Volunteers</h5>
 							</div>
 							<div class="col d-flex justify-content-end">
 								<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#editVolunteerModal" style="background-color:transparent;"> 
@@ -44,7 +45,7 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<table class="table">
+						<table class="table table-hover">
 							 <thead>
 								 <tr>
 								   <th scope="col">Name</th>
@@ -54,9 +55,9 @@
 								 </tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${requestScope.volList}" var="vol">
-				        			<tr>
-				        				<td><a href="#editVolunteerModal" data-toggle="modal" data-vol-id="${vol.getVolID()}"><c:out value="${vol.getFirstname()} ${vol.getLastname()}"/></a></td>
+								<c:forEach items="${requestScope.activeVols}" var="vol">
+		        					<tr class="clickable-row" data-vol-id="${vol.volID}" style="cursor:pointer;">
+				        				<td><c:out value="${vol.getFirstname()} ${vol.getLastname()}"/></td>
 				        				<td><c:out value="${vol.getSchoolyear()}"/></td>
      				       				<td><c:out value="${vol.getHometown()}"/></td>
 				        				<td><c:out value="${vol.getHighschool()}"/></td>				        				
@@ -65,7 +66,44 @@
 							</tbody>
 						</table>
 					</div>
-				</div>	
+				</div>
+				
+				<div class="card mt-3 mb-3">
+					<div class="card-header text-white" style="background-color:#168d65">
+						<div class="row">
+							<div class="col-10 d-flex align-items-center">
+								<h5>Inactive Volunteers</h5>
+							</div>
+							<div class="col d-flex justify-content-end">
+								<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#editVolunteerModal" style="background-color:transparent;"> 
+				  					<div style="text-align:center;"><i class="fas fa-plus" style="color: white;"></i></div>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<table class="table table-hover">
+							 <thead>
+								 <tr>
+								   <th scope="col">Name</th>
+								   <th scope="col">Year</th>
+								   <th scope="col">Hometown</th>
+								   <th scope="col">High School</th>
+								 </tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${requestScope.inactiveVols}" var="vol">
+		        					<tr class="clickable-row" data-vol-id="${vol.volID}" style="cursor:pointer;">
+				        				<td><c:out value="${vol.getFirstname()} ${vol.getLastname()}"/></td>
+				        				<td><c:out value="${vol.getSchoolyear()}"/></td>
+     				       				<td><c:out value="${vol.getHometown()}"/></td>
+				        				<td><c:out value="${vol.getHighschool()}"/></td>				        				
+				        			</tr>
+			      				</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>		
 	      	</div>
 	    </div>
 	</div>
@@ -126,6 +164,16 @@
 					    	<label for="bio">Bio</label>
 					    	<textarea class="form-control" id="bio" name="bio" rows="5"></textarea>
 						</div>
+						<div class="form-row">
+							<div class="form-group col-12">
+				            	<label for="active-stat">Active Status</label>
+				                <select class="form-control" name="active-stat" id="active-stat" required>
+				                	<option></option>
+				                	<option value="active">Active</option>
+				                    <option value="inactive">Inactive</option>
+				                </select>
+				            </div>
+			            </div>
 						<div class="form-group">
 					  		<label for="image-file">Volunteer Photo:</label>
 					  		<img src="" id="vol-photo" alt="..." class="img-thumbnail" width="100%">
@@ -134,7 +182,7 @@
 					</div>
 		      		<div class="modal-footer">
 		        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        		<button type="submit" id="edit-btn" class="btn btn-primary"></button>
+		        		<button type="submit" id="edit-btn" class="btn text-white" style="background-color:#168d65;border-color:#168d65"></button>
 		        		<button type="button" class="btn btn-danger" data-target="#deleteModal" data-toggle="modal" data-vol-id="" data-dismiss="modal" id="delete-btn">Delete</button>
 		      		</div>
 	      		</form>
@@ -175,8 +223,9 @@
 	var url = "http://" + domain + ":" + port + contextPath + "/get-volunteer"; 
 	var photoSrc = contextPath + "/file-server?category=volImg&filename=";
 	
-	$('#editVolunteerModal').on('show.bs.modal', function(e) {
-     	var volId = $(e.relatedTarget).data('vol-id');
+	$(".clickable-row").click(function() {
+		var volId = $(this).data("vol-id");
+		$("#editVolunteerModal").modal("show");
      	
      	if(volId != null) {
 	     	var urlParam = url + "?id=" + volId;
@@ -197,29 +246,38 @@
 	     		var pictureUrl = vol.pictureUrl;
 	     		var schoolYear = vol.schoolyear;
 	     		var hometown = vol.hometown;
+	     		var active = vol.active;
+	     		console.log(vol);
 	     		
-	         	$(e.currentTarget).find('textarea[name="bio"]').val(bio);
-	         	$(e.currentTarget).find('input[name="first-name"]').val(firstName);
-	         	$(e.currentTarget).find('input[name="highschool"]').val(highSchool);
-	         	$(e.currentTarget).find('input[name="last-name"]').val(lastName);
-	          	$(e.currentTarget).find('select[name="school-year"]').val(schoolYear);
-	          	$(e.currentTarget).find('input[name="hometown"]').val(hometown);
-	          	$(e.currentTarget).find('input[name="orig-image-path"]').val(pictureUrl);
+	         	$("#bio").val(bio);
+	         	$("#first-name").val(firstName);
+	         	$("#highschool").val(highSchool);
+	         	$("#last-name").val(lastName);
+	          	$("#school-year").val(schoolYear);
+	          	$("#hometown").val(hometown);
+	          	$("#orig-image-path").val(pictureUrl);
+	          	if(active) {
+	          		$("#active-stat").val("active")	          		
+	          	}
+	          	else {
+	          		$("#active-stat").val("inactive")	          		
+	          	}
 	          	$("#vol-photo").attr("src", photoSrc + pictureUrl);
 	     	});
      	}
      	else {
-         	$(e.currentTarget).find('textarea[name="bio"]').val("");
-         	$(e.currentTarget).find('input[name="first-name"]').val("");
-         	$(e.currentTarget).find('input[name="highschool"]').val("");
-         	$(e.currentTarget).find('input[name="last-name"]').val("");
-          	$(e.currentTarget).find('select[name="school-year"]').val("");
-          	$(e.currentTarget).find('input[name="hometown"]').val("");
-          	$(e.currentTarget).find('input[name="orig-image-path"]').val("");
-          	$(e.currentTarget).find('input[id="image-file"]').val("");
-          	$(e.currentTarget).find('input[id="vol-id"]').val("");
-          	$(e.currentTarget).find('input[id="vol-action"]').val("add");
-          	$(e.currentTarget).find('button[id="delete-btn"]').hide();
+         	$("#bio").val("");
+         	$("#first-name").val("");
+         	$("#highschool").val("");
+         	$("#last-name").val("");
+          	$("#school-year").val("");
+          	$("#hometown").val("");
+      		$("#active-stat").val("")	          		
+          	$("#orig-image-path").val("");
+          	$("#image-file").val("");
+          	$("#vol-id").val("");
+          	$("#vol-action").val("add");
+          	$("delete-btn").hide();
 			$("#editVolunteerModalLabel").html("Add New Volunteer");
 			$("#edit-btn").html("Add");
      	}
@@ -234,6 +292,7 @@
       	$(e.currentTarget).find('input[name="hometown"]').val("");
       	$(e.currentTarget).find('input[name="orig-image-path"]').val("");
       	$(e.currentTarget).find('input[id="image-file"]').val("");
+  		$("#active-stat").val("")	          		
       	$(e.currentTarget).find('input[id="vol-id"]').val("");
       	$(e.currentTarget).find('input[id="vol-action"]').val("add");
       	$(e.currentTarget).find('button[id="delete-btn"]').hide();

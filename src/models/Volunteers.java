@@ -12,8 +12,42 @@ public class Volunteers implements java.io.Serializable {
 	String pictureUrl;
 	int volID;
 	String datetime;
+	boolean active;
 	
 	
+	public Volunteers(String firstname, String lastname, int teamID, String schoolyear, String hometown,
+			String highschool, String bio, String pictureUrl, boolean active) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.teamID = teamID;
+		this.schoolyear = schoolyear;
+		this.hometown = hometown;
+		this.highschool = highschool;
+		this.bio = bio;
+		this.pictureUrl = pictureUrl;
+		this.active = active;
+	}
+	
+	public Volunteers(String firstname, String lastname, int teamID, String schoolyear, String hometown,
+			String highschool, String bio, String pictureUrl, int volID, String datetime, boolean active) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.teamID = teamID;
+		this.schoolyear = schoolyear;
+		this.hometown = hometown;
+		this.highschool = highschool;
+		this.bio = bio;
+		this.pictureUrl = pictureUrl;
+		this.volID = volID;
+		this.datetime = datetime;
+		this.active = active;
+	}
+
+
+
+
 	public Volunteers(String firstname, String lastname, int teamID, String schoolyear, String hometown,
 			String highschool, String bio, String pictureUrl, int volID, String datetime) {
 		super();
@@ -137,6 +171,14 @@ public class Volunteers implements java.io.Serializable {
 
 	public void setVolID(int volID) {
 		this.volID = volID;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}	
 	
 }

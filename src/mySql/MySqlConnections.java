@@ -243,8 +243,8 @@ public class MySqlConnections {
 		   connection = null;
 		   boolean complete = false;
 		   PreparedStatement statement = null;
-		   String addVolunteer = "insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,teamID,volpicture,startdate) " +
-					"values(?,?,?,?,?,?,?,?,curdate())";
+		   String addVolunteer = "insert into Volunteers(firstname,lastname,schoolyear,hometown,highschool,bio,teamID,volpicture,startdate,active) " +
+					"values(?,?,?,?,?,?,?,?,curdate(),?)";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -265,6 +265,7 @@ public class MySqlConnections {
 					statement.setString(6, volunteer.getBio());
 					statement.setInt(7, volunteer.getTeamID());
 					statement.setString(8, volunteer.getPictureUrl());
+					statement.setBoolean(9, volunteer.isActive());
 					if(statement.executeUpdate() > 0) {
 						complete = true;
 					}
@@ -683,6 +684,43 @@ public class MySqlConnections {
 		      }
 		   return volunteers;
 	   }
+	   
+	   /**
+	    * Gets a list of all inactive volunteers.
+	    * @param teamID The teamID of the team the volunteers are in.
+	    * @return
+	    */
+	   public static ArrayList<Volunteers> getInactiveTeamVolunteers(int teamID){
+		   ArrayList<Volunteers> volunteers = new ArrayList<Volunteers>();
+		   connection = null;
+		   PreparedStatement statement = null;
+		   String getInactiveTeamMembers = "select * from Volunteers where teamID = ? and active = 0";
+		   try {
+		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
+		      } catch (SQLException e) {
+		         System.out.println("Connection Failed! Check output console");
+		         e.printStackTrace();
+		      }
+		      if (connection == null) {
+		         System.out.println("Failed to make connection!");
+		         return volunteers;
+		      }
+		      try {
+					statement = connection.prepareStatement(getInactiveTeamMembers);
+					statement.setInt(1, teamID);
+					ResultSet rs = statement.executeQuery();
+					while(rs.next()) {
+						volunteers.add(new Volunteers(rs.getString("firstname"), rs.getString("lastname"), rs.getInt("teamID"), rs.getString("schoolyear"), rs.getString("hometown"), rs.getString("highschool"), rs.getString("bio"), rs.getString("volpicture"), rs.getInt("volID"), rs.getString("startdate")));
+					}
+					statement.close();
+					connection.close();
+
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      }
+		   return volunteers;
+	   }
+	   
 	   /**
 	    * Gets a list of all volunteers.
 	    * @param teamID The teamID of volunteers.
@@ -904,7 +942,7 @@ public class MySqlConnections {
 					statement.setInt(1, ID);
 					ResultSet rs = statement.executeQuery();
 					if( rs.next()) {
-						vol = new Volunteers(rs.getString("firstname"), rs.getString("lastname"), rs.getInt("teamID"), rs.getString("schoolyear"), rs.getString("hometown"), rs.getString("highschool"), rs.getString("bio"), rs.getString("volpicture"), rs.getInt("volID"), rs.getString("startdate"));
+						vol = new Volunteers(rs.getString("firstname"), rs.getString("lastname"), rs.getInt("teamID"), rs.getString("schoolyear"), rs.getString("hometown"), rs.getString("highschool"), rs.getString("bio"), rs.getString("volpicture"), rs.getInt("volID"), rs.getString("startdate"), rs.getBoolean("active"));
 					}
 					statement.close();
 					connection.close();
@@ -960,7 +998,7 @@ public class MySqlConnections {
 		   boolean complete = false;
 		   connection = null;
 		   PreparedStatement statement = null;
-		   String updateVol = "update Volunteers set firstname = ?, lastname = ?, schoolyear = ?, hometown = ?, highschool = ?, bio = ?, volpicture = ? where volID = ?";
+		   String updateVol = "update Volunteers set firstname = ?, lastname = ?, schoolyear = ?, hometown = ?, highschool = ?, bio = ?, volpicture = ?, active = ? where volID = ?";
 		      try {
 		         connection = DriverManager.getConnection(url, sqluser, sqlpassword);
 		      } catch (SQLException e) {
@@ -980,7 +1018,8 @@ public class MySqlConnections {
 					statement.setString(5,  vol.getHighschool());
 					statement.setString(6,  vol.getBio());
 					statement.setString(7,  vol.getPictureUrl());
-					statement.setInt(8, vol.getVolID());
+					statement.setBoolean(8, vol.isActive());
+					statement.setInt(9, vol.getVolID());
 					
 					if(statement.executeUpdate() > 0) {
 						complete = true;

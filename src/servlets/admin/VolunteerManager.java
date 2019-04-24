@@ -43,8 +43,11 @@ public class VolunteerManager extends HttpServlet {
 		int teamId = MySqlConnections.getTeamID(adminUser.getUsername());
 		
 		// Get all volunteers
-		ArrayList<Volunteers> volList = MySqlConnections.getActiveTeamVolunteers(teamId);
-		request.setAttribute("volList", volList);
+		ArrayList<Volunteers> activeVols = MySqlConnections.getActiveTeamVolunteers(teamId);
+		request.setAttribute("activeVols", activeVols);
+		
+		ArrayList<Volunteers> inactiveVols = MySqlConnections.getInactiveTeamVolunteers(teamId);
+		request.setAttribute("inactiveVols", inactiveVols);
 		
 		request.getRequestDispatcher("/views/admin/managevolunteers.jsp").forward(request, response);
 	}
@@ -82,6 +85,7 @@ public class VolunteerManager extends HttpServlet {
 		String hometown = request.getParameter("hometown");
 		String highschool = request.getParameter("highschool");
 		String bio = request.getParameter("bio");
+		boolean active = request.getParameter("active-stat").equals("active");
 		
 		// Save File
 		String filename = saveFile(request);
@@ -90,8 +94,8 @@ public class VolunteerManager extends HttpServlet {
 		User adminUser = (User) request.getSession().getAttribute("adminUser");
 		int teamId = MySqlConnections.getTeamID(adminUser.getUsername());
 		
-		Volunteers vol = new Volunteers(firstName, lastName, teamId, schoolYear, hometown, highschool, bio, filename);
-		MySqlConnections.addVolunteer(vol);
+		Volunteers vol = new Volunteers(firstName, lastName, teamId, schoolYear, hometown, highschool, bio, filename, active);
+		MySqlConnections.addVolunteer(vol);		
 //		System.out.println(vol);
 	}
 	
@@ -105,6 +109,8 @@ public class VolunteerManager extends HttpServlet {
 		String bio = request.getParameter("bio");
 		int volId = Integer.parseInt(request.getParameter("vol-id"));
 		String origFilename = request.getParameter("orig-image-path");
+		boolean active = request.getParameter("active-stat").equals("active");
+		System.out.println(active);
 		
 
 		// If new file was uploaded, delete old file and save new one
@@ -129,7 +135,7 @@ public class VolunteerManager extends HttpServlet {
 		User adminUser = (User) request.getSession().getAttribute("adminUser");
 		int teamId = MySqlConnections.getTeamID(adminUser.getUsername());
 		
-		Volunteers vol = new Volunteers(firstName, lastName, teamId, schoolYear, hometown, highschool, bio, filename, volId, "");
+		Volunteers vol = new Volunteers(firstName, lastName, teamId, schoolYear, hometown, highschool, bio, filename, volId, "", active);
 		MySqlConnections.updateVol(vol);
 	}
 	
